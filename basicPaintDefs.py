@@ -11,6 +11,7 @@ def painter(surf, cmx, cmy, ocmx, ocmy,thickness,col,randomCol):
 		drawx, drawy = cos(angle), sin(angle)
 		for p in range(round(dist)):
 			draw.circle(surf,(randint(0,255),randint(0,255),randint(0,255)),(ocmx+round(p*drawx),ocmy+round(p*drawy)),thickness)
+
 	else:
 		deltaX, deltaY=((cmx-ocmx), (cmy-ocmy))
 		dist = max(hypot(deltaX, deltaY), 1)

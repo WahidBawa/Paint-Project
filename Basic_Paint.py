@@ -19,6 +19,8 @@ mixer.music.play(-1)# will load and play initial music forever
 bc1=image.load("PICS/IMAGES/water_Background_1.jpg").convert()
 bc1=transform.scale(bc1, size)# loads initial background and scales it to size
 
+idiot=image.load("PICS/IMAGES/WIN_20171205_13_25_14_Pro (4).jpg")
+
 wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
 
@@ -28,43 +30,51 @@ for i in range(30):# Imports all pictures that make up the animation of the spri
 
 for i in range(52):
 	bayleef=image.load('PICS/GRAPHICS/Chikorita/Bayleef Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
-	BayleefAnimation.append(transform.scale(bayleef, (49,84)))
+	BayleefAnimation.append(bayleef)
 
 for i in range(59):
 	meganium=image.load('PICS/GRAPHICS/Chikorita/Meganium Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
-	MeganiumAnimation.append(transform.scale(meganium, (64,93)))
+	MeganiumAnimation.append(meganium)
 
 for i in range(119):
 	MegaGengar=image.load("PICS/GRAPHICS/Gengar/Mega Gengar Stamp/frame_%003d_delay-0.03s.png" % i).convert_alpha()
-	MegaGengarAnimation.append(transform.scale(MegaGengar, (112,92)))
+	MegaGengarAnimation.append(MegaGengar)
 
 for i in range(39):
 	Gengar=image.load("PICS/GRAPHICS/Gengar/Gengar Stamp/frame_%02d_delay-0.04s.gif" % i).convert_alpha()
-	GengarAnimation.append(transform.scale(Gengar, (84,78)))
+	GengarAnimation.append(Gengar)
 
 for i in range(59):
 	Haunter=image.load('PICS/GRAPHICS/Gengar/Haunter Stamp/frame_%02d_delay-0.03s.gif' % i).convert_alpha()
-	HaunterAnimation.append(transform.scale(Haunter, (85,73)))
+	HaunterAnimation.append(Haunter)
 
 for i in range(64):
 	Gastly=image.load('PICS/GRAPHICS/Gengar/Gastly Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
-	GastlyAnimation.append(transform.scale(Gastly, (52,61)))
+	GastlyAnimation.append(Gastly)
 
 for i in range(39):
 	Infernape=image.load('PICS/GRAPHICS/Infernape/Infernape Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
-	InfernapeAnimation.append(transform.scale(Infernape, (98,119)))
+	InfernapeAnimation.append(Infernape)
 
 for i in range(29):
 	Monferno=image.load('PICS/GRAPHICS/Infernape/Monferno Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
-	MonfernoAnimation.append(transform.scale(Monferno, (57,91)))
+	MonfernoAnimation.append(Monferno)
 
 for i in range(27):
 	Chimchar=image.load('PICS/GRAPHICS/Infernape/Chimchar Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
-	ChimcharAnimation.append(transform.scale(Chimchar, (54,70)))	
+	ChimcharAnimation.append(Chimchar)	
 	
 for i in range(75):
 	MegaBlastoise=image.load('PICS/GRAPHICS/Blastoise/Mega Blastoise Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
-	MegaBlastoiseAnimation.append(transform.scale(MegaBlastoise, (110,114)))
+	MegaBlastoiseAnimation.append(MegaBlastoise)
+
+for i in range(75):
+	Blastoise=image.load('PICS/GRAPHICS/Blastoise/Blastoise Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
+	BlastoiseAnimation.append(Blastoise)
+
+for i in range(31):
+	Wartortle=image.load('PICS/GRAPHICS/Blastoise/Wartortle Stamp/frame_%02d_delay-0.04s.png' % i)
+	WartortleAnimation.append(Wartortle)
 
 paintOption=image.load("PICS/IMAGES/Tool Selection Sprite/paint_tool.png").convert_alpha()
 paintOption=transform.scale(paintOption, (40,40))# imports and scales the paint tool option picture
@@ -75,6 +85,8 @@ eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eras
 
 ##                      Creating Rect Objects                        ##
 MegaBlastoiseRect=Rect(300,605,40,40)
+BlastoiseRect=Rect(300,645,40,40)
+WartortleRect=Rect(300,685,40,40)
 
 infernapeRect=Rect(250,605,40,40)
 monfernoRect=Rect(250,645,40,40)
@@ -93,6 +105,7 @@ canvasRect=Rect(150,100,800,500)
 paintRect=Rect(20,80,40,40)
 eraserRect=Rect(70,80,40,40)
 randomRect=Rect(70,130,40,40)
+rainbowRect=Rect(20,130,40,40)
 
 wheelRect=wheelPic.get_rect()
 wheelRect.topleft = 770, 600
@@ -129,6 +142,7 @@ while running:
 			if evt.button == 1:
 				if canvasRect.collidepoint((mx, my)):
 					control_Z.append(canvas.copy())
+					control_Y = []
 
 					
 		if evt.type == MOUSEBUTTONDOWN:
@@ -137,9 +151,11 @@ while running:
 				canvas_copy = canvas.copy()
 				if randomRect.collidepoint(mx,my):
 					randomCol=1-randomCol
+			if evt.button == 3:
+				canvas.fill(WHITE)		
 			
 			if evt.button == 4:
-				if thickness<=100:
+				if thickness<=1500:
 					thickness += 1
 			
 			if evt.button == 5:
@@ -191,7 +207,16 @@ while running:
 
 	MegaBlastoise_counter += 1
 	if MegaBlastoise_counter > len(MegaBlastoiseAnimation)-1:
-		MegaBlastoise_counter = 0	
+		MegaBlastoise_counter = 0
+
+	Blastoise_counter += 1
+	if Blastoise_counter > len(BlastoiseAnimation)-1:
+		Blastoise_counter = 0
+
+	Wartortle_counter += 1
+	if Wartortle_counter > len(WartortleAnimation)-1:
+		Wartortle_counter = 0
+		
 ## Selection Animation End ##	
 
 ##                      CollidePoint Start                        ##
@@ -223,9 +248,14 @@ while running:
 		elif chimcharRect.collidepoint(mx,my):
 			tool='chimcharStamp'
 		elif MegaBlastoiseRect.collidepoint(mx,my):
-			tool='MegaBlastoiseStamp'										
+			tool='MegaBlastoiseStamp'
+		elif BlastoiseRect.collidepoint(mx,my):
+			tool='BlastoiseStamp'
+		elif rainbowRect.collidepoint(mx,my):
+			tool='IDIOT'
+		elif WartortleRect.collidepoint(mx,my):
+			tool='WartortleStamp'
 ##                      CollidePoint End                       ##
-
 ##                   Surface / Canvas / Blit / Start               ##
 	screen.blit(bc1, (0,0))
 	# screen.fill(GREEN)
@@ -293,11 +323,25 @@ while running:
 	if tool=='MegaBlastoiseStamp':
 		draw.rect(screen,RED,MegaBlastoiseRect)
 	else:
-		draw.rect(screen,WHITE,MegaBlastoiseRect)								
+		draw.rect(screen,WHITE,MegaBlastoiseRect)
+
+	if tool=='BlastoiseStamp':
+		draw.rect(screen,RED,BlastoiseRect)
+	else:
+		draw.rect(screen,WHITE,BlastoiseRect)
+
+	if tool=='WartortleStamp':
+			draw.rect(screen,RED,WartortleRect)
+	else:		
+		draw.rect(screen,WHITE,WartortleRect)
+			
+	draw.rect(screen,WHITE, rainbowRect)										
 	## Tool Selection Check Red End ##
 	
 	## Tool Sprites Start ##
 	screen.blit(eraserOption, eraserRect)
+	
+
 
 	screen.blit(paintOption, paintRect)
 	## Tool Sprites End ##
@@ -308,7 +352,6 @@ while running:
 	draw.rect(screen,WHITE,randomRect)
 	
 	screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (40,40)), chikoritaRect)
-	
 	screen.blit(transform.scale(BayleefAnimation[bayleef_counter], (40,40)), bayleefRect)
 	screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (40,40)), meganiumRect)
 	screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter], (40,40)),MegaGengarRect)
@@ -319,6 +362,9 @@ while running:
 	screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(40,40)),monfernoRect)
 	screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(40,40)),chimcharRect)
 	screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(40,40)),MegaBlastoiseRect)
+	screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(40,40)),BlastoiseRect)
+	screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(40,40)),WartortleRect)
+
 	draw.rect(screen, BLACK, canvasRect)
 	screen.blit(canvas, (150,100))
 	
@@ -393,6 +439,20 @@ while running:
 		canvas.blit(canvas_copy,(0,0))
 		MegaBlastoise=MegaBlastoiseAnimation[0]
 		canvas.blit(MegaBlastoise, (cmx-MegaBlastoise.get_rect().width/2, cmy-MegaBlastoise.get_rect().height/2))			
+
+	elif mb[0] and tool=='BlastoiseStamp':
+		canvas.blit(canvas_copy,(0,0))
+		Blastoise=BlastoiseAnimation[0]
+		canvas.blit(Blastoise, (cmx-Blastoise.get_rect().width/2, cmy-Blastoise.get_rect().height/2))
+
+	elif mb[0] and tool=="WartortleStamp":
+		canvas.blit(canvas_copy,(0,0))
+		Wartortle=WartortleAnimation[0]
+		canvas.blit(Wartortle, (cmx-Wartortle.get_rect().width/2, cmy-Wartortle.get_rect().height/2))
+
+	elif mb[0] and tool=='IDIOT':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(idiot, (cmx-idiot.get_rect().width/2, cmy-idiot.get_rect().height/2))
 	myClock.tick(60)
 	display.flip()
 	ocmx, ocmy = cmx, cmy

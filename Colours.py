@@ -6,6 +6,9 @@ from pygame import * # This will import all functions and actions of pygame
 from random import *
 from math import *
 
+rainbowCol=0
+rainbowNum=1000
+
 running = True
 
 size=(1366,768)
@@ -67,3 +70,9 @@ chimchar_counter = 0
 
 MegaBlastoiseAnimation = []
 MegaBlastoise_counter = 0
+
+BlastoiseAnimation = []
+Blastoise_counter = 0
+
+WartortleAnimation = []
+Wartortle_counter = 0
