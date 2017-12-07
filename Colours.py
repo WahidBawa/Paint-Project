@@ -23,6 +23,7 @@ randomCol=0
 col=BLACK
 
 thickness=10
+thicknessY = 10
 
 mixer.pre_init(44100, -16, 1, 512)
 mixer.init()
@@ -76,3 +77,6 @@ Blastoise_counter = 0
 
 WartortleAnimation = []
 Wartortle_counter = 0
+
+SquirtleAnimation = []
+Squirtle_Counter = 0

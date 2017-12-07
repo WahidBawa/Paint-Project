@@ -76,6 +76,10 @@ for i in range(31):
 	Wartortle=image.load('PICS/GRAPHICS/Blastoise/Wartortle Stamp/frame_%02d_delay-0.04s.png' % i)
 	WartortleAnimation.append(Wartortle)
 
+for i in range(66):
+	Squirtle=image.load('PICS/GRAPHICS/Blastoise/Squirtle Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
+	SquirtleAnimation.append(Squirtle)
+
 paintOption=image.load("PICS/IMAGES/Tool Selection Sprite/paint_tool.png").convert_alpha()
 paintOption=transform.scale(paintOption, (40,40))# imports and scales the paint tool option picture
 
@@ -114,6 +118,7 @@ currentColRect = Rect(700,600,50,50)
 ##                      Creating Rect Objects Ending                        ##
 
 ##                      Event Loop Start                        ##
+key.set_repeat(500,100)
 while running:
 	for evt in event.get(): 
 		if evt.type == QUIT:
@@ -150,18 +155,21 @@ while running:
 			if evt.button == 1:
 				canvas_copy = canvas.copy()
 				if randomRect.collidepoint(mx,my):
-					randomCol=1-randomCol
+					randomCol = 1 - randomCol
 			if evt.button == 3:
 				canvas.fill(WHITE)		
 			
 			if evt.button == 4:
-				if thickness<=1500:
-					thickness += 1
+				if thickness <= 4000:
+					thickness += 2
+				if thicknessY <= 4000:
+					thicknessY += 2	
 			
 			if evt.button == 5:
-				if thickness>3:
-					thickness -= 1
-
+				if thickness > 3:
+					thickness -= 2
+				if thicknessY >	3:
+					thicknessY -= 2
 	mb = mouse.get_pressed()
 	mx, my = mouse.get_pos()
 ## Selection Animation Start ##	
@@ -388,67 +396,67 @@ while running:
 	elif mb[0] and tool=='chikoritaStamp':
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
 		canvas.blit(canvas_copy, (0,0))#makes it so that chikorita can be dragged and can't draw it on screen before mouse button press was let go
-		canvas.blit(chikorita, (cmx-chikorita.get_rect().width/2, cmy-chikorita.get_rect().height/2))#This will spawn Chikorita from the centre of that stamp
+		canvas.blit(transform.scale(chikorita, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))#This will spawn Chikorita from the centre of that stamp
 	
 	elif mb[0] and tool=='bayleefStamp':
 		canvas.blit(canvas_copy, (0,0))
 		bayleef=BayleefAnimation[0]
-		canvas.blit(bayleef, (cmx-bayleef.get_rect().width/2, cmy-bayleef.get_rect().height/2))
+		canvas.blit(transform.scale(bayleef, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=='meganiumStamp':
 		canvas.blit(canvas_copy, (0,0))
 		meganium=MeganiumAnimation[0]
-		canvas.blit(meganium, (cmx-meganium.get_rect().width/2, cmy-meganium.get_rect().height/2))		
+		canvas.blit(transform.scale(meganium, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))		
 
 	elif mb[0] and tool=='MegaGengarStamp':
 		canvas.blit(canvas_copy, (0,0))
 		MegaGengar=MegaGengarAnimation[0]
-		canvas.blit(MegaGengar, (cmx-MegaGengar.get_rect().width/2, cmy-MegaGengar.get_rect().height/2))
+		canvas.blit(transform.scale(MegaGengar, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 	
 	elif mb[0] and tool=='gengarStamp':
 		canvas.blit(canvas_copy, (0,0))
 		gengar=GengarAnimation[0]
-		canvas.blit(gengar, (cmx-gengar.get_rect().width/2, cmy-gengar.get_rect().height/2))
+		canvas.blit(transform.scale(gengar, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=='haunterStamp':
 		canvas.blit(canvas_copy, (0,0))
 		haunter=HaunterAnimation[0]
-		canvas.blit(haunter, (cmx-haunter.get_rect().width/2, cmy-haunter.get_rect().height/2))	
+		canvas.blit(transform.scale(haunter, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))	
 	
 	elif mb[0] and tool=='gastlyStamp':
 		canvas.blit(canvas_copy, (0,0))
 		gastly=GastlyAnimation[0]
-		canvas.blit(gastly, (cmx-gastly.get_rect().width/2, cmy-gastly.get_rect().height/2))	
+		canvas.blit(transform.scale(gastly, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))	
 
 	elif mb[0] and tool=='infernapeStamp':
 		canvas.blit(canvas_copy, (0,0))
 		infernape=InfernapeAnimation[0]
-		canvas.blit(infernape, (cmx-infernape.get_rect().width/2, cmy-infernape.get_rect().height/2))
+		canvas.blit(transform.scale(infernape, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=='monfernoStamp':
 		canvas.blit(canvas_copy, (0,0))
 		monferno=MonfernoAnimation[0]
-		canvas.blit(monferno, (cmx-monferno.get_rect().width/2, cmy-monferno.get_rect().height/2))	
+		canvas.blit(transform.scale(monferno, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))	
 	
 	elif mb[0] and tool=='chimcharStamp':
 		canvas.blit(canvas_copy,(0,0))
 		Chimchar=ChimcharAnimation[0]
-		canvas.blit(Chimchar, (cmx-Chimchar.get_rect().width/2, cmy-Chimchar.get_rect().height/2))
+		canvas.blit(transform.scale(Chimchar, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=='MegaBlastoiseStamp':
 		canvas.blit(canvas_copy,(0,0))
 		MegaBlastoise=MegaBlastoiseAnimation[0]
-		canvas.blit(MegaBlastoise, (cmx-MegaBlastoise.get_rect().width/2, cmy-MegaBlastoise.get_rect().height/2))			
+		canvas.blit(transform.scale(MegaBlastoise, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))			
 
 	elif mb[0] and tool=='BlastoiseStamp':
 		canvas.blit(canvas_copy,(0,0))
 		Blastoise=BlastoiseAnimation[0]
-		canvas.blit(Blastoise, (cmx-Blastoise.get_rect().width/2, cmy-Blastoise.get_rect().height/2))
+		canvas.blit(transform.scale(Blastoise, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=="WartortleStamp":
 		canvas.blit(canvas_copy,(0,0))
 		Wartortle=WartortleAnimation[0]
-		canvas.blit(Wartortle, (cmx-Wartortle.get_rect().width/2, cmy-Wartortle.get_rect().height/2))
+		canvas.blit(transform.scale(Wartortle, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=='IDIOT':
 		canvas.blit(canvas_copy, (0,0))
