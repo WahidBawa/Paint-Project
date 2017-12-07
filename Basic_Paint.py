@@ -463,7 +463,7 @@ while running:
 
 	elif mb[0] and tool=='IDIOT':
 		canvas.blit(canvas_copy, (0,0))
-		canvas.blit(idiot, (cmx-idiot.get_rect().width/2, cmy-idiot.get_rect().height/2))
+		canvas.blit(transform.scale(idiot, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 	myClock.tick(60)
 	display.flip()
 	ocmx, ocmy = cmx, cmy
