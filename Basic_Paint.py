@@ -5,8 +5,9 @@ from pygame import * # This will import all functions and actions of pygame
 from random import *
 from basicPaintDefs import *# this imports functions saved in another file to make code more efficient
 from Colours import *#imports some variables to make code cleaner 
-os.environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
-screen = display.set_mode(size, FULLSCREEN)
+os.environ['SDL_VIDEO_WINDOW_POS'] = '10,100'
+screen = display.set_mode(size)
+display.set_caption("PokePaint")
 ##                      Variable Naming Ends                           ##
 
 ##                    Loading Initial Startup Music                 ##
@@ -91,6 +92,7 @@ eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eras
 MegaBlastoiseRect=Rect(300,605,40,40)
 BlastoiseRect=Rect(300,645,40,40)
 WartortleRect=Rect(300,685,40,40)
+SquirtleRect=Rect(3300,725,40,40)
 
 infernapeRect=Rect(250,605,40,40)
 monfernoRect=Rect(250,645,40,40)
@@ -224,6 +226,7 @@ while running:
 	Wartortle_counter += 1
 	if Wartortle_counter > len(WartortleAnimation)-1:
 		Wartortle_counter = 0
+
 		
 ## Selection Animation End ##	
 
