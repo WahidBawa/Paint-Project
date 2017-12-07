@@ -20,7 +20,7 @@ mixer.music.play(-1)# will load and play initial music forever
 bc1=image.load("PICS/IMAGES/water_Background_1.jpg").convert()
 bc1=transform.scale(bc1, size)# loads initial background and scales it to size
 
-idiot=image.load("PICS/IMAGES/WIN_20171205_13_25_14_Pro (4).jpg")
+idiot=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
 
 wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
