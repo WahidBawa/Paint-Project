@@ -5,8 +5,12 @@ from pygame import * # This will import all functions and actions of pygame
 from random import *
 from basicPaintDefs import *# this imports functions saved in another file to make code more efficient
 from Colours import *#imports some variables to make code cleaner 
-os.environ['SDL_VIDEO_WINDOW_POS'] = '10,100'
-screen = display.set_mode(size)
+from tkinter import *
+from tkinter.colorchooser import *
+root = Tk()
+root.withdraw()
+os.environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
+screen = display.set_mode(size, FULLSCREEN)
 display.set_caption("PokePaint")
 ##                      Variable Naming Ends                           ##
 
@@ -16,9 +20,13 @@ mixer.music.play(-1)# will load and play initial music forever
 ##                    Ending Loading Initial Startup Music                 ##
 
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
+selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
+pokeMenu=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
 
 bc1=image.load("PICS/IMAGES/water_Background_1.jpg").convert()
 bc1=transform.scale(bc1, size)# loads initial background and scales it to size
+
+logo=image.load("PICS/IMAGES/Title/PokePaintLogoOfficial.png")
 
 idiot=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
 
@@ -89,10 +97,10 @@ eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eras
 ##                      End Of Importing Pictures / Animations / Editing Pictures                 ##
 
 ##                      Creating Rect Objects                        ##
-MegaBlastoiseRect=Rect(300,605,40,40)
+MegaBlastoiseRect=Rect(1035,175,115,115)
 BlastoiseRect=Rect(300,645,40,40)
 WartortleRect=Rect(300,685,40,40)
-SquirtleRect=Rect(3300,725,40,40)
+SquirtleRect=Rect(300,725,40,40)
 
 infernapeRect=Rect(250,605,40,40)
 monfernoRect=Rect(250,645,40,40)
@@ -112,6 +120,7 @@ paintRect=Rect(20,80,40,40)
 eraserRect=Rect(70,80,40,40)
 randomRect=Rect(70,130,40,40)
 rainbowRect=Rect(20,130,40,40)
+colourPickerRect=Rect(20,180,40,40)
 
 wheelRect=wheelPic.get_rect()
 wheelRect.topleft = 770, 600
@@ -132,11 +141,12 @@ while running:
 				if len(control_Y) > 1:
 					control_Z.append(control_Y.pop(-1))
 					canvas.blit(control_Y[-1], (0,0))
-
+					print("REDO",len(control_Y))
 			if evt.key == K_z:
 				if len(control_Z) > 1:
 					control_Y.append(control_Z.pop(-1))
 					canvas.blit(control_Z[-1], (0,0))
+					print("UNDO",len(control_Z))
 
 			if evt.key == K_o:
 				mixer.music.stop()
@@ -150,6 +160,10 @@ while running:
 				if canvasRect.collidepoint((mx, my)):
 					control_Z.append(canvas.copy())
 					control_Y = []
+				elif colourPickerRect.collidepoint(mx,my):
+					c = askcolor(title='Pick Colour')
+					if c[0] != None:
+						col = c[0]	
 
 					
 		if evt.type == MOUSEBUTTONDOWN:
@@ -227,7 +241,9 @@ while running:
 	if Wartortle_counter > len(WartortleAnimation)-1:
 		Wartortle_counter = 0
 
-		
+	Squirtle_counter += 1
+	if Squirtle_counter > len(SquirtleAnimation)-1:
+		Squirtle_counter = 0
 ## Selection Animation End ##	
 
 ##                      CollidePoint Start                        ##
@@ -266,6 +282,8 @@ while running:
 			tool='IDIOT'
 		elif WartortleRect.collidepoint(mx,my):
 			tool='WartortleStamp'
+		elif SquirtleRect.collidepoint(mx,my):
+			tool='SquirtleStamp'	
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
 	screen.blit(bc1, (0,0))
@@ -332,9 +350,7 @@ while running:
 		draw.rect(screen,WHITE,chimcharRect)
 
 	if tool=='MegaBlastoiseStamp':
-		draw.rect(screen,RED,MegaBlastoiseRect)
-	else:
-		draw.rect(screen,WHITE,MegaBlastoiseRect)
+		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1025,55))
 
 	if tool=='BlastoiseStamp':
 		draw.rect(screen,RED,BlastoiseRect)
@@ -342,25 +358,34 @@ while running:
 		draw.rect(screen,WHITE,BlastoiseRect)
 
 	if tool=='WartortleStamp':
-			draw.rect(screen,RED,WartortleRect)
+		draw.rect(screen,RED,WartortleRect)
 	else:		
 		draw.rect(screen,WHITE,WartortleRect)
-			
+	
+	if tool=='SquirtleStamp':
+		draw.rect(screen,RED,SquirtleRect)
+	else:
+		draw.rect(screen,WHITE,SquirtleRect)		
 	draw.rect(screen,WHITE, rainbowRect)										
 	## Tool Selection Check Red End ##
 	
 	## Tool Sprites Start ##
 	screen.blit(eraserOption, eraserRect)
 	
+	screen.blit(selectedPokemon, (1025,55))
+	screen.blit(pokeMenu, (1025, 170))
 
+	screen.blit(logo, (350,0))
 
 	screen.blit(paintOption, paintRect)
 	## Tool Sprites End ##
 	screen.blit(wheelPic,wheelRect)
 	
 	draw.rect(screen, col, currentColRect)
-		
+
 	draw.rect(screen,WHITE,randomRect)
+		
+	draw.rect(screen,WHITE,colourPickerRect)
 	
 	screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (40,40)), chikoritaRect)
 	screen.blit(transform.scale(BayleefAnimation[bayleef_counter], (40,40)), bayleefRect)
@@ -372,9 +397,10 @@ while running:
 	screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(40,40)),infernapeRect)
 	screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(40,40)),monfernoRect)
 	screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(40,40)),chimcharRect)
-	screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(40,40)),MegaBlastoiseRect)
+	screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),MegaBlastoiseRect)
 	screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(40,40)),BlastoiseRect)
 	screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(40,40)),WartortleRect)
+	screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(40,40)),SquirtleRect)
 
 	draw.rect(screen, BLACK, canvasRect)
 	screen.blit(canvas, (150,100))
@@ -460,6 +486,11 @@ while running:
 		canvas.blit(canvas_copy,(0,0))
 		Wartortle=WartortleAnimation[0]
 		canvas.blit(transform.scale(Wartortle, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
+
+	elif mb[0] and tool=='SquirtleStamp':
+		canvas.blit(canvas_copy,(0,0))
+		Squirtle=SquirtleAnimation[0]
+		canvas.blit(transform.scale(Squirtle ,(thickness, thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=='IDIOT':
 		canvas.blit(canvas_copy, (0,0))

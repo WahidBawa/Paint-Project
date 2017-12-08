@@ -79,4 +79,4 @@ WartortleAnimation = []
 Wartortle_counter = 0
 
 SquirtleAnimation = []
-Squirtle_Counter = 0
+Squirtle_counter = 0
