@@ -98,20 +98,20 @@ eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eras
 
 ##                      Creating Rect Objects                        ##
 MegaBlastoiseRect=Rect(1035,175,115,115)
-BlastoiseRect=Rect(300,645,40,40)
+BlastoiseRect=Rect(1165,425,40,40)
 WartortleRect=Rect(300,685,40,40)
 SquirtleRect=Rect(300,725,40,40)
 
-infernapeRect=Rect(250,605,40,40)
+infernapeRect=Rect(1165,175,115,115)
 monfernoRect=Rect(250,645,40,40)
 chimcharRect=Rect(250,685,40,40)
 
-chikoritaRect=Rect(150,685,40,40)
+meganiumRect=Rect(1165,300,40,40)
 bayleefRect=Rect(150,645,40,40)
-meganiumRect=Rect(150,605,40,40)
+chikoritaRect=Rect(150,685,40,40)
 
-MegaGengarRect=Rect(200,605,40,40)
-gengarRect=Rect(200,645,40,40)
+MegaGengarRect=Rect(1035,300,115,115)
+gengarRect=Rect(1035,425,115,115)
 haunterRect=Rect(200,685,40,40)
 gastlyRect=Rect(200,725,40,40)
 
@@ -278,12 +278,12 @@ while running:
 			tool='MegaBlastoiseStamp'
 		elif BlastoiseRect.collidepoint(mx,my):
 			tool='BlastoiseStamp'
-		elif rainbowRect.collidepoint(mx,my):
-			tool='IDIOT'
 		elif WartortleRect.collidepoint(mx,my):
 			tool='WartortleStamp'
 		elif SquirtleRect.collidepoint(mx,my):
 			tool='SquirtleStamp'	
+		elif rainbowRect.collidepoint(mx,my):
+			tool='IDIOT'
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
 	screen.blit(bc1, (0,0))
@@ -307,22 +307,7 @@ while running:
 	if tool=='bayleefStamp':
 		draw.rect(screen,RED,bayleefRect)
 	else:
-		draw.rect(screen,WHITE,bayleefRect)
-
-	if tool=='meganiumStamp':
-		draw.rect(screen,RED,meganiumRect)
-	else:
-		draw.rect(screen,WHITE,meganiumRect)	
-
-	if tool=='MegaGengarStamp':
-		draw.rect(screen,RED,MegaGengarRect)
-	else:
-		draw.rect(screen,WHITE,MegaGengarRect)
-
-	if tool=='gengarStamp':
-		draw.rect(screen,RED,gengarRect)
-	else:
-		draw.rect(screen,WHITE,gengarRect)
+		draw.rect(screen,WHITE,bayleefRect)	
 
 	if tool=='haunterStamp':
 		draw.rect(screen,RED,haunterRect)
@@ -334,11 +319,6 @@ while running:
 	else:
 		draw.rect(screen,WHITE,gastlyRect)
 
-	if tool=='infernapeStamp':
-		draw.rect(screen,RED,infernapeRect)
-	else:
-		draw.rect(screen,WHITE,infernapeRect)
-
 	if tool=='monfernoStamp':
 		draw.rect(screen,RED,monfernoRect)
 	else:
@@ -349,11 +329,6 @@ while running:
 	else:
 		draw.rect(screen,WHITE,chimcharRect)
 
-	if tool=='BlastoiseStamp':
-		draw.rect(screen,RED,BlastoiseRect)
-	else:
-		draw.rect(screen,WHITE,BlastoiseRect)
-
 	if tool=='WartortleStamp':
 		draw.rect(screen,RED,WartortleRect)
 	else:		
@@ -362,7 +337,8 @@ while running:
 	if tool=='SquirtleStamp':
 		draw.rect(screen,RED,SquirtleRect)
 	else:
-		draw.rect(screen,WHITE,SquirtleRect)		
+		draw.rect(screen,WHITE,SquirtleRect)
+
 	draw.rect(screen,WHITE, rainbowRect)										
 	## Tool Selection Check Red End ##
 	
@@ -384,23 +360,33 @@ while running:
 		
 	draw.rect(screen,WHITE,colourPickerRect)
 	
-	screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (40,40)), chikoritaRect)
+	screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
 	screen.blit(transform.scale(BayleefAnimation[bayleef_counter], (40,40)), bayleefRect)
-	screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (40,40)), meganiumRect)
-	screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter], (40,40)),MegaGengarRect)
-	screen.blit(transform.scale(GengarAnimation[gengar_counter], (40,40)), gengarRect)
+	screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (40,40)), chikoritaRect)
+	screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter], (115,115)),MegaGengarRect)
+	screen.blit(transform.scale(GengarAnimation[gengar_counter], (115,115)), gengarRect)
 	screen.blit(transform.scale(HaunterAnimation[haunter_counter], (40,40)),haunterRect)
 	screen.blit(transform.scale(GastlyAnimation[gastly_counter],(40,40)),gastlyRect)
-	screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(40,40)),infernapeRect)
+	screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),infernapeRect)
 	screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(40,40)),monfernoRect)
 	screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(40,40)),chimcharRect)
 	screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),MegaBlastoiseRect)
-	screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(40,40)),BlastoiseRect)
+	screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),BlastoiseRect)
 	screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(40,40)),WartortleRect)
 	screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(40,40)),SquirtleRect)
+	
 	if tool=="MegaBlastoiseStamp":
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
-
+	if tool=="MegaGengarStamp":
+		screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter],(115,115)),(1035,55))
+	if tool=="gengarStamp":
+		screen.blit(transform.scale(GengarAnimation[gengar_counter],(115,115)),(1035,55))	
+	if tool=="infernapeStamp":
+		screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),(1035,55))
+	if tool=="meganiumStamp":
+		screen.blit(transform.scale(MeganiumAnimation[meganium_counter],(115,115)),(1035,55))
+	if tool=="BlastoiseStamp":
+		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),(1035,55))
 	draw.rect(screen, BLACK, canvasRect)
 	screen.blit(canvas, (150,100))
 	
@@ -415,78 +401,78 @@ while running:
 
 ##                   Draw Options Start               ##
 	cmx, cmy = mx-150, my-100
-	if mb[0] and tool=='eraser':
+	if mb[0] and tool=='eraser' and canvasRect.collidepoint((mx, my)):
 		eraser(canvas, cmx, cmy, ocmx, ocmy,thickness)
 
-	elif mb[0] and tool=='paint':
+	elif mb[0] and tool=='paint' and canvasRect.collidepoint((mx, my)):
 		painter(canvas, cmx, cmy, ocmx, ocmy, thickness, col,randomCol)
 
-	elif mb[0] and tool=='chikoritaStamp':
+	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
 		canvas.blit(canvas_copy, (0,0))#makes it so that chikorita can be dragged and can't draw it on screen before mouse button press was let go
 		canvas.blit(transform.scale(chikorita, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))#This will spawn Chikorita from the centre of that stamp
 	
-	elif mb[0] and tool=='bayleefStamp':
+	elif mb[0] and tool=='bayleefStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		bayleef=BayleefAnimation[0]
 		canvas.blit(transform.scale(bayleef, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
-	elif mb[0] and tool=='meganiumStamp':
+	elif mb[0] and tool=='meganiumStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		meganium=MeganiumAnimation[0]
 		canvas.blit(transform.scale(meganium, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))		
 
-	elif mb[0] and tool=='MegaGengarStamp':
+	elif mb[0] and tool=='MegaGengarStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		MegaGengar=MegaGengarAnimation[0]
 		canvas.blit(transform.scale(MegaGengar, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 	
-	elif mb[0] and tool=='gengarStamp':
+	elif mb[0] and tool=='gengarStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		gengar=GengarAnimation[0]
 		canvas.blit(transform.scale(gengar, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
-	elif mb[0] and tool=='haunterStamp':
+	elif mb[0] and tool=='haunterStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		haunter=HaunterAnimation[0]
 		canvas.blit(transform.scale(haunter, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))	
 	
-	elif mb[0] and tool=='gastlyStamp':
+	elif mb[0] and tool=='gastlyStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		gastly=GastlyAnimation[0]
 		canvas.blit(transform.scale(gastly, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))	
 
-	elif mb[0] and tool=='infernapeStamp':
+	elif mb[0] and tool=='infernapeStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		infernape=InfernapeAnimation[0]
 		canvas.blit(transform.scale(infernape, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
-	elif mb[0] and tool=='monfernoStamp':
+	elif mb[0] and tool=='monfernoStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		monferno=MonfernoAnimation[0]
 		canvas.blit(transform.scale(monferno, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))	
 	
-	elif mb[0] and tool=='chimcharStamp':
+	elif mb[0] and tool=='chimcharStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Chimchar=ChimcharAnimation[0]
 		canvas.blit(transform.scale(Chimchar, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
-	elif mb[0] and tool=='MegaBlastoiseStamp':
+	elif mb[0] and tool=='MegaBlastoiseStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		MegaBlastoise=MegaBlastoiseAnimation[0]
 		canvas.blit(transform.scale(MegaBlastoise, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))			
 
-	elif mb[0] and tool=='BlastoiseStamp':
+	elif mb[0] and tool=='BlastoiseStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Blastoise=BlastoiseAnimation[0]
 		canvas.blit(transform.scale(Blastoise, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
-	elif mb[0] and tool=="WartortleStamp":
+	elif mb[0] and tool=="WartortleStamp" and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Wartortle=WartortleAnimation[0]
 		canvas.blit(transform.scale(Wartortle, (thickness,thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
 
-	elif mb[0] and tool=='SquirtleStamp':
+	elif mb[0] and tool=='SquirtleStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Squirtle=SquirtleAnimation[0]
 		canvas.blit(transform.scale(Squirtle ,(thickness, thicknessY)), (cmx-thickness/2, cmy-thicknessY/2))
