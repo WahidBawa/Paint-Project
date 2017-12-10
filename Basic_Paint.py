@@ -349,9 +349,6 @@ while running:
 	else:
 		draw.rect(screen,WHITE,chimcharRect)
 
-	if tool=='MegaBlastoiseStamp':
-		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1025,55))
-
 	if tool=='BlastoiseStamp':
 		draw.rect(screen,RED,BlastoiseRect)
 	else:
@@ -401,6 +398,8 @@ while running:
 	screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(40,40)),BlastoiseRect)
 	screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(40,40)),WartortleRect)
 	screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(40,40)),SquirtleRect)
+	if tool=="MegaBlastoiseStamp":
+		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
 
 	draw.rect(screen, BLACK, canvasRect)
 	screen.blit(canvas, (150,100))
