@@ -98,7 +98,7 @@ eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eras
 
 ##                      Creating Rect Objects                        ##
 MegaBlastoiseRect=Rect(1035,175,115,115)
-BlastoiseRect=Rect(1165,425,40,40)
+BlastoiseRect=Rect(1165,425,115,115)
 WartortleRect=Rect(300,685,40,40)
 SquirtleRect=Rect(300,725,40,40)
 
@@ -106,7 +106,7 @@ infernapeRect=Rect(1165,175,115,115)
 monfernoRect=Rect(250,645,40,40)
 chimcharRect=Rect(250,685,40,40)
 
-meganiumRect=Rect(1165,300,40,40)
+meganiumRect=Rect(1165,300,115,115)
 bayleefRect=Rect(150,645,40,40)
 chikoritaRect=Rect(150,685,40,40)
 
@@ -387,6 +387,7 @@ while running:
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter],(115,115)),(1035,55))
 	if tool=="BlastoiseStamp":
 		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),(1035,55))
+	
 	draw.rect(screen, BLACK, canvasRect)
 	screen.blit(canvas, (150,100))
 	
