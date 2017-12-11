@@ -276,6 +276,10 @@ while running:
 	screen.blit(bc1, (0,0))
 	# screen.fill(GREEN)
 	## Tool Selection Check Red ##
+	if tool=="IDIOT":
+		draw.rect(screen,RED,rainbowRect)
+	else:
+		draw.rect(screen,WHITE,rainbowRect)	
 	if tool=='paint':
 		draw.rect(screen,RED,paintRect)
 	else:
@@ -299,9 +303,7 @@ while running:
 	## Tool Selection Check Red End ##
 	
 	## Tool Sprites Start ##
-	screen.blit(eraserOption, eraserRect)
 	
-	screen.blit(selectedPokemon, (1025,55))
 	if pokeSelect==1:
 		screen.blit(pokeMenu1, (1025, 170))
 	if pokeSelect==2:
@@ -309,10 +311,14 @@ while running:
 	if pokeSelect==3:
 		screen.blit(pokeMenu3, (1025, 170))
 			
-	screen.blit(logo, (350,0))
 	## Tool Sprites End ##
+	screen.blit(logo, (350,0))
+	
 	screen.blit(wheelPic,wheelRect)
+	screen.blit(eraserOption, eraserRect)
 	screen.blit(paintOption, paintRect)
+	
+	screen.blit(selectedPokemon, (1025,55))
 	
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)
@@ -441,7 +447,7 @@ while running:
 	elif mb[0] and tool=='MegaBlastoiseStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		MegaBlastoise=MegaBlastoiseAnimation[0]
-		canvas.blit(transform.scale(MegaBlastoise, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))			
+		canvas.blit(transform.scale(MegaBlastoise, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
 
 	elif mb[0] and tool=='BlastoiseStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
