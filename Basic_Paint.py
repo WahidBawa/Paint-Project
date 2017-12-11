@@ -21,7 +21,8 @@ mixer.music.play(-1)# will load and play initial music forever
 
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
-pokeMenu=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
+pokeMenu1=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
+pokeMenu2=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
 
 bc1=image.load("PICS/IMAGES/water_Background_1.jpg").convert()
 bc1=transform.scale(bc1, size)# loads initial background and scales it to size
@@ -99,21 +100,21 @@ eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eras
 ##                      Creating Rect Objects                        ##
 MegaBlastoiseRect=Rect(1035,175,115,115)
 BlastoiseRect=Rect(1165,425,115,115)
-WartortleRect=Rect(300,685,40,40)
+WartortleRect=Rect(1165,425,115,115)
 SquirtleRect=Rect(300,725,40,40)
 
 infernapeRect=Rect(1165,175,115,115)
-monfernoRect=Rect(250,645,40,40)
-chimcharRect=Rect(250,685,40,40)
+monfernoRect=Rect(1165,175,115,115)
+chimcharRect=Rect(1035,425,115,115)
 
 meganiumRect=Rect(1165,300,115,115)
-bayleefRect=Rect(150,645,40,40)
+bayleefRect=Rect(1165,300,115,115)
 chikoritaRect=Rect(150,685,40,40)
 
 MegaGengarRect=Rect(1035,300,115,115)
 gengarRect=Rect(1035,425,115,115)
-haunterRect=Rect(200,685,40,40)
-gastlyRect=Rect(200,725,40,40)
+haunterRect=Rect(1035,175,115,115)
+gastlyRect=Rect(1035,300,115,115)
 
 canvasRect=Rect(150,100,800,500)
 paintRect=Rect(20,80,40,40)
@@ -134,7 +135,9 @@ while running:
 	for evt in event.get(): 
 		if evt.type == QUIT:
 			running = False 
+		
 		if evt.type == KEYDOWN:
+			
 			if evt.key == K_ESCAPE:#if ESC pressed the program will end
 					running = False
 			if evt.key == K_y:
@@ -155,6 +158,11 @@ while running:
 				mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 				mixer.music.play(-1)
 
+			if evt.key == K_RIGHT:
+				pokeSelect=2
+	
+			if evt.key == K_LEFT:
+				pokeSelect=1	
 		if evt.type == MOUSEBUTTONUP:
 			if evt.button == 1:
 				if canvasRect.collidepoint((mx, my)):
@@ -346,8 +354,10 @@ while running:
 	screen.blit(eraserOption, eraserRect)
 	
 	screen.blit(selectedPokemon, (1025,55))
-	screen.blit(pokeMenu, (1025, 170))
-
+	if pokeSelect==1:
+		screen.blit(pokeMenu1, (1025, 170))
+	if pokeSelect==2:
+		screen.blit(pokeMenu2, (1025, 170))
 	screen.blit(logo, (350,0))
 
 	screen.blit(paintOption, paintRect)
@@ -360,21 +370,25 @@ while running:
 		
 	draw.rect(screen,WHITE,colourPickerRect)
 	
-	screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
-	screen.blit(transform.scale(BayleefAnimation[bayleef_counter], (40,40)), bayleefRect)
-	screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (40,40)), chikoritaRect)
-	screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter], (115,115)),MegaGengarRect)
-	screen.blit(transform.scale(GengarAnimation[gengar_counter], (115,115)), gengarRect)
-	screen.blit(transform.scale(HaunterAnimation[haunter_counter], (40,40)),haunterRect)
-	screen.blit(transform.scale(GastlyAnimation[gastly_counter],(40,40)),gastlyRect)
-	screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),infernapeRect)
-	screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(40,40)),monfernoRect)
-	screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(40,40)),chimcharRect)
-	screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),MegaBlastoiseRect)
-	screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),BlastoiseRect)
-	screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(40,40)),WartortleRect)
-	screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(40,40)),SquirtleRect)
+	if pokeSelect==1:
+		screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
+		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),MegaBlastoiseRect)
+		screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),infernapeRect)
+		screen.blit(transform.scale(GengarAnimation[gengar_counter], (115,115)), gengarRect)
+		screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter], (115,115)),MegaGengarRect)
+		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),BlastoiseRect)
+
+	if pokeSelect==2:
+		screen.blit(transform.scale(HaunterAnimation[haunter_counter], (115,115)),haunterRect)
+		screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(115,115)),monfernoRect)
+		screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(115,115)),WartortleRect)
+		screen.blit(transform.scale(BayleefAnimation[bayleef_counter], (115,115)), bayleefRect)
+		screen.blit(transform.scale(GastlyAnimation[gastly_counter],(115,115)),gastlyRect)
+		screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(115,115)),chimcharRect)
 	
+	screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (40,40)), chikoritaRect)
+	screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(40,40)),SquirtleRect)
+
 	if tool=="MegaBlastoiseStamp":
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
 	if tool=="MegaGengarStamp":
@@ -387,7 +401,9 @@ while running:
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter],(115,115)),(1035,55))
 	if tool=="BlastoiseStamp":
 		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),(1035,55))
-	
+	if tool=="haunterStamp":
+		screen.blit(transform.scale(HaunterAnimation[haunter_counter],(115,115)),(1035,60))
+
 	draw.rect(screen, BLACK, canvasRect)
 	screen.blit(canvas, (150,100))
 	

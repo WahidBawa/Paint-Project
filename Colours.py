@@ -29,6 +29,7 @@ mixer.pre_init(44100, -16, 1, 512)
 mixer.init()
 
 tool='paint'
+pokeSelect=1
 
 canvas = Surface((800,500))
 canvas.fill(WHITE)
