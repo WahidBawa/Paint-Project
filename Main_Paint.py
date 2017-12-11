@@ -1,4 +1,4 @@
-#basicPaint.py
+#Main_Paint.py
 ##                                   Variable Names/Importing functions                                 ##
 import os
 from pygame import * # This will import all functions and actions of pygame
@@ -38,62 +38,48 @@ wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales
 for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales it
 	chikorita=image.load('PICS/GRAPHICS/Chikorita/Chikorita Stamp/frame_%02d_delay-0.08s.png' % i).convert_alpha()
 	ChikoritaAnimation.append(transform.scale(chikorita, (141//2,210//2)))
-
 for i in range(52):
 	bayleef=image.load('PICS/GRAPHICS/Chikorita/Bayleef Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
 	BayleefAnimation.append(bayleef)
-
 for i in range(59):
 	meganium=image.load('PICS/GRAPHICS/Chikorita/Meganium Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
 	MeganiumAnimation.append(meganium)
-
 for i in range(119):
 	MegaGengar=image.load("PICS/GRAPHICS/Gengar/Mega Gengar Stamp/frame_%003d_delay-0.03s.png" % i).convert_alpha()
 	MegaGengarAnimation.append(MegaGengar)
-
 for i in range(39):
 	Gengar=image.load("PICS/GRAPHICS/Gengar/Gengar Stamp/frame_%02d_delay-0.04s.gif" % i).convert_alpha()
 	GengarAnimation.append(Gengar)
-
 for i in range(59):
 	Haunter=image.load('PICS/GRAPHICS/Gengar/Haunter Stamp/frame_%02d_delay-0.03s.gif' % i).convert_alpha()
 	HaunterAnimation.append(Haunter)
-
 for i in range(64):
 	Gastly=image.load('PICS/GRAPHICS/Gengar/Gastly Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
 	GastlyAnimation.append(Gastly)
-
 for i in range(39):
 	Infernape=image.load('PICS/GRAPHICS/Infernape/Infernape Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
 	InfernapeAnimation.append(Infernape)
-
 for i in range(29):
 	Monferno=image.load('PICS/GRAPHICS/Infernape/Monferno Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
 	MonfernoAnimation.append(Monferno)
-
 for i in range(27):
 	Chimchar=image.load('PICS/GRAPHICS/Infernape/Chimchar Stamp/frame_%02d_delay-0.04s.png' % i).convert_alpha()
 	ChimcharAnimation.append(Chimchar)	
-	
 for i in range(75):
 	MegaBlastoise=image.load('PICS/GRAPHICS/Blastoise/Mega Blastoise Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
 	MegaBlastoiseAnimation.append(MegaBlastoise)
-
 for i in range(75):
 	Blastoise=image.load('PICS/GRAPHICS/Blastoise/Blastoise Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
 	BlastoiseAnimation.append(Blastoise)
-
 for i in range(31):
 	Wartortle=image.load('PICS/GRAPHICS/Blastoise/Wartortle Stamp/frame_%02d_delay-0.04s.png' % i)
 	WartortleAnimation.append(Wartortle)
-
 for i in range(66):
 	Squirtle=image.load('PICS/GRAPHICS/Blastoise/Squirtle Stamp/frame_%02d_delay-0.03s.png' % i).convert_alpha()
 	SquirtleAnimation.append(Squirtle)
 
 paintOption=image.load("PICS/IMAGES/Tool Selection Sprite/paint_tool.png").convert_alpha()
 paintOption=transform.scale(paintOption, (40,40))# imports and scales the paint tool option picture
-
 eraserOption=image.load("PICS/IMAGES/Tool Selection Sprite/eraser_tool.png").convert_alpha()
 eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eraser tool option picture
 ##                      End Of Importing Pictures / Animations / Editing Pictures                 ##
@@ -116,7 +102,6 @@ WartortleRect=Rect(1165,425,115,115)
 SquirtleRect=Rect(1035,175,115,115)
 chikoritaRect=Rect(1165,175,115,115)
 
-
 canvasRect=Rect(150,100,800,500)
 paintRect=Rect(20,80,40,40)
 eraserRect=Rect(70,80,40,40)
@@ -137,9 +122,7 @@ while running:
 	for evt in event.get(): 
 		if evt.type == QUIT:
 			running = False 
-		
 		if evt.type == KEYDOWN:
-			
 			if evt.key == K_ESCAPE:#if ESC pressed the program will end
 					running = False
 			if evt.key == K_y:
@@ -154,20 +137,16 @@ while running:
 					canvas.blit(transfer, (0,0))
 					control_Y.append(transfer)
 					# print("UNDO",len(control_Z))
-
 			if evt.key == K_o:
 				mixer.music.stop()
-
 			if evt.key == K_p:
 				mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 				mixer.music.play(-1)
-
 			if evt.key == K_RIGHT:
 				if pokeSelect==2:
 					pokeSelect=3	
 				if pokeSelect==1:
 					pokeSelect=2
-	
 			if evt.key == K_LEFT:
 				if pokeSelect==2:
 					pokeSelect=1
@@ -183,22 +162,18 @@ while running:
 					if c[0] != None:
 						col = c[0]	
 
-					
 		if evt.type == MOUSEBUTTONDOWN:
-			
 			if evt.button == 1:
 				canvas_copy = canvas.copy()
 				if randomRect.collidepoint(mx,my):
 					randomCol = 1 - randomCol
 			if evt.button == 3:
 				canvas.fill(WHITE)		
-			
 			if evt.button == 4:
 				if thicknessX <= 4000:
 					thicknessX += 2
 				if thicknessY <= 4000:
 					thicknessY += 2	
-			
 			if evt.button == 5:
 				if thicknessX > 3:
 					thicknessX -= 2
@@ -210,55 +185,42 @@ while running:
 	chikorita_counter += 1
 	if chikorita_counter > len(ChikoritaAnimation)-1:
 		chikorita_counter = 0
-
 	bayleef_counter += 1
 	if bayleef_counter > len(BayleefAnimation)-1:
 		bayleef_counter = 0	
-
 	meganium_counter += 1
 	if meganium_counter > len(MeganiumAnimation)-1:
 		meganium_counter = 0
-
 	MegaGengar_counter += 1
 	if MegaGengar_counter > len(MegaGengarAnimation)-1:
 		MegaGengar_counter = 0
-
 	gengar_counter += 1
 	if gengar_counter > len(GengarAnimation)-1:
 		gengar_counter = 0
-
 	haunter_counter += 1
 	if haunter_counter > len(HaunterAnimation)-1:
 		haunter_counter = 0	
-
 	gastly_counter += 1
 	if gastly_counter > len(GastlyAnimation)-1:
 		gastly_counter = 0		 
-
 	infernape_counter += 1
 	if infernape_counter > len(InfernapeAnimation)-1:
 		infernape_counter = 0
-
 	monferno_counter += 1
 	if monferno_counter > len(MonfernoAnimation)-1:
 		monferno_counter = 0	
-
 	chimchar_counter += 1
 	if chimchar_counter > len(ChimcharAnimation)-1:
 		chimchar_counter = 0
-
 	MegaBlastoise_counter += 1
 	if MegaBlastoise_counter > len(MegaBlastoiseAnimation)-1:
 		MegaBlastoise_counter = 0
-
 	Blastoise_counter += 1
 	if Blastoise_counter > len(BlastoiseAnimation)-1:
 		Blastoise_counter = 0
-
 	Wartortle_counter += 1
 	if Wartortle_counter > len(WartortleAnimation)-1:
 		Wartortle_counter = 0
-
 	Squirtle_counter += 1
 	if Squirtle_counter > len(SquirtleAnimation)-1:
 		Squirtle_counter = 0
@@ -307,7 +269,6 @@ while running:
 				tool='chikoritaStamp'
 			elif SquirtleRect.collidepoint(mx,my):
 				tool='SquirtleStamp'	
-		
 		elif rainbowRect.collidepoint(mx,my):
 			tool='IDIOT'
 ##                      CollidePoint End                       ##
@@ -319,29 +280,22 @@ while running:
 		draw.rect(screen,RED,paintRect)
 	else:
 		draw.rect(screen,WHITE,paintRect)
-
 	if tool=="eraser":	
 		draw.rect(screen,RED,eraserRect)
 	else:
 		draw.rect(screen,WHITE,eraserRect)
-
 	if tool=="lineTool":
 		draw.rect(screen,RED,lineDrawRect)
 	else:
 		draw.rect(screen,WHITE,lineDrawRect)	
-
 	if tool=="chikoritaStamp":
 		draw.rect(screen,RED,chikoritaRect)
 	else:
 		draw.rect(screen,WHITE,chikoritaRect)
-
-		
 	if tool=='SquirtleStamp':
 		draw.rect(screen,RED,SquirtleRect)
 	else:
-		draw.rect(screen,WHITE,SquirtleRect)
-
-	draw.rect(screen,WHITE, rainbowRect)										
+		draw.rect(screen,WHITE,SquirtleRect)										
 	## Tool Selection Check Red End ##
 	
 	## Tool Sprites Start ##
@@ -356,13 +310,11 @@ while running:
 		screen.blit(pokeMenu3, (1025, 170))
 			
 	screen.blit(logo, (350,0))
-
 	## Tool Sprites End ##
 	screen.blit(wheelPic,wheelRect)
 	screen.blit(paintOption, paintRect)
 	
 	draw.rect(screen, col, currentColRect)
-
 	draw.rect(screen,WHITE,randomRect)
 	draw.rect(screen,WHITE,colourPickerRect)
 	
@@ -373,7 +325,6 @@ while running:
 		screen.blit(transform.scale(GengarAnimation[gengar_counter], (115,115)), gengarRect)
 		screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter], (115,115)),MegaGengarRect)
 		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),BlastoiseRect)
-
 	if pokeSelect==2:
 		screen.blit(transform.scale(HaunterAnimation[haunter_counter], (115,115)),haunterRect)
 		screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(115,115)),monfernoRect)

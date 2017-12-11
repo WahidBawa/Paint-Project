@@ -22,7 +22,7 @@ BLACK=(0,0,0)
 randomCol=0
 col=BLACK
 
-thickness=10
+thicknessX = 10
 thicknessY = 10
 
 mixer.pre_init(44100, -16, 1, 512)
@@ -35,7 +35,7 @@ canvas = Surface((800,500))
 canvas.fill(WHITE)
 
 myClock = time.Clock()
-thickness=10
+thicknessX = 10
 
 control_Z=[canvas.copy()]
 control_Y=[]
