@@ -81,3 +81,15 @@ Wartortle_counter = 0
 
 SquirtleAnimation = []
 Squirtle_counter = 0
+
+DarkraiAnimation = []
+Darkrai_counter = 0
+
+GiratinaAnimation = []
+Giratina_counter = 0
+
+PalkiaAnimation = []
+Palkia_counter = 0
+
+MewtwoAnimation = []
+Mewtwo_counter = 0
