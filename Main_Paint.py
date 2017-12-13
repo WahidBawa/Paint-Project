@@ -143,17 +143,11 @@ while running:
 			if evt.key == K_y:
 				if len(control_Y) > 0:
 					transfer = control_Y.pop()
-					# canvas.blit(control_Y[-1], (0,0))
 					control_Z.append(transfer)
-					# print("Z",len(control_Z))
-					# print("Y",len(control_Y))
 			if evt.key == K_z:
 				if len(control_Z) > 1:
 					transfer = control_Z.pop()
-					# canvas.blit(control_Z[-1], (0,0))
 					control_Y.append(transfer)
-					# print("Z",len(control_Z))
-					# print("Y",len(control_Y))
 			if evt.key == K_o:
 				mixer.music.stop()
 			if evt.key == K_p:
@@ -173,8 +167,6 @@ while running:
 			if evt.button == 1:
 				if canvasRect.collidepoint((mx, my)):
 					control_Z.append(canvas.copy())
-					# control_Y = []
-					print("Z",control_Z,"Y",control_Y)
 				elif colourPickerRect.collidepoint(mx,my):
 					c = askcolor(title='Pick Colour')
 					if c[0] != None:
