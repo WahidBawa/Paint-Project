@@ -2,13 +2,11 @@
 
 #you can use this example to draw rectangle, ellipse....
 
-from pygame import *
-from math import *
+from pygame import * 
 size=(800,600)
 screen = display.set_mode(size) 
 thickness=5                               
 running = True
-display.set_caption("Line Tool")
 while running:
     for evt in event.get():  
         if evt.type == QUIT: 
@@ -19,6 +17,8 @@ while running:
         if evt.type==MOUSEBUTTONDOWN:
             sx,sy=mouse.get_pos()#starting position
             backPic=screen.copy()#screen capture (screenshot)
+            if evt.button == 3:
+                screen.fill(0)
             if evt.button==4:
                 #print("scrolling up")
                 thickness+=1
@@ -31,15 +31,11 @@ while running:
     mb=mouse.get_pressed()
 
 
-    if mb[0]==1:
+    if mb[0]:
         screen.blit(backPic,(0,0))
-                                #start  current
-        deltaX, deltaY=((mx-sx), (my-sy))
-        dist = max(hypot(deltaX, deltaY), 1)
-        angle = atan2(deltaY,deltaX)
-        drawx, drawy = cos(angle), sin(angle)
-        for p in range(round(dist)):
-            draw.circle(screen,(0,255,0),((sx+round(drawx*p)),sy+round(drawy*p)),thickness)
-    
+        if my-sy < 0 and mx-sx < 0:
+            
+        draw.circle(screen,(0,255,0),(sx,sy),max(int(mx-sx),int(my-sy)))
+
     display.flip() 
 quit() 

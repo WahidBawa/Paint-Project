@@ -125,6 +125,7 @@ rainbowRect=Rect(20,130,40,40)
 colourPickerRect=Rect(20,180,40,40)
 lineDrawRect=Rect(70,180,40,40)
 
+
 wheelRect=wheelPic.get_rect()
 wheelRect.topleft = 770, 600
 
@@ -173,7 +174,8 @@ while running:
 						col = c[0]  
 
 		if evt.type == MOUSEBUTTONDOWN:
-			if evt.button == 1:
+			if evt.button == 1 or evt.button == 2:
+				sx,sy = cmx,cmy
 				canvas_copy = canvas.copy()
 				if randomRect.collidepoint(mx,my):
 					randomCol = 1 - randomCol
@@ -191,7 +193,7 @@ while running:
 					thicknessY -= int(thicknessY*0.2)
 	mb = mouse.get_pressed()
 	mx, my = mouse.get_pos()
-	if not mb[0]:
+	if not mb[0] and not mb[2]:
 		canvas.blit(control_Z[-1], (0,0))
 ## Selection Animation Start ## 
 	chikorita_counter += 1
@@ -429,7 +431,7 @@ while running:
 		painter(canvas, cmx, cmy, ocmx, ocmy, thicknessX, col, randomCol)
 
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
-		lineDrawTool(canvas, mx, my, cmx, cmy, thicknessX, col, canvas_copy)
+		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
 
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version

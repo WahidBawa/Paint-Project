@@ -28,7 +28,11 @@ def eraser (surf, cmx, cmy, ocmx, ocmy,thicknessX):
 	for p in range(round(dist)):
 		draw.circle(surf,WHITE,((ocmx+round(drawx*p)),ocmy+round(drawy*p)),thicknessX)
 
-def lineDrawTool(surf, mx, my, cmx, cmy, thicknessY, col, canvas_copy):
-	cmx, cmy= mx, my
-	canvas.blit(canvas_copy, (0,0))
-	draw.line(canvas,col,(cmx,cmy),(ocmx,ocmy),thicknessY)
+def lineDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
+	surf.blit(canvas_copy,(0,0))
+	deltaX, deltaY=((mx-sx), (my-sy))
+	dist = max(hypot(deltaX, deltaY), 1)
+	angle = atan2(deltaY,deltaX)
+	drawx, drawy = cos(angle), sin(angle)
+	for p in range(round(dist)):
+		draw.circle(surf,col,((sx+round(drawx*p)),sy+round(drawy*p)),thicknessX)
