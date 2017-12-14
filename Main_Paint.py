@@ -1,4 +1,4 @@
-#Main_Paint.py
+#Main_Paint.py 
 ##                                   Variable Names/Importing functions                                 ##
 import os
 from pygame import * # This will import all functions and actions of pygame
@@ -6,7 +6,7 @@ from random import *
 from basicPaintDefs import *# this imports functions saved in another file to make code more efficient
 from Colours import *#imports some variables to make code cleaner 
 from tkinter import *
-from tkinter.colorchooser import *
+# from tkinter.colorchooser import *
 root = Tk()
 root.withdraw()
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
@@ -34,6 +34,7 @@ idiot=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
 
 wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
+
 
 for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales it
 	chikorita=image.load('PICS/GRAPHICS/Chikorita/Chikorita Stamp/frame_%02d_delay-0.08s.png' % i).convert_alpha()
@@ -93,6 +94,8 @@ paintOption=image.load("PICS/IMAGES/Tool Selection Sprite/paint_tool.png").conve
 paintOption=transform.scale(paintOption, (40,40))# imports and scales the paint tool option picture
 eraserOption=image.load("PICS/IMAGES/Tool Selection Sprite/eraser_tool.png").convert_alpha()
 eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eraser tool option picture
+syedOption=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
+syedOption=transform.scale(syedOption, (34,34))
 ##                      End Of Importing Pictures / Animations / Editing Pictures                 ##
 
 ##                      Creating Rect Objects                        ##
@@ -121,10 +124,11 @@ canvasRect=Rect(150,100,800,500)
 paintRect=Rect(20,80,40,40)
 eraserRect=Rect(70,80,40,40)
 randomRect=Rect(70,130,40,40)
-rainbowRect=Rect(20,130,40,40)
-colourPickerRect=Rect(20,180,40,40)
+syedRect=Rect(20,130,40,40)
+# colourPickerRect=Rect(20,180,40,40)
 lineDrawRect=Rect(70,180,40,40)
-
+circleDrawRect=Rect(20,230,40,40)
+saveRect=Rect(0,0,40,40)
 
 wheelRect=wheelPic.get_rect()
 wheelRect.topleft = 770, 600
@@ -168,10 +172,10 @@ while running:
 			if evt.button == 1:
 				if canvasRect.collidepoint((mx, my)):
 					control_Z.append(canvas.copy())
-				elif colourPickerRect.collidepoint(mx,my):
-					c = askcolor(title='Pick Colour')
-					if c[0] != None:
-						col = c[0]  
+				# elif colourPickerRect.collidepoint(mx,my):
+				# 	c = askcolor(title='Pick Colour')
+				# 	if c[0] != None:
+				# 		col = c[0]  
 
 		if evt.type == MOUSEBUTTONDOWN:
 			if evt.button == 1 or evt.button == 2:
@@ -180,17 +184,17 @@ while running:
 				if randomRect.collidepoint(mx,my):
 					randomCol = 1 - randomCol
 			if evt.button == 3:
-				canvas.fill(WHITE)      
+				fill=True      
 			if evt.button == 4:
 				if thicknessX <= 4000:
-				 	thicknessX+=int(thicknessX*0.2)
+					thicknessX+=int(thicknessX*0.1)
 				if thicknessY <= 4000:
-					thicknessY += int(thicknessY*0.2)
+					thicknessY += int(thicknessY*0.1)
 			if evt.button == 5:
 				if thicknessX > 5:
-					thicknessX -= int(thicknessX*0.2)
+					thicknessX -= int(thicknessX*0.1)
 				if thicknessY > 5:
-					thicknessY -= int(thicknessY*0.2)
+					thicknessY -= int(thicknessY*0.1)
 	mb = mouse.get_pressed()
 	mx, my = mouse.get_pos()
 	if not mb[0] and not mb[2]:
@@ -263,8 +267,11 @@ while running:
 		elif eraserRect.collidepoint(mx,my):    
 			tool='eraser'
 		elif lineDrawRect.collidepoint(mx,my):
-			tool='lineTool' 
-
+			tool='lineTool'
+		elif circleDrawRect.collidepoint(mx,my):
+			tool='circleTool'	
+		elif saveRect.collidepoint(mx,my):
+			tool="saveTool"
 		if pokeSelect==1:
 			if MegaBlastoiseRect.collidepoint(mx,my):
 				tool='MegaBlastoiseStamp'
@@ -304,17 +311,17 @@ while running:
 				tool="PalkiaStamp"
 			elif MewtwoRect.collidepoint(mx,my):
 				tool="MewtwoStamp"			
-		elif rainbowRect.collidepoint(mx,my):
-			tool='IDIOT'
+		elif syedRect.collidepoint(mx,my):
+			tool='SyedStamp'
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
 	screen.blit(bc1, (0,0))
 	# screen.fill(GREEN)
 	## Tool Selection Check Red ##
-	if tool=="IDIOT":
-		draw.rect(screen,RED,rainbowRect)
+	if tool=="SyedStamp":
+		draw.rect(screen,RED,syedRect)
 	else:
-		draw.rect(screen,WHITE,rainbowRect) 
+		draw.rect(screen,WHITE,syedRect) 
 	if tool=='paint':
 		draw.rect(screen,RED,paintRect)
 	else:
@@ -327,9 +334,15 @@ while running:
 		draw.rect(screen,RED,lineDrawRect)
 	else:
 		draw.rect(screen,WHITE,lineDrawRect)                                            
+	if tool=="circleTool":
+		draw.rect(screen,RED,circleDrawRect)
+	else:
+		draw.rect(screen,WHITE,circleDrawRect)
+	if tool=="saveTool":
+		draw.rect(screen,RED,saveRect)
+	else:
+		draw.rect(screen,WHITE,saveRect)				
 	## Tool Selection Check Red End ##
-	# canvas.blit(control_Z[-1], (0,0))
-	
 	## Tool Sprites Start ##
 	
 	if pokeSelect==1:
@@ -345,12 +358,12 @@ while running:
 	screen.blit(wheelPic,wheelRect)
 	screen.blit(eraserOption, eraserRect)
 	screen.blit(paintOption, paintRect)
-	
+	screen.blit(syedOption, Rect(25,133,40,40))
 	screen.blit(selectedPokemon, (1025,50))
 	
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)
-	draw.rect(screen,WHITE,colourPickerRect)
+	# draw.rect(screen,WHITE,colourPickerRect)
 	
 	if pokeSelect==1:
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
@@ -420,6 +433,9 @@ while running:
 	draw.circle(screen, (100,100,100), (mx, my), 3)
 	
 	screen.set_clip(None)
+
+	if fill==True:
+		canvas.fill(WHITE)
 ##                   Surface / Canvas Blit End               ##
 
 ##                   Draw Options Start               ##
@@ -430,8 +446,16 @@ while running:
 	elif mb[0] and tool=='paint' and canvasRect.collidepoint((mx, my)):
 		painter(canvas, cmx, cmy, ocmx, ocmy, thicknessX, col, randomCol)
 
+	elif mb[0] and tool=="saveTool":#left mouse click (button down)
+		fname=filedialog.asksaveasfilename(defaultextension=".png")
+		image.save(screen.subsurface(canvasRect), fname)#canvas.subsurface(canvasRect)
+
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
+
+	elif mb[0] and tool=="circleTool" and canvasRect.collidepoint((mx, my)):
+		circleDrawTool(canvas, mx, my, canvas_copy, sx, sy, col, thicknessX)
+
 
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
@@ -522,7 +546,7 @@ while running:
 		canvas.blit(canvas_copy,(0,0))
 		Mewtwo=MewtwoAnimation[0]
 		canvas.blit(transform.scale(Mewtwo ,(thicknessX, thicknessY)), (cmx-thicknessX/3, cmy-thicknessY/3))	
-	elif mb[0] and tool=='IDIOT':
+	elif mb[0] and tool=='SyedStamp':
 		canvas.blit(canvas_copy, (0,0))
 		canvas.blit(transform.scale(idiot, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
 	myClock.tick(60)

@@ -6,6 +6,8 @@ from pygame import * # This will import all functions and actions of pygame
 from random import *
 from math import *
 
+fill=False
+
 rainbowCol=0
 rainbowNum=1000
 

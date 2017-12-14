@@ -34,8 +34,9 @@ while running:
     if mb[0]:
         screen.blit(backPic,(0,0))
         if my-sy < 0 and mx-sx < 0:
-            
-        draw.circle(screen,(0,255,0),(sx,sy),max(int(mx-sx),int(my-sy)))
+            draw.circle(screen,(0,255,0),(int((mx+sx)/2),int((my+sy)/2)),max(int(sx-mx),int(sy-my))//2)
+        else:    
+            draw.circle(screen,(0,255,0),(int((mx+sx)/2),int((my+sy)/2)),max(int(mx-sx),int(my-sy))//2)
 
     display.flip() 
 quit() 
