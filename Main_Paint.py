@@ -5,8 +5,8 @@ from pygame import * # This will import all functions and actions of pygame
 from random import *
 from basicPaintDefs import *# this imports functions saved in another file to make code more efficient
 from Colours import *#imports some variables to make code cleaner 
-from tkinter import *
 # from tkinter.colorchooser import *
+from tkinter import *
 root = Tk()
 root.withdraw()
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
@@ -125,7 +125,7 @@ paintRect=Rect(20,80,40,40)
 eraserRect=Rect(70,80,40,40)
 randomRect=Rect(70,130,40,40)
 syedRect=Rect(20,130,40,40)
-# colourPickerRect=Rect(20,180,40,40)
+colourPickerRect=Rect(20,180,40,40)
 lineDrawRect=Rect(70,180,40,40)
 circleDrawRect=Rect(20,230,40,40)
 saveRect=Rect(0,0,40,40)
@@ -172,10 +172,10 @@ while running:
 			if evt.button == 1:
 				if canvasRect.collidepoint((mx, my)):
 					control_Z.append(canvas.copy())
-				# elif colourPickerRect.collidepoint(mx,my):
-				# 	c = askcolor(title='Pick Colour')
-				# 	if c[0] != None:
-				# 		col = c[0]  
+				elif colourPickerRect.collidepoint(mx,my):
+					c = askcolor(title='Pick Colour')
+					if c[0] != None:
+						col = c[0]  
 
 		if evt.type == MOUSEBUTTONDOWN:
 			if evt.button == 1 or evt.button == 2:
@@ -339,9 +339,10 @@ while running:
 	else:
 		draw.rect(screen,WHITE,circleDrawRect)
 	if tool=="saveTool":
-		draw.rect(screen,RED,saveRect)
+		draw.rect(screen,RED,saveRect)	
 	else:
-		draw.rect(screen,WHITE,saveRect)				
+		draw.rect(screen,WHITE,saveRect)	
+						
 	## Tool Selection Check Red End ##
 	## Tool Sprites Start ##
 	
@@ -363,7 +364,7 @@ while running:
 	
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)
-	# draw.rect(screen,WHITE,colourPickerRect)
+	draw.rect(screen,WHITE,colourPickerRect)
 	
 	if pokeSelect==1:
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
@@ -447,9 +448,11 @@ while running:
 		painter(canvas, cmx, cmy, ocmx, ocmy, thicknessX, col, randomCol)
 
 	elif mb[0] and tool=="saveTool":#left mouse click (button down)
-		fname=filedialog.asksaveasfilename(defaultextension=".png")
-		image.save(screen.subsurface(canvasRect), fname)#canvas.subsurface(canvasRect)
-
+		try:
+			fname=filedialog.asksaveasfilename(defaultextension=".png")
+			image.save(canvas.subsurface(canvasRect), fname)#canvas.subsurface(canvasRect)
+		except:
+			print("saving error")
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
 
