@@ -5,7 +5,7 @@ from pygame import * # This will import all functions and actions of pygame
 from random import *
 from basicPaintDefs import *# this imports functions saved in another file to make code more efficient
 from Colours import *#imports some variables to make code cleaner 
-# from tkinter.colorchooser import *
+from tkinter.colorchooser import *
 from tkinter import *
 root = Tk()
 root.withdraw()
@@ -450,7 +450,8 @@ while running:
 	elif mb[0] and tool=="saveTool":#left mouse click (button down)
 		try:
 			fname=filedialog.asksaveasfilename(defaultextension=".png")
-			image.save(canvas.subsurface(canvasRect), fname)#canvas.subsurface(canvasRect)
+			image.save(screen.subsurface(canvasRect), fname)#canvas.subsurface(canvasRect)
+			tool="paintTool"
 		except:
 			print("saving error")
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
