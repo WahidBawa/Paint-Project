@@ -89,7 +89,7 @@ for i in range(79):
 	PalkiaAnimation.append(Palkia)
 for i in range(90):
 	Mewtwo=image.load("PICS/GRAPHICS/Legendary/Mewtwo/frame_%02d_delay-0.03s.png" % i).convert_alpha()
-	MewtwoAnimation.append(Mewtwo)				
+	MewtwoAnimation.append(Mewtwo)              
 paintOption=image.load("PICS/IMAGES/Tool Selection Sprite/paint_tool.png").convert_alpha()
 paintOption=transform.scale(paintOption, (40,40))# imports and scales the paint tool option picture
 eraserOption=image.load("PICS/IMAGES/Tool Selection Sprite/eraser_tool.png").convert_alpha()
@@ -129,7 +129,7 @@ colourPickerRect=Rect(20,180,40,40)
 lineDrawRect=Rect(70,180,40,40)
 circleDrawRect=Rect(20,230,40,40)
 saveRect=Rect(0,0,40,40)
-
+loadRect=Rect(60,0,40,40)
 wheelRect=wheelPic.get_rect()
 wheelRect.topleft = 770, 600
 
@@ -244,16 +244,16 @@ while running:
 		Squirtle_counter = 0
 	Darkrai_counter += 1
 	if Darkrai_counter > len(DarkraiAnimation)-1:
-		Darkrai_counter = 0	
+		Darkrai_counter = 0 
 	Giratina_counter += 1
 	if Giratina_counter > len(GiratinaAnimation)-1:
-		Giratina_counter = 0	
+		Giratina_counter = 0    
 	Palkia_counter += 1
 	if Palkia_counter > len(PalkiaAnimation)-1:
 		Palkia_counter = 0
 	Mewtwo_counter += 1
 	if Mewtwo_counter > len(MewtwoAnimation)-1:
-		Mewtwo_counter = 0		
+		Mewtwo_counter = 0      
 ## Selection Animation End ##   
 
 ##                      CollidePoint Start                        ##
@@ -269,9 +269,11 @@ while running:
 		elif lineDrawRect.collidepoint(mx,my):
 			tool='lineTool'
 		elif circleDrawRect.collidepoint(mx,my):
-			tool='circleTool'	
+			tool='circleTool'   
 		elif saveRect.collidepoint(mx,my):
 			tool="saveTool"
+		elif loadRect.collidepoint(mx,my):
+			tool="loadTool"
 		if pokeSelect==1:
 			if MegaBlastoiseRect.collidepoint(mx,my):
 				tool='MegaBlastoiseStamp'
@@ -310,7 +312,7 @@ while running:
 			elif PalkiaRect.collidepoint(mx,my):
 				tool="PalkiaStamp"
 			elif MewtwoRect.collidepoint(mx,my):
-				tool="MewtwoStamp"			
+				tool="MewtwoStamp"          
 		elif syedRect.collidepoint(mx,my):
 			tool='SyedStamp'
 ##                      CollidePoint End                       ##
@@ -339,10 +341,14 @@ while running:
 	else:
 		draw.rect(screen,WHITE,circleDrawRect)
 	if tool=="saveTool":
-		draw.rect(screen,RED,saveRect)	
+		draw.rect(screen,RED,saveRect)  
 	else:
-		draw.rect(screen,WHITE,saveRect)	
-						
+		draw.rect(screen,WHITE,saveRect)
+
+	if tool=="loadTool":
+		draw.rect(screen,RED,loadRect)  
+	else:
+		draw.rect(screen,WHITE,loadRect)                    
 	## Tool Selection Check Red End ##
 	## Tool Sprites Start ##
 	
@@ -423,7 +429,7 @@ while running:
 	if tool=="PalkiaStamp":
 		screen.blit(transform.scale(PalkiaAnimation[Palkia_counter],(110,110)),(1035,60))
 	if tool=="MewtwoStamp":
-		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(110,110)),(1035,60))			
+		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(110,110)),(1035,60))           
 	draw.rect(screen, BLACK, canvasRect)
 	screen.blit(canvas, (150,100))
 	
@@ -451,9 +457,20 @@ while running:
 		try:
 			fname=filedialog.asksaveasfilename(defaultextension=".png")
 			image.save(screen.subsurface(canvasRect), fname)#canvas.subsurface(canvasRect)
-			tool="paintTool"
+			tool="paint"
 		except:
 			print("saving error")
+	elif mb[0] and tool=="loadTool":
+		
+
+		fname = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("png files","*.png"),("all files","*.*")))
+		fname = image.load(fname)
+		# canvas.blit(fname, (0,0))
+		print(fname)
+		tool="paint"
+		# if fname.get_height() > 800 and fname.get_width() > 500:
+			# fname=transform.scale(fname, (1000,1000))	
+					
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
 
@@ -549,7 +566,7 @@ while running:
 	elif mb[0] and tool=='MewtwoStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Mewtwo=MewtwoAnimation[0]
-		canvas.blit(transform.scale(Mewtwo ,(thicknessX, thicknessY)), (cmx-thicknessX/3, cmy-thicknessY/3))	
+		canvas.blit(transform.scale(Mewtwo ,(thicknessX, thicknessY)), (cmx-thicknessX/3, cmy-thicknessY/3))    
 	elif mb[0] and tool=='SyedStamp':
 		canvas.blit(canvas_copy, (0,0))
 		canvas.blit(transform.scale(idiot, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
@@ -558,3 +575,4 @@ while running:
 	ocmx, ocmy = cmx, cmy
 ##                   Draw Options End                   ##
 quit() # closes out pygame window
+
