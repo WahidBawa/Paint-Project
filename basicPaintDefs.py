@@ -1,8 +1,8 @@
 #basicPaintDefs.py
-from pygame import * 
+# from pygame import * 
 from Colours import * 
-from random import *
-from math import *
+# from random import *
+# from math import *
 def painter(surf, cmx, cmy, ocmx, ocmy,thicknessX,col,randomCol): 
 	if randomCol==True:
 		deltaX, deltaY=((cmx-ocmx), (cmy-ocmy))

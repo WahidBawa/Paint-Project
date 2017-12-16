@@ -5,7 +5,11 @@
 from pygame import * # This will import all functions and actions of pygame
 from random import *
 from math import *
-
+import os
+from random import *
+from tkinter.colorchooser import *
+from tkinter import *
+from tkinter import filedialog
 fill=False
 
 rainbowCol=0

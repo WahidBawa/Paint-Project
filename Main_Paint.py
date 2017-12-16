@@ -1,16 +1,13 @@
 #Main_Paint.py 
 ##                                   Variable Names/Importing functions                                 ##
-import os
-from pygame import * # This will import all functions and actions of pygame
-from random import *
+# from pygame import * # This will import all functions and actions of pygame
 from basicPaintDefs import *# this imports functions saved in another file to make code more efficient
 from Colours import *#imports some variables to make code cleaner 
-from tkinter.colorchooser import *
-from tkinter import *
+
 root = Tk()
 root.withdraw()
-os.environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
-screen = display.set_mode(size, FULLSCREEN)
+os.environ['SDL_VIDEO_WINDOW_POS'] = '10,10'
+screen = display.set_mode(size)
 display.set_caption("PokePaint")
 ##                      Variable Naming Ends                           ##
 
