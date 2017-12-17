@@ -46,6 +46,15 @@ def ellipseDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 	surf.blit(canvas_copy,(0,0))
 	draw.ellipse(surf,col,(sx,sy,dx,dy),thicknessX)
 
+def filledEllipseDrawTool(surf, mx, my, canvas_copy, sx, sy, col):
+	mx>=sx and my>=sy
+	dx=hypot(mx,sx)
+	dy=hypot(my,sy)
+	ellipseRect= Rect(sx,sy,dx,dy)
+	ellipseRect.normalize()
+	surf.blit(canvas_copy,(0,0))
+	draw.ellipse(surf,col,(sx,sy,dx,dy))
+
 def rectDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 	mx>=sx and my>=sy
 	dx=hypot(mx,sx)
@@ -53,4 +62,13 @@ def rectDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 	rectRect= Rect(sx,sy,dx,dy)
 	rectRect.normalize()
 	surf.blit(canvas_copy,(0,0))
-	draw.rect(surf,col,(sx,sy,dx,dy),thicknessX)		
+	draw.rect(surf,col,(sx,sy,dx,dy),thicknessX)
+
+def filledRectDrawTool(surf, mx, my, canvas_copy, sx, sy, col):
+	mx>=sx and my>=sy
+	dx=hypot(mx,sx)
+	dy=hypot(my,sy)
+	rectRect= Rect(sx,sy,dx,dy)
+	rectRect.normalize()
+	surf.blit(canvas_copy,(0,0))
+	draw.rect(surf,col,(sx,sy,dx,dy))
