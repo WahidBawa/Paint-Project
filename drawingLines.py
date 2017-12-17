@@ -2,9 +2,11 @@
 
 #you can use this example to draw rectangle, ellipse....
 
-from pygame import * 
+from pygame import *
+from math import hypot 
 size=(800,600)
-screen = display.set_mode(size) 
+screen = display.set_mode(size)
+screen.fill((255,255,255)) 
 thickness=5                               
 running = True
 while running:
@@ -31,12 +33,21 @@ while running:
     mb=mouse.get_pressed()
 
 
-    if mb[0]:
+    if mb[2]:
+        # print('Right Click')
         screen.blit(backPic,(0,0))
         if my-sy < 0 and mx-sx < 0:
-            draw.ellipse(screen,(0,255,0),(int((mx+sx)/2),int((my+sy)/2)),max(int(sx-mx),int(sy-my))//2)
+            draw.circle(screen,(0,255,0),(int((mx+sx)/2),int((my+sy)/2)),max(int(sx-mx),int(sy-my))//2)
         else:    
-            draw.ellipse(screen,(0,255,0),(int((mx+sx)/2),int((my+sy)/2)),max(int(mx-sx),int(my-sy))//2)
+            draw.circle(screen,(0,255,0),(int((mx+sx)/2),int((my+sy)/2)),max(int(mx-sx),int(my-sy))//2)
 
+    if mb[0]:
+        mx>=sx and my>=sy
+        dx=hypot(mx,sx)
+        dy=hypot(my,sy)
+        ellipseRect= Rect(sx,sy,dx,dy)
+        ellipseRect.normalize()
+        screen.blit(backPic,(0,0))
+        draw.ellipse(screen,(0,255,0),(sx,sy,dx,dy),10)
     display.flip() 
 quit() 

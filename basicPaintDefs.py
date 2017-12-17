@@ -37,9 +37,20 @@ def lineDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 	for p in range(round(dist)):
 		draw.circle(surf,col,((sx+round(drawx*p)),sy+round(drawy*p)),thicknessX)
 
-def circleDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
+def ellipseDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
+	mx>=sx and my>=sy
+	dx=hypot(mx,sx)
+	dy=hypot(my,sy)
+	ellipseRect= Rect(sx,sy,dx,dy)
+	ellipseRect.normalize()
 	surf.blit(canvas_copy,(0,0))
-	if my-sy < 0 and mx-sx < 0:
-		draw.circle(surf,col,(int((mx+sx)/2),int((my+sy)/2)),max(int(sx-mx),int(sy-my))//2)
-	else:    
-		draw.circle(surf,col,(int((mx+sx)/2),int((my+sy)/2)),max(int(mx-sx),int(my-sy))//2)
+	draw.ellipse(surf,col,(sx,sy,dx,dy),thicknessX)
+
+def rectDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
+	mx>=sx and my>=sy
+	dx=hypot(mx,sx)
+	dy=hypot(my,sy)
+	rectRect= Rect(sx,sy,dx,dy)
+	rectRect.normalize()
+	surf.blit(canvas_copy,(0,0))
+	draw.rect(surf,col,(sx,sy,dx,dy),thicknessX)		

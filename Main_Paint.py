@@ -93,6 +93,12 @@ eraserOption=image.load("PICS/IMAGES/Tool Selection Sprite/eraser_tool.png").con
 eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eraser tool option picture
 syedOption=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
 syedOption=transform.scale(syedOption, (34,34))
+ellipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/ellipse_tool.png")
+ellipseOption=transform.scale(ellipseOption, (40,40))
+lineOption=image.load("PICS/IMAGES/Tool Selection Sprite/line_tool.png")
+lineOption=transform.scale(lineOption, (40,40))
+colOption=image.load("PICS/IMAGES/Tool Selection Sprite/colpicker_tool.png")
+colOption=transform.scale(colOption, (40,40))
 ##                      End Of Importing Pictures / Animations / Editing Pictures                 ##
 
 ##                      Creating Rect Objects                        ##
@@ -124,7 +130,7 @@ randomRect=Rect(70,130,40,40)
 syedRect=Rect(20,130,40,40)
 colourPickerRect=Rect(20,180,40,40)
 lineDrawRect=Rect(70,180,40,40)
-circleDrawRect=Rect(20,230,40,40)
+ellipseDrawRect=Rect(20,230,40,40)
 saveRect=Rect(0,0,40,40)
 loadRect=Rect(60,0,40,40)
 wheelRect=wheelPic.get_rect()
@@ -184,14 +190,14 @@ while running:
 				fill=True      
 			if evt.button == 4:
 				if thicknessX <= 4000:
-					thicknessX+=int(thicknessX*0.1)
+					thicknessX+=int(thicknessX*0.2)
 				if thicknessY <= 4000:
-					thicknessY += int(thicknessY*0.1)
+					thicknessY += int(thicknessY*0.2)
 			if evt.button == 5:
 				if thicknessX > 5:
-					thicknessX -= int(thicknessX*0.1)
+					thicknessX -= int(thicknessX*0.2)
 				if thicknessY > 5:
-					thicknessY -= int(thicknessY*0.1)
+					thicknessY -= int(thicknessY*0.2)
 	mb = mouse.get_pressed()
 	mx, my = mouse.get_pos()
 	if not mb[0] and not mb[2]:
@@ -265,8 +271,8 @@ while running:
 			tool='eraser'
 		elif lineDrawRect.collidepoint(mx,my):
 			tool='lineTool'
-		elif circleDrawRect.collidepoint(mx,my):
-			tool='circleTool'   
+		elif ellipseDrawRect.collidepoint(mx,my):
+			tool='ellipseTool'   
 		elif saveRect.collidepoint(mx,my):
 			tool="saveTool"
 		elif loadRect.collidepoint(mx,my):
@@ -333,10 +339,10 @@ while running:
 		draw.rect(screen,RED,lineDrawRect)
 	else:
 		draw.rect(screen,WHITE,lineDrawRect)                                            
-	if tool=="circleTool":
-		draw.rect(screen,RED,circleDrawRect)
+	if tool=="ellipseTool":
+		draw.rect(screen,RED,ellipseDrawRect)
 	else:
-		draw.rect(screen,WHITE,circleDrawRect)
+		draw.rect(screen,WHITE,ellipseDrawRect)
 	if tool=="saveTool":
 		draw.rect(screen,RED,saveRect)  
 	else:
@@ -360,14 +366,19 @@ while running:
 	screen.blit(logo, (350,0))
 
 	screen.blit(wheelPic,wheelRect)
-	screen.blit(eraserOption, eraserRect)
-	screen.blit(paintOption, paintRect)
-	screen.blit(syedOption, Rect(25,133,40,40))
-	screen.blit(selectedPokemon, (1025,50))
 	
+	screen.blit(selectedPokemon, (1025,50))
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)
 	draw.rect(screen,WHITE,colourPickerRect)
+	
+	screen.blit(eraserOption, eraserRect)
+	screen.blit(paintOption, paintRect)
+	screen.blit(syedOption, Rect(25,133,40,40))
+	screen.blit(ellipseOption, ellipseDrawRect)
+	screen.blit(lineOption, lineDrawRect)
+	screen.blit(colOption, colourPickerRect)
+
 	
 	if pokeSelect==1:
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
@@ -462,18 +473,17 @@ while running:
 
 		fname = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("png files","*.png"),("all files","*.*")))
 		fname = image.load(fname)
-		# canvas.blit(fname, (0,0))
-		print(fname)
+		canvas.blit(fname, (0,0))
+		# print(fname)
 		tool="paint"
 		# if fname.get_height() > 800 and fname.get_width() > 500:
 			# fname=transform.scale(fname, (1000,1000))	
 					
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
-
-	elif mb[0] and tool=="circleTool" and canvasRect.collidepoint((mx, my)):
-		circleDrawTool(canvas, mx, my, canvas_copy, sx, sy, col, thicknessX)
-
+ 
+	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
+		ellipseDrawTool(canvas, mx, my, canvas_copy, sx, sy, col, thicknessX)
 
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
