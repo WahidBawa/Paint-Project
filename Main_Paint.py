@@ -511,6 +511,8 @@ while running:
 			tool="paint"
 		except:
 			print("saving error")
+			tool="paint"
+			
 	elif mb[0] and tool=="loadTool":
 		try:
 			fname = filedialog.askopenfilename(defaultextension=".gif")
@@ -524,16 +526,16 @@ while running:
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
  
 	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
-		ellipseDrawTool(canvas, mx, my, canvas_copy, sx, sy, col, thicknessX)
+		ellipseDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
 
 	elif mb[0] and tool=="filledEllipseTool" and canvasRect.collidepoint((mx, my)):
-		filledEllipseDrawTool(canvas, mx, my, canvas_copy, sx, sy, col)
+		filledEllipseDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
 
 	elif mb[0] and tool=="rectTool" and canvasRect.collidepoint((mx, my)):
-		rectDrawTool(canvas, mx, my, canvas_copy, sx, sy, col, thicknessX)	
+		rectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)	
 
 	elif mb[0] and tool=="filledRectTool" and canvasRect.collidepoint((mx, my)):
-		filledRectDrawTool(canvas, mx, my, canvas_copy, sx, sy, col)
+		filledRectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
 
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
