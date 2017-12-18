@@ -10,16 +10,16 @@ from random import *
 from tkinter.colorchooser import *
 from tkinter import *
 from tkinter import filedialog
-fill=False
+fill = False
 running = True
-size=(1366,768)
+size = (1366,768)
 
-RED=(255,0,0)
-GREEN=(0,255,0)
-BLUE=(0,0,255)
-WHITE=(255,255,255)
-BLACK=(0,0,0)
-randomCol=0
+RED = (255,0,0)
+GREEN = (0,255,0)
+BLUE = (0,0,255)
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+randomCol = 0
 col=BLACK
 
 canvas = Surface((800,500))
@@ -33,8 +33,8 @@ mixer.init()
 
 thicknessX = 10
 thicknessY = 10
-pokeSelect=1
-tool='paint'
+pokeSelect = 1
+tool = 'paint'
 
 control_Z=[canvas.copy()]
 control_Y=[]

@@ -105,6 +105,9 @@ filledRectOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledRect_tool.p
 filledRectOption=transform.scale(filledRectOption, (40,40))
 colOption=image.load("PICS/IMAGES/Tool Selection Sprite/colpicker_tool.png")
 colOption=transform.scale(colOption, (40,40))
+
+canvas_Background_Menu=image.load("PICS/IMAGES/Templates/background_menu.png")
+canvas_Background_Selected=image.load("PICS/IMAGES/Templates/background_selected.png")
 ##                      End Of Importing Pictures / Animations / Editing Pictures                 ##
 
 ##                      Creating Rect Objects                        ##
@@ -402,6 +405,9 @@ while running:
 
 	screen.blit(wheelPic,wheelRect)
 	
+	screen.blit(canvas_Background_Menu, (150,605))
+	screen.blit(canvas_Background_Selected, (395+150,605))
+
 	screen.blit(selectedPokemon, (1025,50))
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)

@@ -72,3 +72,4 @@ def filledRectDrawTool(surf, mx, my, canvas_copy, sx, sy, col):
 	rectRect.normalize()
 	surf.blit(canvas_copy,(0,0))
 	draw.rect(surf,col,(sx,sy,dx,dy))
+	
