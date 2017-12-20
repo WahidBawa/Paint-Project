@@ -143,6 +143,7 @@ ellipseDrawRect=Rect(20,230,40,40)
 rectDrawRect=Rect(70,230,40,40)
 filledEllipseDrawRect=Rect(20,280,40,40)
 filledRectDrawRect=Rect(70,280,40,40)
+textBoxRect=Rect(20,330,40,40)
 saveRect=Rect(0,0,40,40)
 loadRect=Rect(60,0,40,40)
 wheelRect=wheelPic.get_rect()
@@ -154,6 +155,7 @@ currentColRect = Rect(700,600,50,50)
 ##                      Event Loop Start                        ##
 key.set_repeat(500,100)
 while running:
+	kp=key.get_pressed()
 	for evt in event.get(): 
 		if evt.type == QUIT:
 			running = False 
@@ -164,7 +166,7 @@ while running:
 				if len(control_Y) > 0:
 					transfer = control_Y.pop()
 					control_Z.append(transfer)
-			if evt.key == K_z:
+			if kp[K_LCTRL] and evt.key == K_z:
 				if len(control_Z) > 1:
 					transfer = control_Z.pop()
 					control_Y.append(transfer)
@@ -199,7 +201,7 @@ while running:
 				if randomRect.collidepoint(mx,my):
 					randomCol = 1 - randomCol
 			if evt.button == 3:
-				fill=True      
+				fill=True
 			if evt.button == 4:
 				if thicknessX <= 4000:
 					thicknessX+=int(thicknessX*0.2)
@@ -291,6 +293,8 @@ while running:
 			tool="rectTool"	
 		elif filledRectDrawRect.collidepoint(mx,my):
 			tool="filledRectTool"	
+		elif textBoxRect.collidepoint(mx,my):
+			tool="textTool"	
 		elif saveRect.collidepoint(mx,my):
 			tool="saveTool"
 		elif loadRect.collidepoint(mx,my):
@@ -389,7 +393,13 @@ while running:
 	if tool=="loadTool":
 		draw.rect(screen,RED,loadRect)  
 	else:
-		draw.rect(screen,WHITE,loadRect)                    
+		draw.rect(screen,WHITE,loadRect)
+
+	if tool=="textTool":
+		draw.rect(screen,RED,textBoxRect)
+	else:		           
+		draw.rect(screen,WHITE,textBoxRect)
+
 	## Tool Selection Check Red End ##
 	## Tool Sprites Start ##
 	
@@ -536,6 +546,9 @@ while running:
 
 	elif mb[0] and tool=="filledRectTool" and canvasRect.collidepoint((mx, my)):
 		filledRectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
+
+	elif mb[0] and tool=="textTool":
+		text_input()
 
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version

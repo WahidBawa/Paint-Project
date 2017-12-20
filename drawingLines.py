@@ -31,9 +31,9 @@ while running:
 
     mx,my=mouse.get_pos()
     mb=mouse.get_pressed()
+    kp=key.get_pressed()
 
-
-    if mb[2]:
+    if kp[K_LSHIFT]:
         # print('Right Click')
         screen.blit(backPic,(0,0))
         if my-sy < 0 and mx-sx < 0:

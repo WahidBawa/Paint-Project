@@ -39,22 +39,45 @@ def lineDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 
 def ellipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
 	# mx>=sx and my>=sy
-	dx=cmx-sx
-	dy=cmy-sy
-	ellipseRect= Rect(sx,sy,dx,dy)
-	ellipseRect.normalize()
-	surf.blit(canvas_copy,(0,0))
-	draw.ellipse(surf,col,ellipseRect,thicknessX)
+	try:
+		dx=cmx-sx
+		dy=cmy-sy
+		ellipseRect= Rect(sx,sy,dx,dy)
+		ellipseRect.normalize()
+		surf.blit(canvas_copy,(0,0))
+		draw.ellipse(surf,col,ellipseRect)
+	
+		# dx=cmx-sx
+		# dy=cmy-sy
+		# ellipseRect= Rect(sx,sy,dx,dy)
+		# ellipseRect.normalize()
+		# surf.blit(canvas_copy,(0,0))
+		# draw.ellipse(surf,GREEN,ellipseRect,thicknessX)
+	except:
+		pass
 
 def filledEllipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
 	# mx>=sx and my>=sy
-	dx=cmx-sx
-	dy=cmy-sy
-	ellipseRect= Rect(sx,sy,dx,dy)
-	ellipseRect.normalize()
-	surf.blit(canvas_copy,(0,0))
-	draw.ellipse(surf,col,ellipseRect)
+	kp=key.get_pressed()
+	if kp[K_LSHIFT]:
+		m = max(int((cmx-sx)),int((cmy-sy)))
+		surf.blit(canvas_copy,(0,0)) 
+		if cmx-sx > 0 and cmy-sy > 0:
+			draw.circle(surf,col,(int((sx+m/2)),int((sy+m/2))),abs(m)//2)
+		elif cmx-sx < 0 and cmy-sy > 0:
+			draw.circle(surf,col,(int((sx-m/2)),int((sy+m/2))),abs(m)//2)
+		elif cmx-sx < 0 and cmy-sy < 0:
+			draw.circle(surf,col,(int((sx-m/2)),int((sy-m/2))),abs(m)//2)
+		elif cmx-sx > 0 and cmy-sy < 0:
+			draw.circle(surf,col,(int((sx+m/2)),int((sy-m/2))),abs(m)//2)
 
+	else:
+		dx=cmx-sx
+		dy=cmy-sy
+		ellipseRect= Rect(sx,sy,dx,dy)
+		ellipseRect.normalize()
+		surf.blit(canvas_copy,(0,0))
+		draw.ellipse(surf,col,ellipseRect)
 def rectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
 	# mx>=sx and my>=sy
 	dx=cmx-sx
@@ -72,3 +95,19 @@ def filledRectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
 	rectRect.normalize()
 	surf.blit(canvas_copy,(0,0))
 	draw.rect(surf,col,rectRect)
+
+def text_input():
+	
+	def ok(e, root):
+		user = e.get()
+		print(user)
+		tool='paint'
+		root.withdraw()
+		root.destroy()
+		root.quit()
+	root = Tk()
+	e = Entry(root)
+	e.pack()
+	b=Button(root, text='OK', command=lambda:ok(e,root))
+	b.pack()
+	root.mainloop()
