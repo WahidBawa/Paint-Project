@@ -28,10 +28,17 @@ bc1=transform.scale(bc1, size)# loads initial background and scales it to size
 logo=image.load("PICS/IMAGES/Title/PokePaintLogoOfficial.png")
 
 idiot=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
+shahoon=image.load("PICS/IMAGES/SYED/Shahoon.jpg")
+usman=image.load("PICS/IMAGES/SYED/USMAN.jpg")
 
 wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
 
+##                Animated Background           ##
+for i in range(16):
+	pikachuBackground=image.load("PICS/GRAPHICS/Animated Background/Pikachu/frame_%02d_delay-0.1s.png" % i).convert_alpha()
+	pikachuBackgroundAnimation.append(pikachuBackground)
+##                Animated Background Ended          ##
 
 for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales it
 	chikorita=image.load('PICS/GRAPHICS/Chikorita/Chikorita Stamp/frame_%02d_delay-0.08s.png' % i).convert_alpha()
@@ -93,6 +100,8 @@ eraserOption=image.load("PICS/IMAGES/Tool Selection Sprite/eraser_tool.png").con
 eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eraser tool option picture
 syedOption=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
 syedOption=transform.scale(syedOption, (34,34))
+shahoonOption=image.load("PICS/IMAGES/SYED/Shahoon.jpg")
+shahoonOption=transform.scale(shahoonOption, (34,34))
 ellipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/ellipse_tool.png")
 ellipseOption=transform.scale(ellipseOption, (40,40))
 filledEllipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledEllipse_tool.png")
@@ -132,6 +141,8 @@ GiratinaRect=Rect(1165,300,115,115)
 PalkiaRect=Rect(1035,425,115,115)
 MewtwoRect=Rect(1165,425,115,115)
 
+pikachuBackgroundRect=Rect(155,610,115,115)
+
 canvasRect=Rect(150,100,800,500)
 paintRect=Rect(20,80,40,40)
 eraserRect=Rect(70,80,40,40)
@@ -144,6 +155,8 @@ rectDrawRect=Rect(70,230,40,40)
 filledEllipseDrawRect=Rect(20,280,40,40)
 filledRectDrawRect=Rect(70,280,40,40)
 textBoxRect=Rect(20,330,40,40)
+shahoonRect=Rect(70,330,40,40)
+usmanRect=Rect(20,380,40,40)
 saveRect=Rect(0,0,40,40)
 loadRect=Rect(60,0,40,40)
 wheelRect=wheelPic.get_rect()
@@ -217,6 +230,10 @@ while running:
 	if not mb[0] and not mb[2]:
 		canvas.blit(control_Z[-1], (0,0))
 ## Selection Animation Start ## 
+	pikachuBackground_counter += 1
+	if pikachuBackground_counter > len(pikachuBackgroundAnimation)-1:
+		pikachuBackground_counter = 0	
+
 	chikorita_counter += 1
 	if chikorita_counter > len(ChikoritaAnimation)-1:
 		chikorita_counter = 0
@@ -281,6 +298,10 @@ while running:
 
 		if paintRect.collidepoint(mx,my):
 			tool="paint"
+		elif shahoonRect.collidepoint(mx,my):
+			tool="shahoonStamp"
+		elif usmanRect.collidepoint(mx,my):
+			tool="usmanStamp"		
 		elif eraserRect.collidepoint(mx,my):    
 			tool='eraser'
 		elif lineDrawRect.collidepoint(mx,my):
@@ -340,6 +361,9 @@ while running:
 				tool="MewtwoStamp"          
 		elif syedRect.collidepoint(mx,my):
 			tool='SyedStamp'
+		if backgroundSelect==1:
+			if pikachuBackgroundRect.collidepoint(mx,my):
+				selectedBackground="pikachu"
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
 	screen.blit(bc1, (0,0))
@@ -350,6 +374,16 @@ while running:
 	else:
 		draw.rect(screen,WHITE,syedRect) 
 	
+	if tool=='shahoon':
+		draw.rect(screen,RED,shahoonRect)
+	else:
+		draw.rect(screen,WHITE,shahoonRect)
+			
+	if tool=="usmanStamp":
+		draw.rect(screen,RED,usmanRect)
+	else:
+		draw.rect(screen,WHITE,usmanRect)
+
 	if tool=='paint':
 		draw.rect(screen,RED,paintRect)
 	else:
@@ -411,21 +445,24 @@ while running:
 		screen.blit(pokeMenu3, (1025, 170))
 			
 	## Tool Sprites End ##
+	userText=timesNewRomanFont.render(text,True,(0,0,0))
+	canvas.blit(userText, (200,200))
 	screen.blit(logo, (350,0))
 
 	screen.blit(wheelPic,wheelRect)
 	
 	screen.blit(canvas_Background_Menu, (150,605))
-	screen.blit(canvas_Background_Selected, (395+150,605))
+	screen.blit(canvas_Background_Selected, (545,605))
 
 	screen.blit(selectedPokemon, (1025,50))
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)
 	draw.rect(screen,WHITE,colourPickerRect)
 
+	screen.blit(syedOption, Rect(25,133,40,40))
+	screen.blit(shahoonOption, Rect(25,383,40,40))
 	screen.blit(eraserOption, eraserRect)
 	screen.blit(paintOption, paintRect)
-	screen.blit(syedOption, Rect(25,133,40,40))
 	screen.blit(ellipseOption, ellipseDrawRect)
 	screen.blit(filledEllipseOption, filledEllipseDrawRect)
 	screen.blit(lineOption, lineDrawRect)
@@ -454,46 +491,52 @@ while running:
 		screen.blit(transform.scale(GiratinaAnimation[Giratina_counter],(115,115)),GiratinaRect)
 		screen.blit(transform.scale(PalkiaAnimation[Palkia_counter],(115,115)),PalkiaRect)
 		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(115,115)),MewtwoRect)
+	if backgroundSelect==1:
+		screen.blit(transform.scale(pikachuBackgroundAnimation[pikachuBackground_counter], (120,125)),pikachuBackgroundRect)
+
+	if selectedBackground=="pikachu":
+		# screen.blit(transform.scale(pikachuBackgroundAnimation[pikachuBackground_counter], (120,125)),(1035,55))
+		invisCanvas.blit(transform.scale(pikachuBackgroundAnimation[pikachuBackground_counter], (800,500)), (0,0))
 
 	if tool=="MegaBlastoiseStamp":
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
-	if tool=="MegaGengarStamp":
+	elif tool=="MegaGengarStamp":
 		screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter],(115,115)),(1035,55))
-	if tool=="gengarStamp":
+	elif tool=="gengarStamp":
 		screen.blit(transform.scale(GengarAnimation[gengar_counter],(115,115)),(1035,55))   
-	if tool=="infernapeStamp":
+	elif tool=="infernapeStamp":
 		screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),(1035,55))
-	if tool=="meganiumStamp":
+	elif tool=="meganiumStamp":
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter],(115,115)),(1035,55))
-	if tool=="BlastoiseStamp":
+	elif tool=="BlastoiseStamp":
 		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),(1035,55))
-	if tool=="haunterStamp":
+	elif tool=="haunterStamp":
 		screen.blit(transform.scale(HaunterAnimation[haunter_counter],(115,115)),(1035,60))
-	if tool=="monfernoStamp":
+	elif tool=="monfernoStamp":
 		screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(115,115)),(1035,55))
-	if tool=="gastlyStamp":
+	elif tool=="gastlyStamp":
 		screen.blit(transform.scale(GastlyAnimation[gastly_counter],(115,115)),(1035,55))
-	if tool=="bayleefStamp":
+	elif tool=="bayleefStamp":
 		screen.blit(transform.scale(BayleefAnimation[bayleef_counter],(110,110)),(1035,60))
-	if tool=="chimcharStamp":
+	elif tool=="chimcharStamp":
 		screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(115,115)),(1035,55))
-	if tool=="WartortleStamp":
+	elif tool=="WartortleStamp":
 		screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(110,110)),(1035,60))
-	if tool=="SquirtleStamp":
+	elif tool=="SquirtleStamp":
 		screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(110,110)),(1035,60))
-	if tool=="chikoritaStamp":
+	elif tool=="chikoritaStamp":
 		screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter],(110,110)),(1035,60))
-	if tool=="DarkraiStamp":
+	elif tool=="DarkraiStamp":
 		screen.blit(transform.scale(DarkraiAnimation[Darkrai_counter],(115,115)),(1035,50))
-	if tool=="GiratinaStamp":
+	elif tool=="GiratinaStamp":
 		screen.blit(transform.scale(GiratinaAnimation[Giratina_counter],(110,110)),(1035,60))
-	if tool=="PalkiaStamp":
+	elif tool=="PalkiaStamp":
 		screen.blit(transform.scale(PalkiaAnimation[Palkia_counter],(110,110)),(1035,60))
-	if tool=="MewtwoStamp":
+	elif tool=="MewtwoStamp":
 		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(110,110)),(1035,60))           
 	draw.rect(screen, BLACK, canvasRect)
+	screen.blit(invisCanvas, (150,100))
 	screen.blit(canvas, (150,100))
-	
 	screen.set_clip(canvasRect)
 	
 	draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2)
@@ -548,8 +591,25 @@ while running:
 		filledRectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
 
 	elif mb[0] and tool=="textTool":
-		text_input()
-
+		def ok(e, root):
+			user = e.get()
+			# print(user)
+			root.withdraw()
+			root.destroy()
+			root.quit()
+			# tool='paint'
+			text = user
+			print(text)
+			OK=True
+		if OK==False:
+			root = Tk()
+			e = Entry(root)
+			e.pack()
+			b=Button(root, text='OK', command=lambda:ok(e,root))
+			b.pack()
+			root.mainloop()
+		tool='placeText'
+		
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
 		canvas.blit(canvas_copy, (0,0))#makes it so that chikorita can be dragged and can't draw it on screen before mouse button press was let go
@@ -643,6 +703,14 @@ while running:
 	elif mb[0] and tool=='SyedStamp':
 		canvas.blit(canvas_copy, (0,0))
 		canvas.blit(transform.scale(idiot, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+
+	elif mb[0] and tool=='shahoonStamp':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(shahoon, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+	
+	elif mb[0] and tool=='usmanStamp':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(usman, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))			
 	myClock.tick(60)
 	display.flip()
 	ocmx, ocmy = cmx, cmy

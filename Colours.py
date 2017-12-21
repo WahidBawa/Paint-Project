@@ -10,10 +10,11 @@ from random import *
 from tkinter.colorchooser import *
 from tkinter import *
 from tkinter import filedialog
+font.init()
+timesNewRomanFont=font.SysFont("Times New Roman", 18)
 fill = False
 running = True
 size = (1366,768)
-
 RED = (255,0,0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
@@ -22,8 +23,14 @@ BLACK = (0,0,0)
 randomCol = 0
 col=BLACK
 
-canvas = Surface((800,500))
-canvas.fill(WHITE)
+text = ""
+OK = False
+
+canvas = Surface((800,500),SRCALPHA)
+invisCanvas = Surface((800,500),SRCALPHA)
+invisCanvas.fill((0,0,0,0))
+canvas.fill((255,255,255,0))
+
 
 myClock = time.Clock()
 
@@ -34,10 +41,16 @@ mixer.init()
 thicknessX = 10
 thicknessY = 10
 pokeSelect = 1
+backgroundSelect = 1
+selectedBackground = ""
 tool = 'paint'
 
 control_Z=[canvas.copy()]
 control_Y=[]
+
+pikachuBackgroundAnimation = []
+pikachuBackground_counter = 0
+
 ChikoritaAnimation = []
 chikorita_counter = 0
 BayleefAnimation = []

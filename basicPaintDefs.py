@@ -26,7 +26,7 @@ def eraser (surf, cmx, cmy, ocmx, ocmy,thicknessX):
 	angle = atan2(deltaY,deltaX)
 	drawx, drawy = cos(angle), sin(angle)
 	for p in range(round(dist)):
-		draw.circle(surf,WHITE,((ocmx+round(drawx*p)),ocmy+round(drawy*p)),thicknessX)
+		draw.circle(surf,(255,255,255,0),((ocmx+round(drawx*p)),ocmy+round(drawy*p)),thicknessX)
 
 def lineDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 	surf.blit(canvas_copy,(0,0))
@@ -38,7 +38,6 @@ def lineDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 		draw.circle(surf,col,((sx+round(drawx*p)),sy+round(drawy*p)),thicknessX)
 
 def ellipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
-	# mx>=sx and my>=sy
 	try:
 		dx=cmx-sx
 		dy=cmy-sy
@@ -57,7 +56,6 @@ def ellipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
 		pass
 
 def filledEllipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
-	# mx>=sx and my>=sy
 	kp=key.get_pressed()
 	if kp[K_LSHIFT]:
 		m = max(int((cmx-sx)),int((cmy-sy)))
@@ -79,7 +77,6 @@ def filledEllipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
 		surf.blit(canvas_copy,(0,0))
 		draw.ellipse(surf,col,ellipseRect)
 def rectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
-	# mx>=sx and my>=sy
 	dx=cmx-sx
 	dy=cmy-sy
 	rectRect= Rect(sx,sy,dx,dy)
@@ -88,26 +85,9 @@ def rectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
 	draw.rect(surf,col,rectRect,thicknessX)
 
 def filledRectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
-	# mx<=sx and my<=sy
 	dx=cmx-sx
 	dy=cmy-sy
 	rectRect= Rect(sx,sy,dx,dy)
 	rectRect.normalize()
 	surf.blit(canvas_copy,(0,0))
 	draw.rect(surf,col,rectRect)
-
-def text_input():
-	
-	def ok(e, root):
-		user = e.get()
-		print(user)
-		tool='paint'
-		root.withdraw()
-		root.destroy()
-		root.quit()
-	root = Tk()
-	e = Entry(root)
-	e.pack()
-	b=Button(root, text='OK', command=lambda:ok(e,root))
-	b.pack()
-	root.mainloop()
