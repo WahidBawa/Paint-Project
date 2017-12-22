@@ -14,7 +14,7 @@ display.set_caption("PokePaint")
 mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 mixer.music.play(-1)# will load and play initial music forever 
 ##                    Ending Loading Initial Startup Music                 ##
-
+timesNewRomanFont=font.SysFont("Times New Roman", 50)
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
 pokeMenu1=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
@@ -671,12 +671,12 @@ while running:
 
 	elif mb[0] and tool=="textTool":
 		def ok(e, root):
+			global text
 			user = e.get()
 			root.withdraw()
 			root.destroy()
 			root.quit()
 			text = user
-			print(text)
 			OK=True
 		if OK==False:
 			root = Tk()
@@ -685,12 +685,13 @@ while running:
 			b=Button(root, text='OK', command=lambda:ok(e,root))
 			b.pack()
 			root.mainloop()
+
+		myText=timesNewRomanFont.render(text,True,col)
+		canvas.blit(myText, (200,200))
 		
+		control_Z.append(canvas.copy())
 		tool="paint"	
 	myClock.tick(60)
-	if OK == True:
-		myText=timesNewRomanFont.render("Massey",True,col)
-		canvas.blit(myText, (200,200))
 	display.flip()
 	ocmx, ocmy = cmx, cmy
 ##                   Draw Options End                   ##

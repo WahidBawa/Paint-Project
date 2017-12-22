@@ -11,7 +11,7 @@ from tkinter.colorchooser import *
 from tkinter import *
 from tkinter import filedialog
 font.init()
-timesNewRomanFont=font.SysFont("Times New Roman", 18)
+# timesNewRomanFont=font.SysFont("Times New Roman", 50)
 fill = False
 running = True
 size = (1366,768)
