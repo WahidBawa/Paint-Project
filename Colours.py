@@ -22,15 +22,12 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 randomCol = 0
 col=BLACK
-
-text = ""
+text = ''
+myText = ""
 OK = False
 
-canvas = Surface((800,500),SRCALPHA)
-invisCanvas = Surface((800,500),SRCALPHA)
-invisCanvas.fill((0,0,0,0))
-canvas.fill((255,255,255,0))
-
+canvas = Surface((800,500))
+canvas.fill(WHITE)
 
 myClock = time.Clock()
 
@@ -41,15 +38,10 @@ mixer.init()
 thicknessX = 10
 thicknessY = 10
 pokeSelect = 1
-backgroundSelect = 1
-selectedBackground = ""
 tool = 'paint'
 
 control_Z=[canvas.copy()]
 control_Y=[]
-
-pikachuBackgroundAnimation = []
-pikachuBackground_counter = 0
 
 ChikoritaAnimation = []
 chikorita_counter = 0

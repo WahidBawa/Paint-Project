@@ -10,7 +10,6 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = '10,10'
 screen = display.set_mode(size)
 display.set_caption("PokePaint")
 ##                      Variable Naming Ends                           ##
-
 ##                    Loading Initial Startup Music                 ##
 mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 mixer.music.play(-1)# will load and play initial music forever 
@@ -35,9 +34,7 @@ wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
 
 ##                Animated Background           ##
-for i in range(16):
-	pikachuBackground=image.load("PICS/GRAPHICS/Animated Background/Pikachu/frame_%02d_delay-0.1s.png" % i).convert_alpha()
-	pikachuBackgroundAnimation.append(pikachuBackground)
+
 ##                Animated Background Ended          ##
 
 for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales it
@@ -115,8 +112,6 @@ filledRectOption=transform.scale(filledRectOption, (40,40))
 colOption=image.load("PICS/IMAGES/Tool Selection Sprite/colpicker_tool.png")
 colOption=transform.scale(colOption, (40,40))
 
-canvas_Background_Menu=image.load("PICS/IMAGES/Templates/background_menu.png")
-canvas_Background_Selected=image.load("PICS/IMAGES/Templates/background_selected.png")
 ##                      End Of Importing Pictures / Animations / Editing Pictures                 ##
 
 ##                      Creating Rect Objects                        ##
@@ -140,8 +135,6 @@ DarkraiRect=Rect(1035,296,115,115)
 GiratinaRect=Rect(1165,300,115,115)
 PalkiaRect=Rect(1035,425,115,115)
 MewtwoRect=Rect(1165,425,115,115)
-
-pikachuBackgroundRect=Rect(155,610,115,115)
 
 canvasRect=Rect(150,100,800,500)
 paintRect=Rect(20,80,40,40)
@@ -230,9 +223,6 @@ while running:
 	if not mb[0] and not mb[2]:
 		canvas.blit(control_Z[-1], (0,0))
 ## Selection Animation Start ## 
-	pikachuBackground_counter += 1
-	if pikachuBackground_counter > len(pikachuBackgroundAnimation)-1:
-		pikachuBackground_counter = 0	
 
 	chikorita_counter += 1
 	if chikorita_counter > len(ChikoritaAnimation)-1:
@@ -361,9 +351,6 @@ while running:
 				tool="MewtwoStamp"          
 		elif syedRect.collidepoint(mx,my):
 			tool='SyedStamp'
-		if backgroundSelect==1:
-			if pikachuBackgroundRect.collidepoint(mx,my):
-				selectedBackground="pikachu"
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
 	screen.blit(bc1, (0,0))
@@ -445,15 +432,10 @@ while running:
 		screen.blit(pokeMenu3, (1025, 170))
 			
 	## Tool Sprites End ##
-	userText=timesNewRomanFont.render(text,True,(0,0,0))
-	canvas.blit(userText, (200,200))
 	screen.blit(logo, (350,0))
 
 	screen.blit(wheelPic,wheelRect)
 	
-	screen.blit(canvas_Background_Menu, (150,605))
-	screen.blit(canvas_Background_Selected, (545,605))
-
 	screen.blit(selectedPokemon, (1025,50))
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)
@@ -491,12 +473,6 @@ while running:
 		screen.blit(transform.scale(GiratinaAnimation[Giratina_counter],(115,115)),GiratinaRect)
 		screen.blit(transform.scale(PalkiaAnimation[Palkia_counter],(115,115)),PalkiaRect)
 		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(115,115)),MewtwoRect)
-	if backgroundSelect==1:
-		screen.blit(transform.scale(pikachuBackgroundAnimation[pikachuBackground_counter], (120,125)),pikachuBackgroundRect)
-
-	if selectedBackground=="pikachu":
-		# screen.blit(transform.scale(pikachuBackgroundAnimation[pikachuBackground_counter], (120,125)),(1035,55))
-		invisCanvas.blit(transform.scale(pikachuBackgroundAnimation[pikachuBackground_counter], (800,500)), (0,0))
 
 	if tool=="MegaBlastoiseStamp":
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
@@ -535,18 +511,18 @@ while running:
 	elif tool=="MewtwoStamp":
 		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(110,110)),(1035,60))           
 	draw.rect(screen, BLACK, canvasRect)
-	screen.blit(invisCanvas, (150,100))
+
 	screen.blit(canvas, (150,100))
 	screen.set_clip(canvasRect)
 	
 	draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2)
-	
 	draw.circle(screen, (100,100,100), (mx, my), 3)
 	
 	screen.set_clip(None)
 
 	if fill==True:
 		canvas.fill(WHITE)
+
 ##                   Surface / Canvas Blit End               ##
 
 ##                   Draw Options Start               ##
@@ -590,25 +566,6 @@ while running:
 	elif mb[0] and tool=="filledRectTool" and canvasRect.collidepoint((mx, my)):
 		filledRectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
 
-	elif mb[0] and tool=="textTool":
-		def ok(e, root):
-			user = e.get()
-			# print(user)
-			root.withdraw()
-			root.destroy()
-			root.quit()
-			# tool='paint'
-			text = user
-			print(text)
-			OK=True
-		if OK==False:
-			root = Tk()
-			e = Entry(root)
-			e.pack()
-			b=Button(root, text='OK', command=lambda:ok(e,root))
-			b.pack()
-			root.mainloop()
-		tool='placeText'
 		
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
@@ -711,7 +668,29 @@ while running:
 	elif mb[0] and tool=='usmanStamp':
 		canvas.blit(canvas_copy, (0,0))
 		canvas.blit(transform.scale(usman, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))			
+
+	elif mb[0] and tool=="textTool":
+		def ok(e, root):
+			user = e.get()
+			root.withdraw()
+			root.destroy()
+			root.quit()
+			text = user
+			print(text)
+			OK=True
+		if OK==False:
+			root = Tk()
+			e = Entry(root)
+			e.pack()
+			b=Button(root, text='OK', command=lambda:ok(e,root))
+			b.pack()
+			root.mainloop()
+		
+		tool="paint"	
 	myClock.tick(60)
+	if OK == True:
+		myText=timesNewRomanFont.render("Massey",True,col)
+		canvas.blit(myText, (200,200))
 	display.flip()
 	ocmx, ocmy = cmx, cmy
 ##                   Draw Options End                   ##
