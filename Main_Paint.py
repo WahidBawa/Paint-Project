@@ -14,7 +14,6 @@ display.set_caption("PokePaint")
 mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 mixer.music.play(-1)# will load and play initial music forever 
 ##                    Ending Loading Initial Startup Music                 ##
-timesNewRomanFont=font.SysFont("Times New Roman", 50)
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
 pokeMenu1=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
@@ -24,6 +23,8 @@ pokeMenu3=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
 bc1=image.load("PICS/IMAGES/pikachu_background.jpg").convert()
 bc1=transform.scale(bc1, size)# loads initial background and scales it to size
 
+descriptionBox=image.load("PICS/IMAGES/Templates/Dialog_Box_Edited.jpg")
+descriptionBox=transform.scale(descriptionBox, (500,160))
 logo=image.load("PICS/IMAGES/Title/PokePaintLogoOfficial.png")
 
 idiot=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
@@ -354,10 +355,20 @@ while running:
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
 	screen.blit(bc1, (0,0))
+	screen.blit(descriptionBox, (150,600))
 	# screen.fill(GREEN)
 	## Tool Selection Check Red ##
 	if tool=="SyedStamp":
 		draw.rect(screen,RED,syedRect)
+		draw.rect(screen,RED,paintRect)	#	1010101010101010101010101
+		syedDescription=pokeGB_Font.render("This is the master of all.",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,625))
+		syedDescription=pokeGB_Font.render("The legend is that he can",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,643))
+		syedDescription=pokeGB_Font.render("make your program 90 per-",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,661))
+		syedDescription=pokeGB_Font.render("cent better!",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,679))
 	else:
 		draw.rect(screen,WHITE,syedRect) 
 	
@@ -373,11 +384,25 @@ while running:
 
 	if tool=='paint':
 		draw.rect(screen,RED,paintRect)
+		paintDescription=pokeGB_Font.render("This is the famous brush ",True,BLACK).convert_alpha()
+		screen.blit(paintDescription, (175,625))
+		paintDescription=pokeGB_Font.render("tool, you can draw whate-",True,BLACK).convert_alpha()
+		screen.blit(paintDescription, (175,643))
+		paintDescription=pokeGB_Font.render("ver you want!",True,BLACK).convert_alpha()
+		screen.blit(paintDescription, (175,661))
+
 	else:
 		draw.rect(screen,WHITE,paintRect)
 	
 	if tool=="eraser":  
 		draw.rect(screen,RED,eraserRect)
+		eraserDescription=pokeGB_Font.render("This is the eraser tool, ",True,BLACK).convert_alpha()
+		screen.blit(eraserDescription, (175,625))
+		eraserDescription=pokeGB_Font.render("this tool will help you ",True,BLACK).convert_alpha()
+		screen.blit(eraserDescription, (175,643))
+		eraserDescription=pokeGB_Font.render("erase all your mistakes!",True,BLACK).convert_alpha()
+		screen.blit(eraserDescription, (175,661))
+
 	else:
 		draw.rect(screen,WHITE,eraserRect)
 	
@@ -433,9 +458,22 @@ while running:
 			
 	## Tool Sprites End ##
 	screen.blit(logo, (350,0))
-
 	screen.blit(wheelPic,wheelRect)
-	
+	# screen.blit()
+	##          Mouse Position Start       ##
+	mousePos=pokeFont.render("Mouse Position: ",True,BLACK).convert_alpha()
+	screen.blit(mousePos, (955,600))
+
+	mouseMX=pokeFont.render(str(mx),True,BLACK).convert_alpha()
+	screen.blit(mouseMX, (1155,600))
+
+	comma=pokeFont.render(", ",True,BLACK).convert_alpha()
+	screen.blit(comma, (1205,600))
+
+	mouseMY=pokeFont.render(str(my),True,BLACK).convert_alpha()
+	screen.blit(mouseMY, (1215,600))
+	##          Mouse Position Ended       ##
+
 	screen.blit(selectedPokemon, (1025,50))
 	draw.rect(screen, col, currentColRect)
 	draw.rect(screen,WHITE,randomRect)
@@ -686,11 +724,13 @@ while running:
 			b.pack()
 			root.mainloop()
 
+
+		timesNewRomanFont=font.SysFont("Times New Roman", thicknessX)
 		myText=timesNewRomanFont.render(text,True,col)
-		canvas.blit(myText, (200,200))
+		canvas.blit(myText, (0,0))
 		
-		control_Z.append(canvas.copy())
-		tool="paint"	
+		control_Z.append(canvas.copy())	
+		tool="paint"
 	myClock.tick(60)
 	display.flip()
 	ocmx, ocmy = cmx, cmy

@@ -22,9 +22,13 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 randomCol = 0
 col=BLACK
+
 text = ''
 myText = ""
 OK = False
+
+pokeFont=font.Font("Fonts/Pokemon Solid.ttf", 25)
+pokeGB_Font=font.Font("Fonts/Pokemon GB.ttf", 18)
 
 canvas = Surface((800,500))
 canvas.fill(WHITE)
@@ -39,6 +43,8 @@ thicknessX = 10
 thicknessY = 10
 pokeSelect = 1
 tool = 'paint'
+subtool = 'randomCol'
+
 
 control_Z=[canvas.copy()]
 control_Y=[]
