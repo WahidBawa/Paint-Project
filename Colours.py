@@ -11,7 +11,6 @@ from tkinter.colorchooser import *
 from tkinter import *
 from tkinter import filedialog
 font.init()
-# timesNewRomanFont=font.SysFont("Times New Roman", 50)
 fill = False
 running = True
 size = (1366,768)
@@ -22,11 +21,10 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 randomCol = 0
 col=BLACK
-
 text = ''
+diameter = 0
 myText = ""
 OK = False
-
 pokeFont=font.Font("Fonts/Pokemon Solid.ttf", 25)
 pokeGB_Font=font.Font("Fonts/Pokemon GB.ttf", 18)
 
@@ -38,11 +36,10 @@ myClock = time.Clock()
 mixer.pre_init(44100, -16, 1, 512)
 mixer.init()
 
-
 thicknessX = 10
 thicknessY = 10
 pokeSelect = 1
-tool = 'paint'
+tool = 'eraser'
 subtool = 'randomCol'
 
 

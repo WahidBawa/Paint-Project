@@ -34,10 +34,6 @@ usman=image.load("PICS/IMAGES/SYED/USMAN.jpg")
 wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
 
-##                Animated Background           ##
-
-##                Animated Background Ended          ##
-
 for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales it
 	chikorita=image.load('PICS/GRAPHICS/Chikorita/Chikorita Stamp/frame_%02d_delay-0.08s.png' % i).convert_alpha()
 	ChikoritaAnimation.append(transform.scale(chikorita, (141//2,210//2)))
@@ -100,6 +96,8 @@ syedOption=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
 syedOption=transform.scale(syedOption, (34,34))
 shahoonOption=image.load("PICS/IMAGES/SYED/Shahoon.jpg")
 shahoonOption=transform.scale(shahoonOption, (34,34))
+usmanOption=image.load("PICS/IMAGES/SYED/USMAN.jpg")
+usmanOption=transform.scale(usmanOption, (34,34))
 ellipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/ellipse_tool.png")
 ellipseOption=transform.scale(ellipseOption, (40,40))
 filledEllipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledEllipse_tool.png")
@@ -282,12 +280,14 @@ while running:
 ## Selection Animation End ##   
 
 ##                      CollidePoint Start                        ##
-	
+	if paintRect.collidepoint((mx,my)):
+		print("Hover Check")
+
 	if mb[0]:
 		if wheelRect.collidepoint(mx,my):
 			col=screen.get_at((mx,my))
 
-		if paintRect.collidepoint(mx,my):
+		if paintRect.collidepoint((mx,my)):
 			tool="paint"
 		elif shahoonRect.collidepoint(mx,my):
 			tool="shahoonStamp"
@@ -360,7 +360,6 @@ while running:
 	## Tool Selection Check Red ##
 	if tool=="SyedStamp":
 		draw.rect(screen,RED,syedRect)
-		draw.rect(screen,RED,paintRect)	#	1010101010101010101010101
 		syedDescription=pokeGB_Font.render("This is the master of all.",True,BLACK).convert_alpha()
 		screen.blit(syedDescription, (175,625))
 		syedDescription=pokeGB_Font.render("The legend is that he can",True,BLACK).convert_alpha()
@@ -372,13 +371,31 @@ while running:
 	else:
 		draw.rect(screen,WHITE,syedRect) 
 	
-	if tool=='shahoon':
-		draw.rect(screen,RED,shahoonRect)
+	if tool=='shahoonStamp':
+		draw.rect(screen,RED,shahoonRect)     #1010101010101010101010101
+		shahoonDescription=pokeGB_Font.render("This is the most powerful",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,625))
+		shahoonDescription=pokeGB_Font.render("alchemist in all the land.",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,643))
+		shahoonDescription=pokeGB_Font.render("He can make your crap pa-",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,661))
+		shahoonDescription=pokeGB_Font.render("intings into gold!!!",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,679))
 	else:
 		draw.rect(screen,WHITE,shahoonRect)
 			
 	if tool=="usmanStamp":
-		draw.rect(screen,RED,usmanRect)
+		draw.rect(screen,RED,usmanRect)#     1010101010101010101010101
+		usmanDescription=pokeGB_Font.render("This is the ancient beast",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,625))
+		usmanDescription=pokeGB_Font.render("only known as the Usman!!",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,643))
+		usmanDescription=pokeGB_Font.render("Make your painting terri-",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,661))
+		usmanDescription=pokeGB_Font.render("fying and spoopy with the",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,679))
+		usmanDescription=pokeGB_Font.render("beast!!",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,697))
 	else:
 		draw.rect(screen,WHITE,usmanRect)
 
@@ -391,6 +408,9 @@ while running:
 		paintDescription=pokeGB_Font.render("ver you want!",True,BLACK).convert_alpha()
 		screen.blit(paintDescription, (175,661))
 
+	elif paintRect.collidepoint(mx,my):
+		draw.rect(screen,GREEN,paintRect)	
+
 	else:
 		draw.rect(screen,WHITE,paintRect)
 	
@@ -402,32 +422,71 @@ while running:
 		screen.blit(eraserDescription, (175,643))
 		eraserDescription=pokeGB_Font.render("erase all your mistakes!",True,BLACK).convert_alpha()
 		screen.blit(eraserDescription, (175,661))
-
 	else:
 		draw.rect(screen,WHITE,eraserRect)
 	
 	if tool=="lineTool":
-		draw.rect(screen,RED,lineDrawRect)
+		draw.rect(screen,RED,lineDrawRect)# 1010101010101010101010101
+		lineDescription=pokeGB_Font.render("This is the straightest, ",True,BLACK).convert_alpha()
+		screen.blit(lineDescription, (175,625))
+		lineDescription=pokeGB_Font.render("most brilliant line of a-",True,BLACK).convert_alpha()
+		screen.blit(lineDescription, (175,643))
+		lineDescription=pokeGB_Font.render("ll the lands. Use it to ",True,BLACK).convert_alpha()
+		screen.blit(lineDescription, (175,661))
+		lineDescription=pokeGB_Font.render("line up all you desires!!",True,BLACK).convert_alpha()
+		screen.blit(lineDescription, (175,679))
 	else:
 		draw.rect(screen,WHITE,lineDrawRect)                                            
 	
 	if tool=="ellipseTool":
-		draw.rect(screen,RED,ellipseDrawRect)
+		draw.rect(screen,RED,ellipseDrawRect) #1010101010101010101010101
+		ellipseDescription=pokeGB_Font.render("The ellipse tool draws a ",True,BLACK).convert_alpha()
+		screen.blit(ellipseDescription, (175,625))
+		ellipseDescription=pokeGB_Font.render("oval looking shape, hold",True,BLACK).convert_alpha()
+		screen.blit(ellipseDescription, (175,643))
+		ellipseDescription=pokeGB_Font.render("SHIFT and it will draw a ",True,BLACK).convert_alpha()
+		screen.blit(ellipseDescription, (175,661))
+		ellipseDescription=pokeGB_Font.render("circle. Circle it!!!",True,BLACK).convert_alpha()
+		screen.blit(ellipseDescription, (175,679))
 	else:
 		draw.rect(screen,WHITE,ellipseDrawRect)
 	
 	if tool=="filledEllipseTool":
-		draw.rect(screen,RED,filledEllipseDrawRect)
+		draw.rect(screen,RED,filledEllipseDrawRect) #1010101010101010101010101
+		filledEllipseDescription=pokeGB_Font.render("This is the ellipse tool",True,BLACK).convert_alpha()
+		screen.blit(filledEllipseDescription, (175,625))
+		filledEllipseDescription=pokeGB_Font.render("but filled. Hold SHIFT ",True,BLACK).convert_alpha()
+		screen.blit(filledEllipseDescription, (175,643))
+		filledEllipseDescription=pokeGB_Font.render("and you will be able to ",True,BLACK).convert_alpha()
+		screen.blit(filledEllipseDescription, (175,661))
+		filledEllipseDescription=pokeGB_Font.render("draw a circle!!!",True,BLACK).convert_alpha()
+		screen.blit(filledEllipseDescription, (175,679))
 	else:
 		draw.rect(screen,WHITE,filledEllipseDrawRect)		
 	
 	if tool=="rectTool":
-		draw.rect(screen,RED,rectDrawRect)
+		draw.rect(screen,RED,rectDrawRect) #1010101010101010101010101
+		rectDescription=pokeGB_Font.render("This is the infamous rect",True,BLACK).convert_alpha()
+		screen.blit(rectDescription, (175,625))
+		rectDescription=pokeGB_Font.render("tool. Use this tool to d-",True,BLACK).convert_alpha()
+		screen.blit(rectDescription, (175,643))
+		rectDescription=pokeGB_Font.render("raw rectangles in all si- ",True,BLACK).convert_alpha()
+		screen.blit(rectDescription, (175,661))
+		rectDescription=pokeGB_Font.render("zes!! ",True,BLACK).convert_alpha()
+		screen.blit(rectDescription, (175,679))
 	else:
 		draw.rect(screen,WHITE,rectDrawRect)		
 	
 	if tool=="filledRectTool":
-		draw.rect(screen,RED,filledRectDrawRect)
+		draw.rect(screen,RED,filledRectDrawRect) #1010101010101010101010101
+		filledRectDescription=pokeGB_Font.render("This tool creates filled ",True,BLACK).convert_alpha()
+		screen.blit(filledRectDescription, (175,625))
+		filledRectDescription=pokeGB_Font.render("rectangles. You can block",True,BLACK).convert_alpha()
+		screen.blit(filledRectDescription, (175,643))
+		filledRectDescription=pokeGB_Font.render("out all your haters with",True,BLACK).convert_alpha()
+		screen.blit(filledRectDescription, (175,661))
+		filledRectDescription=pokeGB_Font.render("no problems at all!!",True,BLACK).convert_alpha()
+		screen.blit(filledRectDescription, (175,679))
 	else:
 		draw.rect(screen,WHITE,filledRectDrawRect)
 
@@ -480,7 +539,8 @@ while running:
 	draw.rect(screen,WHITE,colourPickerRect)
 
 	screen.blit(syedOption, Rect(25,133,40,40))
-	screen.blit(shahoonOption, Rect(25,383,40,40))
+	screen.blit(usmanOption, Rect(25,383,40,40))
+	screen.blit(shahoonOption, Rect(75,333,40,40))
 	screen.blit(eraserOption, eraserRect)
 	screen.blit(paintOption, paintRect)
 	screen.blit(ellipseOption, ellipseDrawRect)
@@ -489,7 +549,7 @@ while running:
 	screen.blit(colOption, colourPickerRect)
 	screen.blit(rectOption, rectDrawRect)
 	screen.blit(filledRectOption, filledRectDrawRect)
-	
+
 	if pokeSelect==1:
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),MegaBlastoiseRect)
@@ -514,16 +574,50 @@ while running:
 
 	if tool=="MegaBlastoiseStamp":
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
+		MegaBlastoiseDescription=pokeGB_Font.render("The jets of water it spo-",True,BLACK).convert_alpha()
+		screen.blit(MegaBlastoiseDescription, (175,625))
+		MegaBlastoiseDescription=pokeGB_Font.render("uts from the rocket cann-",True,BLACK).convert_alpha()
+		screen.blit(MegaBlastoiseDescription, (175,643))
+		MegaBlastoiseDescription=pokeGB_Font.render("ons on its shell can pu-",True,BLACK).convert_alpha()
+		screen.blit(MegaBlastoiseDescription, (175,661))
+		MegaBlastoiseDescription=pokeGB_Font.render("nch through thick steel.",True,BLACK).convert_alpha()
+		screen.blit(MegaBlastoiseDescription, (175,679))
+
 	elif tool=="MegaGengarStamp":
 		screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter],(115,115)),(1035,55))
+		MegaGengarDescription=pokeGB_Font.render("The leer that floats in ",True,BLACK).convert_alpha()
+		screen.blit(MegaGengarDescription, (175,625))
+		MegaGengarDescription=pokeGB_Font.render("darkness belongs to Mega",True,BLACK).convert_alpha()
+		screen.blit(MegaGengarDescription, (175,643))
+		MegaGengarDescription=pokeGB_Font.render("Gengar delighting in cas-",True,BLACK).convert_alpha()
+		screen.blit(MegaGengarDescription, (175,661))
+		MegaGengarDescription=pokeGB_Font.render("ting curses on people.",True,BLACK).convert_alpha()
+		screen.blit(MegaGengarDescription, (175,679))
+
 	elif tool=="gengarStamp":
 		screen.blit(transform.scale(GengarAnimation[gengar_counter],(115,115)),(1035,55))   
+		GengarDescription=pokeGB_Font.render("The leer that floats in ",True,BLACK).convert_alpha()
+		screen.blit(GengarDescription, (175,625))
+		GengarDescription=pokeGB_Font.render("darkness belongs to a ",True,BLACK).convert_alpha()
+		screen.blit(GengarDescription, (175,643))
+		GengarDescription=pokeGB_Font.render("Gengar delighting in cas-",True,BLACK).convert_alpha()
+		screen.blit(GengarDescription, (175,661))
+		GengarDescription=pokeGB_Font.render("ting curses on people.",True,BLACK).convert_alpha()
+		screen.blit(GengarDescription, (175,679))
 	elif tool=="infernapeStamp":
 		screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),(1035,55))
 	elif tool=="meganiumStamp":
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter],(115,115)),(1035,55))
 	elif tool=="BlastoiseStamp":
 		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),(1035,55))
+		BlastoiseDescription=pokeGB_Font.render("The jets of water it spo-",True,BLACK).convert_alpha()
+		screen.blit(BlastoiseDescription, (175,625))
+		BlastoiseDescription=pokeGB_Font.render("uts from the rocket cann-",True,BLACK).convert_alpha()
+		screen.blit(BlastoiseDescription, (175,643))
+		BlastoiseDescription=pokeGB_Font.render("ons on its shell can pu-",True,BLACK).convert_alpha()
+		screen.blit(BlastoiseDescription, (175,661))
+		BlastoiseDescription=pokeGB_Font.render("nch through thick steel.",True,BLACK).convert_alpha()
+		screen.blit(BlastoiseDescription, (175,679))
 	elif tool=="haunterStamp":
 		screen.blit(transform.scale(HaunterAnimation[haunter_counter],(115,115)),(1035,60))
 	elif tool=="monfernoStamp":
@@ -678,8 +772,7 @@ while running:
 	elif mb[0] and tool=='DarkraiStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Darkrai=DarkraiAnimation[0]
-		canvas.blit(transform.scale(Darkrai ,(thicknessX, thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
-
+		canvas.blit(transform.scale(Darkrai,(thicknessX, thicknessY)), (cmx-thicknessX/2.5, cmy-thicknessY/2))
 	elif mb[0] and tool=='GiratinaStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Giratina=GiratinaAnimation[0]
@@ -708,29 +801,29 @@ while running:
 		canvas.blit(transform.scale(usman, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))			
 
 	elif mb[0] and tool=="textTool":
-		def ok(e, root):
-			global text
-			user = e.get()
-			root.withdraw()
-			root.destroy()
-			root.quit()
-			text = user
-			OK=True
-		if OK==False:
-			root = Tk()
-			e = Entry(root)
-			e.pack()
-			b=Button(root, text='OK', command=lambda:ok(e,root))
-			b.pack()
-			root.mainloop()
-
-
-		timesNewRomanFont=font.SysFont("Times New Roman", thicknessX)
-		myText=timesNewRomanFont.render(text,True,col)
-		canvas.blit(myText, (0,0))
-		
-		control_Z.append(canvas.copy())	
-		tool="paint"
+		try:
+			def ok(e, root):
+				global text
+				user = e.get()
+				root.withdraw()
+				root.destroy()
+				root.quit()
+				text = user
+				OK = True
+			if OK ==False:
+				root = Tk()
+				e = Entry(root)
+				e.pack()
+				b=Button(root, text='OK', command=lambda:ok(e,root))
+				b.pack()
+				root.mainloop()
+			timesNewRomanFont=font.SysFont("Times New Roman", thicknessX)
+			myText=timesNewRomanFont.render(text,True,col)
+			canvas.blit(myText, (0,0))
+			control_Z.append(canvas.copy())	
+			tool="paint"
+		except:
+			print("error")	
 	myClock.tick(60)
 	display.flip()
 	ocmx, ocmy = cmx, cmy

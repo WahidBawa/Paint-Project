@@ -91,12 +91,4 @@ def filledRectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
 	rectRect.normalize()
 	surf.blit(canvas_copy,(0,0))
 	draw.rect(surf,col,rectRect)
-
-def ok(e, root):
-	global text
-	user = e.get()
-	root.withdraw()
-	root.destroy()
-	root.quit()
-	text = user
-	OK=True
+	
