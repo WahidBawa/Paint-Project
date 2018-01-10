@@ -39,7 +39,7 @@ mixer.init()
 thicknessX = 10
 thicknessY = 10
 pokeSelect = 1
-tool = 'eraser'
+tool = 'paint'
 subtool = 'randomCol'
 
 

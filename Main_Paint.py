@@ -34,6 +34,9 @@ usman=image.load("PICS/IMAGES/SYED/USMAN.jpg")
 wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
 
+selected = transform.scale(image.load("PICS/IMAGES/Templates/selected_adjusted.png"), (40,40))
+hover = transform.scale(image.load("PICS/IMAGES/Templates/hover_adjusted.png") , (40,40))
+stationary = transform.scale(image.load("PICS/IMAGES/Templates/Stationary_adjusted.png"), (40,40))
 for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales it
 	chikorita=image.load('PICS/GRAPHICS/Chikorita/Chikorita Stamp/frame_%02d_delay-0.08s.png' % i).convert_alpha()
 	ChikoritaAnimation.append(transform.scale(chikorita, (141//2,210//2)))
@@ -102,7 +105,7 @@ ellipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/ellipse_tool.png")
 ellipseOption=transform.scale(ellipseOption, (40,40))
 filledEllipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledEllipse_tool.png")
 filledEllipseOption=transform.scale(filledEllipseOption, (40,40))
-lineOption=image.load("PICS/IMAGES/Tool Selection Sprite/line_tool.png")
+lineOption=image.load("PICS/IMAGES/Tool Selection Sprite/line_tool.jpg")
 lineOption=transform.scale(lineOption, (40,40))
 rectOption=image.load("PICS/IMAGES/Tool Selection Sprite/rect_tool.png")
 rectOption=transform.scale(rectOption, (40,40))
@@ -354,12 +357,13 @@ while running:
 			tool='SyedStamp'
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
-	screen.blit(bc1, (0,0))
+	# screen.blit(bc1, (0,0))
+	screen.fill(GREEN)
 	screen.blit(descriptionBox, (150,600))
-	# screen.fill(GREEN)
 	## Tool Selection Check Red ##
+	screen.blit(syedOption, Rect(25,133,40,40))
 	if tool=="SyedStamp":
-		draw.rect(screen,RED,syedRect)
+		screen.blit(selected,syedRect)
 		syedDescription=pokeGB_Font.render("This is the master of all.",True,BLACK).convert_alpha()
 		screen.blit(syedDescription, (175,625))
 		syedDescription=pokeGB_Font.render("The legend is that he can",True,BLACK).convert_alpha()
@@ -368,11 +372,14 @@ while running:
 		screen.blit(syedDescription, (175,661))
 		syedDescription=pokeGB_Font.render("cent better!",True,BLACK).convert_alpha()
 		screen.blit(syedDescription, (175,679))
+	elif syedRect.collidepoint(mx,my):
+		screen.blit(hover,syedRect)	
 	else:
-		draw.rect(screen,WHITE,syedRect) 
-	
+		screen.blit(stationary,syedRect) 
+
+	screen.blit(shahoonOption, Rect(75,333,40,40))	
 	if tool=='shahoonStamp':
-		draw.rect(screen,RED,shahoonRect)     #1010101010101010101010101
+		screen.blit(selected, shahoonRect)     #1010101010101010101010101
 		shahoonDescription=pokeGB_Font.render("This is the most powerful",True,BLACK).convert_alpha()
 		screen.blit(shahoonDescription, (175,625))
 		shahoonDescription=pokeGB_Font.render("alchemist in all the land.",True,BLACK).convert_alpha()
@@ -381,11 +388,14 @@ while running:
 		screen.blit(shahoonDescription, (175,661))
 		shahoonDescription=pokeGB_Font.render("intings into gold!!!",True,BLACK).convert_alpha()
 		screen.blit(shahoonDescription, (175,679))
+	elif shahoonRect.collidepoint(mx,my):
+		screen.blit(hover, shahoonRect)	
 	else:
-		draw.rect(screen,WHITE,shahoonRect)
-			
+		screen.blit(stationary, shahoonRect)	
+	
+	screen.blit(usmanOption, Rect(25,383,40,40))		
 	if tool=="usmanStamp":
-		draw.rect(screen,RED,usmanRect)#     1010101010101010101010101
+		screen.blit(selected, usmanRect)
 		usmanDescription=pokeGB_Font.render("This is the ancient beast",True,BLACK).convert_alpha()
 		screen.blit(usmanDescription, (175,625))
 		usmanDescription=pokeGB_Font.render("only known as the Usman!!",True,BLACK).convert_alpha()
@@ -396,37 +406,42 @@ while running:
 		screen.blit(usmanDescription, (175,679))
 		usmanDescription=pokeGB_Font.render("beast!!",True,BLACK).convert_alpha()
 		screen.blit(usmanDescription, (175,697))
+	elif usmanRect.collidepoint(mx,my):
+		screen.blit(hover, usmanRect)	
 	else:
-		draw.rect(screen,WHITE,usmanRect)
+		screen.blit(stationary, usmanRect)
 
+	screen.blit(paintOption, paintRect)
 	if tool=='paint':
-		draw.rect(screen,RED,paintRect)
+		screen.blit(selected, paintRect)
 		paintDescription=pokeGB_Font.render("This is the famous brush ",True,BLACK).convert_alpha()
 		screen.blit(paintDescription, (175,625))
 		paintDescription=pokeGB_Font.render("tool, you can draw whate-",True,BLACK).convert_alpha()
 		screen.blit(paintDescription, (175,643))
 		paintDescription=pokeGB_Font.render("ver you want!",True,BLACK).convert_alpha()
 		screen.blit(paintDescription, (175,661))
-
 	elif paintRect.collidepoint(mx,my):
-		draw.rect(screen,GREEN,paintRect)	
-
+		screen.blit(hover, paintRect)
 	else:
-		draw.rect(screen,WHITE,paintRect)
-	
+		screen.blit(stationary, paintRect)
+
+	screen.blit(eraserOption, eraserRect)
 	if tool=="eraser":  
-		draw.rect(screen,RED,eraserRect)
+		screen.blit(selected, eraserRect)
 		eraserDescription=pokeGB_Font.render("This is the eraser tool, ",True,BLACK).convert_alpha()
 		screen.blit(eraserDescription, (175,625))
 		eraserDescription=pokeGB_Font.render("this tool will help you ",True,BLACK).convert_alpha()
 		screen.blit(eraserDescription, (175,643))
 		eraserDescription=pokeGB_Font.render("erase all your mistakes!",True,BLACK).convert_alpha()
 		screen.blit(eraserDescription, (175,661))
+	elif eraserRect.collidepoint(mx,my):
+		screen.blit(hover, eraserRect)	
 	else:
-		draw.rect(screen,WHITE,eraserRect)
+		screen.blit(stationary, eraserRect)	
 	
+	screen.blit(lineOption, lineDrawRect)
 	if tool=="lineTool":
-		draw.rect(screen,RED,lineDrawRect)# 1010101010101010101010101
+		screen.blit(selected, lineDrawRect)
 		lineDescription=pokeGB_Font.render("This is the straightest, ",True,BLACK).convert_alpha()
 		screen.blit(lineDescription, (175,625))
 		lineDescription=pokeGB_Font.render("most brilliant line of a-",True,BLACK).convert_alpha()
@@ -435,11 +450,14 @@ while running:
 		screen.blit(lineDescription, (175,661))
 		lineDescription=pokeGB_Font.render("line up all you desires!!",True,BLACK).convert_alpha()
 		screen.blit(lineDescription, (175,679))
+	elif lineDrawRect.collidepoint(mx,my):
+		screen.blit(hover, lineDrawRect)	
 	else:
 		draw.rect(screen,WHITE,lineDrawRect)                                            
 	
+	screen.blit(ellipseOption, ellipseDrawRect)
 	if tool=="ellipseTool":
-		draw.rect(screen,RED,ellipseDrawRect) #1010101010101010101010101
+		screen.blit(selected, ellipseDrawRect)
 		ellipseDescription=pokeGB_Font.render("The ellipse tool draws a ",True,BLACK).convert_alpha()
 		screen.blit(ellipseDescription, (175,625))
 		ellipseDescription=pokeGB_Font.render("oval looking shape, hold",True,BLACK).convert_alpha()
@@ -448,9 +466,11 @@ while running:
 		screen.blit(ellipseDescription, (175,661))
 		ellipseDescription=pokeGB_Font.render("circle. Circle it!!!",True,BLACK).convert_alpha()
 		screen.blit(ellipseDescription, (175,679))
+	elif ellipseDrawRect.collidepoint(mx,my):
+		screen.blit(hover, ellipseDrawRect)	
 	else:
-		draw.rect(screen,WHITE,ellipseDrawRect)
-	
+		screen.blit(stationary, ellipseDrawRect)
+
 	if tool=="filledEllipseTool":
 		draw.rect(screen,RED,filledEllipseDrawRect) #1010101010101010101010101
 		filledEllipseDescription=pokeGB_Font.render("This is the ellipse tool",True,BLACK).convert_alpha()
@@ -538,14 +558,7 @@ while running:
 	draw.rect(screen,WHITE,randomRect)
 	draw.rect(screen,WHITE,colourPickerRect)
 
-	screen.blit(syedOption, Rect(25,133,40,40))
-	screen.blit(usmanOption, Rect(25,383,40,40))
-	screen.blit(shahoonOption, Rect(75,333,40,40))
-	screen.blit(eraserOption, eraserRect)
-	screen.blit(paintOption, paintRect)
-	screen.blit(ellipseOption, ellipseDrawRect)
 	screen.blit(filledEllipseOption, filledEllipseDrawRect)
-	screen.blit(lineOption, lineDrawRect)
 	screen.blit(colOption, colourPickerRect)
 	screen.blit(rectOption, rectDrawRect)
 	screen.blit(filledRectOption, filledRectDrawRect)
@@ -647,8 +660,9 @@ while running:
 	screen.blit(canvas, (150,100))
 	screen.set_clip(canvasRect)
 	
-	draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2)
-	draw.circle(screen, (100,100,100), (mx, my), 3)
+	if tool != "ellipseTool":
+		draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2).convert()
+	draw.circle(screen, (100,100,100), (mx, my), 3).convert()
 	
 	screen.set_clip(None)
 
@@ -676,7 +690,7 @@ while running:
 			
 	elif mb[0] and tool=="loadTool":
 		try:
-			fname = filedialog.askopenfilename(defaultextension=".gif")
+			fname = filedialog.askopenfilename(defaultextension=".png")
 			fname = image.load(fname)
 			canvas.blit(fname, (0,0))	
 			tool="paint"
@@ -684,8 +698,8 @@ while running:
 			print("Error")
 			tool="paint"		
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
-		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
- 
+		# lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
+ 		draw.line(canvas,col,(ocmx,ocmy),(cmx,cmy),3)
 	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
 		ellipseDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
 
