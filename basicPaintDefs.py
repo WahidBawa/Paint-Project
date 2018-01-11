@@ -37,23 +37,31 @@ def lineDrawTool(surf, mx, my, canvas_copy, sx, sy, col, thicknessX):
 	for p in range(round(dist)):
 		draw.circle(surf,col,((sx+round(drawx*p)),sy+round(drawy*p)),thicknessX)
 
-def ellipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
-	try:
-		dx=cmx-sx
-		dy=cmy-sy
-		ellipseRect= Rect(sx,sy,dx,dy)
-		ellipseRect.normalize()
-		surf.blit(canvas_copy,(0,0))
-		draw.ellipse(surf,col,ellipseRect)
-	
-		# dx=cmx-sx
-		# dy=cmy-sy
-		# ellipseRect= Rect(sx,sy,dx,dy)
-		# ellipseRect.normalize()
-		# surf.blit(canvas_copy,(0,0))
-		# draw.ellipse(surf,GREEN,ellipseRect,thicknessX)
-	except:
-		pass
+def ellipseDrawTool(surf, cmx, cmy, mx, my, ocmx, ocmy, canvas_copy, sx, sy, col, thicknessX):
+
+	canvas.blit(canvas_copy, (0, 0))
+
+	ellipseSurface = Surface((max(abs(cmx - sx), 1), max(abs(cmy - sy), 1)), SRCALPHA)
+	ellipseSurface.fill((0, 0, 0, 0))
+
+	ellipseRect = Rect(sx, sy, cmx - sx, cmy - sy)
+
+	if thicknessX > abs(ellipseRect.width) or thicknessX > abs(ellipseRect.height):
+		draw.ellipse(ellipseSurface, col, (0, 0, abs(ellipseRect.width), abs(ellipseRect.height)))
+	else:
+		draw.ellipse(ellipseSurface, col, (0, 0, abs(ellipseRect.width), abs(ellipseRect.height)))
+		draw.ellipse(ellipseSurface, (255, 255, 255, 0), (thicknessX // 2, thicknessX // 2, abs(ellipseRect.width) - thicknessX, abs(ellipseRect.height) - thicknessX))
+
+	if ellipseRect.width < 0:
+		if ellipseRect.height > 0:
+			canvas.blit(ellipseSurface, (cmx, sy))
+		else:
+			canvas.blit(ellipseSurface, (cmx, cmy))
+	else:
+		if ellipseRect.height > 0:
+			canvas.blit(ellipseSurface, (sx, sy))
+		else:
+			canvas.blit(ellipseSurface, (sx, cmy))
 
 def filledEllipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
 	kp=key.get_pressed()
@@ -70,25 +78,21 @@ def filledEllipseDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
 			draw.circle(surf,col,(int((sx+m/2)),int((sy-m/2))),abs(m)//2)
 
 	else:
-		dx=cmx-sx
-		dy=cmy-sy
-		ellipseRect= Rect(sx,sy,dx,dy)
+		dx = cmx - sx
+		dy = cmy - sy
+		ellipseRect = Rect(sx, sy, dx, dy)
 		ellipseRect.normalize()
-		surf.blit(canvas_copy,(0,0))
-		draw.ellipse(surf,col,ellipseRect)
-def rectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col, thicknessX):
-	dx=cmx-sx
-	dy=cmy-sy
-	rectRect= Rect(sx,sy,dx,dy)
-	rectRect.normalize()
-	surf.blit(canvas_copy,(0,0))
-	draw.rect(surf,col,rectRect,thicknessX)
+		surf.blit(canvas_copy, (0,0))
+		draw.ellipse(surf, col, ellipseRect)
+def rectDrawTool(surf, cmx, cmy, ocmx, ocmy, canvas_copy, sx, sy, col, thicknessX):
+	surf.blit(canvas_copy, (0,0))
+	draw.rect(surf, col, (sx,sy,cmx-sx,cmy-sy), thicknessX*2)
+	draw.circle(surf, col, (sx,sy), thicknessX - 1)
+	draw.circle(surf, col, (cmx,cmy), thicknessX - 1)
+	draw.circle(surf, col, (cmx,sy), thicknessX - 1)
+	draw.circle(surf, col, (sx,cmy), thicknessX - 1)
 
 def filledRectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
-	dx=cmx-sx
-	dy=cmy-sy
-	rectRect= Rect(sx,sy,dx,dy)
-	rectRect.normalize()
 	surf.blit(canvas_copy,(0,0))
-	draw.rect(surf,col,rectRect)
+	draw.rect(surf, col, (sx,sy,cmx-sx,cmy-sy))
 	

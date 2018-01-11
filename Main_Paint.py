@@ -1,3 +1,5 @@
+''' Remember to remove all things tagged as temporary '''
+##########################################################################################
 #Main_Paint.py 
 ##                                   Variable Names/Importing functions                                 ##
 # from pygame import * # This will import all functions and actions of pygame
@@ -13,6 +15,7 @@ display.set_caption("PokePaint")
 ##                    Loading Initial Startup Music                 ##
 mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 mixer.music.play(-1)# will load and play initial music forever 
+mixer.music.stop()##Temporary
 ##                    Ending Loading Initial Startup Music                 ##
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
@@ -205,6 +208,7 @@ while running:
 		if evt.type == MOUSEBUTTONDOWN:
 			if evt.button == 1 or evt.button == 2:
 				sx,sy = cmx,cmy
+				ocmx, ocmy = cmx, cmy
 				canvas_copy = canvas.copy()
 				if randomRect.collidepoint(mx,my):
 					randomCol = 1 - randomCol
@@ -660,9 +664,9 @@ while running:
 	screen.blit(canvas, (150,100))
 	screen.set_clip(canvasRect)
 	
-	if tool != "ellipseTool":
-		draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2).convert()
-	draw.circle(screen, (100,100,100), (mx, my), 3).convert()
+
+	draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2)
+	draw.circle(screen, (100,100,100), (mx, my), 3)
 	
 	screen.set_clip(None)
 
@@ -698,16 +702,16 @@ while running:
 			print("Error")
 			tool="paint"		
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
-		# lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
- 		draw.line(canvas,col,(ocmx,ocmy),(cmx,cmy),3)
+		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
+ 		# draw.line(canvas,col,(ocmx,ocmy),(cmx,cmy),3)
 	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
-		ellipseDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
+		ellipseDrawTool(canvas, cmx, cmy, mx, my, ocmx, ocmy, canvas_copy, sx, sy, col, thicknessX)
 
 	elif mb[0] and tool=="filledEllipseTool" and canvasRect.collidepoint((mx, my)):
 		filledEllipseDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
 
 	elif mb[0] and tool=="rectTool" and canvasRect.collidepoint((mx, my)):
-		rectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)	
+		rectDrawTool(canvas, cmx, cmy, ocmx, ocmy, canvas_copy, sx, sy, col, thicknessX)	
 
 	elif mb[0] and tool=="filledRectTool" and canvasRect.collidepoint((mx, my)):
 		filledRectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
