@@ -15,7 +15,6 @@ display.set_caption("PokePaint")
 ##                    Loading Initial Startup Music                 ##
 mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 mixer.music.play(-1)# will load and play initial music forever 
-mixer.music.stop()##Temporary
 ##                    Ending Loading Initial Startup Music                 ##
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
@@ -287,9 +286,6 @@ while running:
 ## Selection Animation End ##   
 
 ##                      CollidePoint Start                        ##
-	if paintRect.collidepoint((mx,my)):
-		print("Hover Check")
-
 	if mb[0]:
 		if wheelRect.collidepoint(mx,my):
 			col=screen.get_at((mx,my))
@@ -314,6 +310,7 @@ while running:
 			tool="filledRectTool"	
 		elif textBoxRect.collidepoint(mx,my):
 			tool="textTool"	
+			screen.blit(selected, textBoxRect)
 		elif saveRect.collidepoint(mx,my):
 			tool="saveTool"
 		elif loadRect.collidepoint(mx,my):
@@ -361,8 +358,8 @@ while running:
 			tool='SyedStamp'
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
-	# screen.blit(bc1, (0,0))
-	screen.fill(GREEN)
+	screen.blit(bc1, (0,0))
+	# screen.fill(GREEN)
 	screen.blit(descriptionBox, (150,600))
 	## Tool Selection Check Red ##
 	screen.blit(syedOption, Rect(25,133,40,40))
@@ -457,8 +454,8 @@ while running:
 	elif lineDrawRect.collidepoint(mx,my):
 		screen.blit(hover, lineDrawRect)	
 	else:
-		draw.rect(screen,WHITE,lineDrawRect)                                            
-	
+		screen.blit(stationary, lineDrawRect)	
+
 	screen.blit(ellipseOption, ellipseDrawRect)
 	if tool=="ellipseTool":
 		screen.blit(selected, ellipseDrawRect)
@@ -475,8 +472,9 @@ while running:
 	else:
 		screen.blit(stationary, ellipseDrawRect)
 
+	screen.blit(filledEllipseOption, filledEllipseDrawRect)
 	if tool=="filledEllipseTool":
-		draw.rect(screen,RED,filledEllipseDrawRect) #1010101010101010101010101
+		screen.blit(selected, filledEllipseDrawRect)
 		filledEllipseDescription=pokeGB_Font.render("This is the ellipse tool",True,BLACK).convert_alpha()
 		screen.blit(filledEllipseDescription, (175,625))
 		filledEllipseDescription=pokeGB_Font.render("but filled. Hold SHIFT ",True,BLACK).convert_alpha()
@@ -485,11 +483,14 @@ while running:
 		screen.blit(filledEllipseDescription, (175,661))
 		filledEllipseDescription=pokeGB_Font.render("draw a circle!!!",True,BLACK).convert_alpha()
 		screen.blit(filledEllipseDescription, (175,679))
+	elif filledEllipseDrawRect.collidepoint(mx,my):
+		screen.blit(hover, filledEllipseDrawRect)	
 	else:
-		draw.rect(screen,WHITE,filledEllipseDrawRect)		
+		screen.blit(stationary, filledEllipseDrawRect)
 	
+	screen.blit(rectOption, rectDrawRect)		
 	if tool=="rectTool":
-		draw.rect(screen,RED,rectDrawRect) #1010101010101010101010101
+		screen.blit(selected, rectDrawRect)
 		rectDescription=pokeGB_Font.render("This is the infamous rect",True,BLACK).convert_alpha()
 		screen.blit(rectDescription, (175,625))
 		rectDescription=pokeGB_Font.render("tool. Use this tool to d-",True,BLACK).convert_alpha()
@@ -498,11 +499,13 @@ while running:
 		screen.blit(rectDescription, (175,661))
 		rectDescription=pokeGB_Font.render("zes!! ",True,BLACK).convert_alpha()
 		screen.blit(rectDescription, (175,679))
+	elif rectDrawRect.collidepoint(mx,my):
+		screen.blit(hover, rectDrawRect)	
 	else:
-		draw.rect(screen,WHITE,rectDrawRect)		
-	
+		screen.blit(stationary, rectDrawRect)	
+	screen.blit(filledRectOption, filledRectDrawRect)
 	if tool=="filledRectTool":
-		draw.rect(screen,RED,filledRectDrawRect) #1010101010101010101010101
+		screen.blit(selected, filledRectDrawRect)
 		filledRectDescription=pokeGB_Font.render("This tool creates filled ",True,BLACK).convert_alpha()
 		screen.blit(filledRectDescription, (175,625))
 		filledRectDescription=pokeGB_Font.render("rectangles. You can block",True,BLACK).convert_alpha()
@@ -511,9 +514,10 @@ while running:
 		screen.blit(filledRectDescription, (175,661))
 		filledRectDescription=pokeGB_Font.render("no problems at all!!",True,BLACK).convert_alpha()
 		screen.blit(filledRectDescription, (175,679))
+	elif filledRectDrawRect.collidepoint(mx,my):
+		screen.blit(hover, filledRectDrawRect)	
 	else:
-		draw.rect(screen,WHITE,filledRectDrawRect)
-
+		screen.blit(stationary, filledRectDrawRect)
 	if tool=="saveTool":
 		draw.rect(screen,RED,saveRect)  
 	else:
@@ -523,12 +527,11 @@ while running:
 		draw.rect(screen,RED,loadRect)  
 	else:
 		draw.rect(screen,WHITE,loadRect)
-
-	if tool=="textTool":
-		draw.rect(screen,RED,textBoxRect)
+		
+	if textBoxRect.collidepoint(mx,my):
+		screen.blit(hover, textBoxRect)	
 	else:		           
-		draw.rect(screen,WHITE,textBoxRect)
-
+		screen.blit(stationary, textBoxRect)
 	## Tool Selection Check Red End ##
 	## Tool Sprites Start ##
 	
@@ -544,17 +547,11 @@ while running:
 	screen.blit(wheelPic,wheelRect)
 	# screen.blit()
 	##          Mouse Position Start       ##
-	mousePos=pokeFont.render("Mouse Position: ",True,BLACK).convert_alpha()
+	mousePos=pokeFont.render("Mouse Position: " + str(mx) + ", " + str(my),True,BLACK).convert_alpha()
 	screen.blit(mousePos, (955,600))
 
-	mouseMX=pokeFont.render(str(mx),True,BLACK).convert_alpha()
-	screen.blit(mouseMX, (1155,600))
-
-	comma=pokeFont.render(", ",True,BLACK).convert_alpha()
-	screen.blit(comma, (1205,600))
-
-	mouseMY=pokeFont.render(str(my),True,BLACK).convert_alpha()
-	screen.blit(mouseMY, (1215,600))
+	radius=pokeFont.render("Radius: "+str(thicknessX),True,BLACK).convert_alpha()
+	screen.blit(radius, (955,650))
 	##          Mouse Position Ended       ##
 
 	screen.blit(selectedPokemon, (1025,50))
@@ -562,10 +559,7 @@ while running:
 	draw.rect(screen,WHITE,randomRect)
 	draw.rect(screen,WHITE,colourPickerRect)
 
-	screen.blit(filledEllipseOption, filledEllipseDrawRect)
 	screen.blit(colOption, colourPickerRect)
-	screen.blit(rectOption, rectDrawRect)
-	screen.blit(filledRectOption, filledRectDrawRect)
 
 	if pokeSelect==1:
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
@@ -664,14 +658,17 @@ while running:
 	screen.blit(canvas, (150,100))
 	screen.set_clip(canvasRect)
 	
-
-	draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2)
+	if tool != "saveTool":
+		draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2)
 	draw.circle(screen, (100,100,100), (mx, my), 3)
 	
 	screen.set_clip(None)
 
 	if fill==True:
 		canvas.fill(WHITE)
+		canvas_copy = canvas.copy()
+		control_Z.append(canvas_copy)
+		fill = False
 
 ##                   Surface / Canvas Blit End               ##
 
@@ -818,7 +815,7 @@ while running:
 		canvas.blit(canvas_copy, (0,0))
 		canvas.blit(transform.scale(usman, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))			
 
-	elif mb[0] and tool=="textTool":
+	elif mb[0] and tool == "textTool":
 		try:
 			def ok(e, root):
 				global text
