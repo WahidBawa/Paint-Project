@@ -1,4 +1,6 @@
 ''' Remember to remove all things tagged as temporary '''
+''' Remember to fix all things tagged as UNDONE '''
+''' Remember to check everything tagged as INSERT '''
 ##########################################################################################
 #Main_Paint.py 
 ##                                   Variable Names/Importing functions                                 ##
@@ -6,40 +8,43 @@
 from basicPaintDefs import *# this imports functions saved in another file to make code more efficient
 from Colours import *#imports some variables to make code cleaner 
 
-root = Tk()
-root.withdraw()
-os.environ['SDL_VIDEO_WINDOW_POS'] = '10,10'
-screen = display.set_mode(size)
-display.set_caption("PokePaint")
+root = Tk() # sets up Tkinter
+root.withdraw() # sets up Tkinter
+os.environ['SDL_VIDEO_WINDOW_POS'] = '10,10' # Will open the screen at the specified coordinate
+screen = display.set_mode(size) # will create a screen at a certain size
+display.set_caption("PokePaint") # Sets the title of the screen
 ##                      Variable Naming Ends                           ##
 ##                    Loading Initial Startup Music                 ##
-mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
+mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg') #loads music
 mixer.music.play(-1)# will load and play initial music forever 
+mixer.music.stop()
 ##                    Ending Loading Initial Startup Music                 ##
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
 pokeMenu1=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
 pokeMenu2=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
 pokeMenu3=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
+pokeMenu4=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
 
-bc1=image.load("PICS/IMAGES/pikachu_background.jpg").convert()
+bc1=image.load("PICS/IMAGES/pikachu_background.jpg").convert_alpha() # convert_alpha converts the pixel format of the screen
 bc1=transform.scale(bc1, size)# loads initial background and scales it to size
 
-descriptionBox=image.load("PICS/IMAGES/Templates/Dialog_Box_Edited.jpg")
+descriptionBox=image.load("PICS/IMAGES/Templates/Dialog_Box_Edited.jpg").convert_alpha()
 descriptionBox=transform.scale(descriptionBox, (500,160))
-logo=image.load("PICS/IMAGES/Title/PokePaintLogoOfficial.png")
 
-idiot=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
-shahoon=image.load("PICS/IMAGES/SYED/Shahoon.jpg")
-usman=image.load("PICS/IMAGES/SYED/USMAN.jpg")
+logo=image.load("PICS/IMAGES/Title/PokePaintLogoOfficial.png").convert_alpha()
+
+syed=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg").convert_alpha()
+shahoon=image.load("PICS/IMAGES/SYED/Shahoon.jpg").convert_alpha()
+usman=image.load("PICS/IMAGES/SYED/USMAN.jpg").convert_alpha()
 
 wheelPic=image.load("PICS/IMAGES/colour_picker.png").convert_alpha()
 wheelPic=transform.scale(wheelPic, (155,155))# loads the colour wheel and scales it to size
 
-selected = transform.scale(image.load("PICS/IMAGES/Templates/selected_adjusted.png"), (40,40))
-hover = transform.scale(image.load("PICS/IMAGES/Templates/hover_adjusted.png") , (40,40))
-stationary = transform.scale(image.load("PICS/IMAGES/Templates/Stationary_adjusted.png"), (40,40))
-for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales it
+selected = transform.scale(image.load("PICS/IMAGES/Templates/selected_adjusted.png").convert_alpha(), (40,40)) # loads and transforms the images
+hover = transform.scale(image.load("PICS/IMAGES/Templates/hover_adjusted.png").convert_alpha() , (40,40))
+stationary = transform.scale(image.load("PICS/IMAGES/Templates/Stationary_adjusted.png").convert_alpha(), (40,40))
+for i in range(30):# Imports all pictures that make up the animation of the sprite in the selection and scales them is needed
 	chikorita=image.load('PICS/GRAPHICS/Chikorita/Chikorita Stamp/frame_%02d_delay-0.08s.png' % i).convert_alpha()
 	ChikoritaAnimation.append(transform.scale(chikorita, (141//2,210//2)))
 for i in range(52):
@@ -93,33 +98,34 @@ for i in range(79):
 for i in range(90):
 	Mewtwo=image.load("PICS/GRAPHICS/Legendary/Mewtwo/frame_%02d_delay-0.03s.png" % i).convert_alpha()
 	MewtwoAnimation.append(Mewtwo)              
-paintOption=image.load("PICS/IMAGES/Tool Selection Sprite/paint_tool.png").convert_alpha()
-paintOption=transform.scale(paintOption, (40,40))# imports and scales the paint tool option picture
-eraserOption=image.load("PICS/IMAGES/Tool Selection Sprite/eraser_tool.png").convert_alpha()
-eraserOption=transform.scale(eraserOption, (40,40))# imports and scales the eraser tool option picture
-syedOption=image.load("PICS/IMAGES/SYED/WIN_20171207_12_15_15_Pro (2).jpg")
-syedOption=transform.scale(syedOption, (34,34))
-shahoonOption=image.load("PICS/IMAGES/SYED/Shahoon.jpg")
-shahoonOption=transform.scale(shahoonOption, (34,34))
-usmanOption=image.load("PICS/IMAGES/SYED/USMAN.jpg")
-usmanOption=transform.scale(usmanOption, (34,34))
-ellipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/ellipse_tool.png")
-ellipseOption=transform.scale(ellipseOption, (40,40))
-filledEllipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledEllipse_tool.png")
-filledEllipseOption=transform.scale(filledEllipseOption, (40,40))
-lineOption=image.load("PICS/IMAGES/Tool Selection Sprite/line_tool.jpg")
-lineOption=transform.scale(lineOption, (40,40))
-rectOption=image.load("PICS/IMAGES/Tool Selection Sprite/rect_tool.png")
-rectOption=transform.scale(rectOption, (40,40))
-filledRectOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledRect_tool.png")
-filledRectOption=transform.scale(filledRectOption, (40,40))
-colOption=image.load("PICS/IMAGES/Tool Selection Sprite/colpicker_tool.png")
-colOption=transform.scale(colOption, (40,40))
 
+# will import tool selection sprites and scale them to the desired size	
+paintOption=image.load("PICS/IMAGES/Tool Selection Sprite/paint_tool.png").convert_alpha()
+paintOption=transform.scale(paintOption, (40,40))
+pencilOption=transform.scale(image.load("PICS/IMAGES/Tool Selection Sprite/pencil_tool.png"), (40,40)).convert_alpha()
+textOption=transform.scale(image.load("PICS/IMAGES/Tool Selection Sprite/text_tool.png"), (40,40)).convert_alpha()
+eraserOption=image.load("PICS/IMAGES/Tool Selection Sprite/eraser_tool.png").convert_alpha()
+eraserOption=transform.scale(eraserOption, (40,40))
+ellipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/ellipse_tool.png").convert_alpha()
+ellipseOption=transform.scale(ellipseOption, (40,40))
+filledEllipseOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledEllipse_tool.png").convert_alpha()
+filledEllipseOption=transform.scale(filledEllipseOption, (40,40))
+lineOption=image.load("PICS/IMAGES/Tool Selection Sprite/line_tool.jpg").convert_alpha()
+lineOption=transform.scale(lineOption, (40,40))
+rectOption=image.load("PICS/IMAGES/Tool Selection Sprite/rect_tool.png").convert_alpha()
+rectOption=transform.scale(rectOption, (40,40))
+filledRectOption=image.load("PICS/IMAGES/Tool Selection Sprite/filledRect_tool.png").convert_alpha()
+filledRectOption=transform.scale(filledRectOption, (40,40))
+colOption=image.load("PICS/IMAGES/Tool Selection Sprite/colpicker_tool.png").convert_alpha()
+colOption=transform.scale(colOption, (40,40))
+colourPickerOption=transform.scale(image.load("PICS/IMAGES/Tool Selection Sprite/colour_picker_tool.png"), (40,40)).convert_alpha()
+clearOption=transform.scale(image.load("PICS/IMAGES/Tool Selection Sprite/clear_screen.png"), (40,40)).convert_alpha()
+saveOption=transform.scale(image.load("PICS/IMAGES/Tool Selection Sprite/save_tool.png"), (40,40)).convert_alpha()
+loadOption=transform.scale(image.load("PICS/IMAGES/Tool Selection Sprite/load_tool.png"), (40,40)).convert_alpha()
 ##                      End Of Importing Pictures / Animations / Editing Pictures                 ##
 
 ##                      Creating Rect Objects                        ##
-MegaBlastoiseRect=Rect(1035,175,115,115)
+MegaBlastoiseRect=Rect(1035,175,115,115) # creation of the rect objects in the Pokemon selection tool
 infernapeRect=Rect(1165,175,115,115)
 MegaGengarRect=Rect(1035,296,115,115)
 meganiumRect=Rect(1165,300,115,115)
@@ -140,11 +146,16 @@ GiratinaRect=Rect(1165,300,115,115)
 PalkiaRect=Rect(1035,425,115,115)
 MewtwoRect=Rect(1165,425,115,115)
 
-canvasRect=Rect(150,100,800,500)
+syedRect=Rect(1035,175,115,115)
+shahoonRect=Rect(1165,175,115,115)
+usmanRect=Rect(1035,296,115,115)
+
+canvasRect=Rect(150,100,800,500)#setting rect objects for tool selection
+saveRect=Rect(20,30,40,40)
+loadRect=Rect(70,30,40,40)
 paintRect=Rect(20,80,40,40)
 eraserRect=Rect(70,80,40,40)
-randomRect=Rect(70,130,40,40)
-syedRect=Rect(20,130,40,40)
+pencilRect=Rect(20,130,40,40)
 colourPickerRect=Rect(20,180,40,40)
 lineDrawRect=Rect(70,180,40,40)
 ellipseDrawRect=Rect(20,230,40,40)
@@ -152,85 +163,85 @@ rectDrawRect=Rect(70,230,40,40)
 filledEllipseDrawRect=Rect(20,280,40,40)
 filledRectDrawRect=Rect(70,280,40,40)
 textBoxRect=Rect(20,330,40,40)
-shahoonRect=Rect(70,330,40,40)
-usmanRect=Rect(20,380,40,40)
-saveRect=Rect(0,0,40,40)
-loadRect=Rect(60,0,40,40)
+clearRect=Rect(70,330,40,40)
 wheelRect=wheelPic.get_rect()
 wheelRect.topleft = 770, 600
+radiusRect=Rect(950,650,135,25)
+colourRect=Rect(70,130,40,40)
 
-currentColRect = Rect(700,600,50,50)
+currentColRect = Rect(700,600,50,50) # setting rect for the current colour
 ##                      Creating Rect Objects Ending                        ##
 
 ##                      Event Loop Start                        ##
-key.set_repeat(500,100)
+key.set_repeat(500,100)# if a key is held it will repeat it
 while running:
-	kp=key.get_pressed()
+	kp=key.get_pressed()# checks for key presses
 	for evt in event.get(): 
 		if evt.type == QUIT:
 			running = False 
 		if evt.type == KEYDOWN:
 			if evt.key == K_ESCAPE:#if ESC pressed the program will end
 					running = False
-			if evt.key == K_y:
+			if kp[K_LCTRL] and evt.key == K_y:
 				if len(control_Y) > 0:
-					transfer = control_Y.pop()
-					control_Z.append(transfer)
+					control_Z.append(control_Y.pop())# if CTRL Y is pressed then it will add the last thing in the control_Y list to the control_Z list 
 			if kp[K_LCTRL] and evt.key == K_z:
 				if len(control_Z) > 1:
-					transfer = control_Z.pop()
-					control_Y.append(transfer)
+					control_Y.append(control_Z.pop())# if CTRL Z is pressed and the length of control_Z is more than 1 it will add the last thing in control_Z to control_Y
+			if evt.key == K_r and tool == "paint":
+				randomCol = 1 - randomCol# creates a toggle switch to check if the random colour option is enabled		
 			if evt.key == K_o:
-				mixer.music.stop()
+				mixer.music.stop()# if the O key is pressed the music will stop
 			if evt.key == K_p:
 				mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
-				mixer.music.play(-1)
-			if evt.key == K_RIGHT:
-				if pokeSelect==2:
-					pokeSelect=3    
-				if pokeSelect==1:
-					pokeSelect=2
-			if evt.key == K_LEFT:
+				mixer.music.play(-1)# if P is pressed the music will play again from the start and loop
+			if evt.key == K_RIGHT:# this will change the pokemon selection screen
+				if pokeSelect == 3:
+					pokeSelect = 4	
+				if pokeSelect == 2:
+					pokeSelect = 3    
+				if pokeSelect == 1:
+					pokeSelect = 2
+			if evt.key == K_LEFT:# this will change the pokemon selection screen
 				if pokeSelect==2:
 					pokeSelect=1
 				if pokeSelect==3:
 					pokeSelect=2    
+				if pokeSelect == 4:
+					pokeSelect = 3	
+
 		if evt.type == MOUSEBUTTONUP:
 			if evt.button == 1:
 				if canvasRect.collidepoint((mx, my)):
-					control_Z.append(canvas.copy())
-				elif colourPickerRect.collidepoint(mx,my):
-					c = askcolor(title='Pick Colour')
+					control_Z.append(canvas.copy())# every time the mouse button lifts up it takes a picture of the screen and adds it to the control_Z list
+				elif colourPickerRect.collidepoint(mx,my):# if the colour picker button has been pressed then the following will run
+					c = askcolor(title='Pick a Colour') # this will open the colour screen and will assign a colour to the list c
 					if c[0] != None:
-						col = c[0]  
+						col = c[0]  # will make col become the selected colour
+					tool = "paint"
 
 		if evt.type == MOUSEBUTTONDOWN:
 			if evt.button == 1 or evt.button == 2:
-				sx,sy = cmx,cmy
-				ocmx, ocmy = cmx, cmy
-				canvas_copy = canvas.copy()
-				if randomRect.collidepoint(mx,my):
-					randomCol = 1 - randomCol
-			if evt.button == 3:
-				fill=True
-			if evt.button == 4:
-				if thicknessX <= 4000:
-					thicknessX+=int(thicknessX*0.2)
-				if thicknessY <= 4000:
-					thicknessY += int(thicknessY*0.2)
-			if evt.button == 5:
-				if thicknessX > 5:
-					thicknessX -= int(thicknessX*0.2)
-				if thicknessY > 5:
-					thicknessY -= int(thicknessY*0.2)
-	mb = mouse.get_pressed()
-	mx, my = mouse.get_pos()
-	if not mb[0] and not mb[2]:
-		canvas.blit(control_Z[-1], (0,0))
-## Selection Animation Start ## 
+				sx, sy = cmx, cmy ## will assign cmx and cmy to sx and sy which are used for drawing shapes
+				ocmx, ocmy = cmx, cmy # ocmx and ocmy will become cmx and cmy which is used for certain toolss
+				canvas_copy = canvas.copy() # this captures a picture of the screen
+			if evt.button == 4: # if you scroll down the size will increase and will be limited at 4000
+				if thickness <= 4000: 
+					thickness += int(thickness*0.2)
 
-	chikorita_counter += 1
-	if chikorita_counter > len(ChikoritaAnimation)-1:
+				if thickness > 4000:
+					thickness = 4000
+			if evt.button == 5: # is scrolling up size will go down and will be limited to a minimum of 5
+				if thickness > 5:
+					thickness -= int(thickness*0.2)
+	mb = mouse.get_pressed() # will check what on the mouse is being pressed
+	mx, my = mouse.get_pos() # will get the position of the mouse and assign it to the variable of mx and my
+	if not mb[0] and not mb[2]: # will blit the last thing in the control_Z list to the canvas 
+		canvas.blit(control_Z[-1], (0,0))
+## Selection Animation Counter Start ## 
+
+	chikorita_counter += 1# will increase counter by 1
+	if chikorita_counter > len(ChikoritaAnimation)-1: # if the counter is larger then the animation list the counter will reset
 		chikorita_counter = 0
 	bayleef_counter += 1
 	if bayleef_counter > len(BayleefAnimation)-1:
@@ -283,40 +294,44 @@ while running:
 	Mewtwo_counter += 1
 	if Mewtwo_counter > len(MewtwoAnimation)-1:
 		Mewtwo_counter = 0      
-## Selection Animation End ##   
+## Selection Animation Counter End ##   
 
 ##                      CollidePoint Start                        ##
-	if mb[0]:
-		if wheelRect.collidepoint(mx,my):
+	if mb[0]: # will check if the button has been pressed
+		if wheelRect.collidepoint(mx,my): # if you click on the colour wheel it will get the colour on that pixel
 			col=screen.get_at((mx,my))
-
-		if paintRect.collidepoint((mx,my)):
+		elif paintRect.collidepoint((mx,my)): # will check if the tool button has been clicked in and will assign the tool name to the variable tool
 			tool="paint"
-		elif shahoonRect.collidepoint(mx,my):
-			tool="shahoonStamp"
-		elif usmanRect.collidepoint(mx,my):
-			tool="usmanStamp"		
+		elif colourPickerRect.collidepoint(mx,my):
+			tool = 'colourPicker'	
 		elif eraserRect.collidepoint(mx,my):    
-			tool='eraser'
+			tool = 'eraser'
 		elif lineDrawRect.collidepoint(mx,my):
-			tool='lineTool'
+			tool = 'lineTool'
 		elif ellipseDrawRect.collidepoint(mx,my):
-			tool='ellipseTool'
+			tool = 'ellipseTool'
 		elif filledEllipseDrawRect.collidepoint(mx,my):
-			tool="filledEllipseTool"	
+			tool = "filledEllipseTool"	
 		elif rectDrawRect.collidepoint(mx,my):
-			tool="rectTool"	
+			tool = "rectTool"	
 		elif filledRectDrawRect.collidepoint(mx,my):
-			tool="filledRectTool"	
+			tool = "filledRectTool"	
 		elif textBoxRect.collidepoint(mx,my):
-			tool="textTool"	
-			screen.blit(selected, textBoxRect)
+			tool = "textTool"	
 		elif saveRect.collidepoint(mx,my):
-			tool="saveTool"
+			tool = "saveTool"
 		elif loadRect.collidepoint(mx,my):
-			tool="loadTool"
-		if pokeSelect==1:
-			if MegaBlastoiseRect.collidepoint(mx,my):
+			tool = "loadTool"
+		elif pencilRect.collidepoint(mx,my):
+			tool = "pencil"
+		elif radiusRect.collidepoint(mx,my):
+			tool = "radiusChange"
+		elif colourRect.collidepoint(mx,my):
+			tool = "colour"	
+		elif clearRect.collidepoint(mx,my):
+			tool = "clear"	
+		if pokeSelect == 1: # this will check which page in the pokemon selection page is showing and will only check for the pokemon that are showing
+			if MegaBlastoiseRect.collidepoint(mx,my):# Will check if you are clicking on the specified area and will assign the tool to the variable tool
 				tool='MegaBlastoiseStamp'
 			elif infernapeRect.collidepoint(mx,my):
 				tool='infernapeStamp'
@@ -328,7 +343,7 @@ while running:
 				tool='gengarStamp'
 			elif BlastoiseRect.collidepoint(mx,my):
 				tool='BlastoiseStamp'
-		if pokeSelect==2:
+		if pokeSelect == 2:
 			if haunterRect.collidepoint(mx,my):
 				tool='haunterStamp'
 			elif monfernoRect.collidepoint(mx,my):
@@ -341,7 +356,7 @@ while running:
 				tool='chimcharStamp'
 			elif WartortleRect.collidepoint(mx,my):
 				tool='WartortleStamp'
-		if pokeSelect==3:
+		if pokeSelect == 3:
 			if chikoritaRect.collidepoint(mx,my):    
 				tool='chikoritaStamp'
 			elif SquirtleRect.collidepoint(mx,my):
@@ -354,76 +369,37 @@ while running:
 				tool="PalkiaStamp"
 			elif MewtwoRect.collidepoint(mx,my):
 				tool="MewtwoStamp"          
-		elif syedRect.collidepoint(mx,my):
-			tool='SyedStamp'
+		if pokeSelect == 4:
+			if syedRect.collidepoint(mx,my):
+				tool='SyedStamp'
+			elif shahoonRect.collidepoint(mx,my):
+				tool="shahoonStamp"
+			elif usmanRect.collidepoint(mx,my):
+				tool="usmanStamp"		
 ##                      CollidePoint End                       ##
 ##                   Surface / Canvas / Blit / Start               ##
-	screen.blit(bc1, (0,0))
-	# screen.fill(GREEN)
-	screen.blit(descriptionBox, (150,600))
-	## Tool Selection Check Red ##
-	screen.blit(syedOption, Rect(25,133,40,40))
-	if tool=="SyedStamp":
-		screen.blit(selected,syedRect)
-		syedDescription=pokeGB_Font.render("This is the master of all.",True,BLACK).convert_alpha()
-		screen.blit(syedDescription, (175,625))
-		syedDescription=pokeGB_Font.render("The legend is that he can",True,BLACK).convert_alpha()
-		screen.blit(syedDescription, (175,643))
-		syedDescription=pokeGB_Font.render("make your program 90 per-",True,BLACK).convert_alpha()
-		screen.blit(syedDescription, (175,661))
-		syedDescription=pokeGB_Font.render("cent better!",True,BLACK).convert_alpha()
-		screen.blit(syedDescription, (175,679))
-	elif syedRect.collidepoint(mx,my):
-		screen.blit(hover,syedRect)	
-	else:
-		screen.blit(stationary,syedRect) 
-
-	screen.blit(shahoonOption, Rect(75,333,40,40))	
-	if tool=='shahoonStamp':
-		screen.blit(selected, shahoonRect)     #1010101010101010101010101
-		shahoonDescription=pokeGB_Font.render("This is the most powerful",True,BLACK).convert_alpha()
-		screen.blit(shahoonDescription, (175,625))
-		shahoonDescription=pokeGB_Font.render("alchemist in all the land.",True,BLACK).convert_alpha()
-		screen.blit(shahoonDescription, (175,643))
-		shahoonDescription=pokeGB_Font.render("He can make your crap pa-",True,BLACK).convert_alpha()
-		screen.blit(shahoonDescription, (175,661))
-		shahoonDescription=pokeGB_Font.render("intings into gold!!!",True,BLACK).convert_alpha()
-		screen.blit(shahoonDescription, (175,679))
-	elif shahoonRect.collidepoint(mx,my):
-		screen.blit(hover, shahoonRect)	
-	else:
-		screen.blit(stationary, shahoonRect)	
+	screen.blit(bc1, (0,0))# blits the background picture to the screen
+	screen.blit(descriptionBox, (150,600))# blits the description box tp the screen
 	
-	screen.blit(usmanOption, Rect(25,383,40,40))		
-	if tool=="usmanStamp":
-		screen.blit(selected, usmanRect)
-		usmanDescription=pokeGB_Font.render("This is the ancient beast",True,BLACK).convert_alpha()
-		screen.blit(usmanDescription, (175,625))
-		usmanDescription=pokeGB_Font.render("only known as the Usman!!",True,BLACK).convert_alpha()
-		screen.blit(usmanDescription, (175,643))
-		usmanDescription=pokeGB_Font.render("Make your painting terri-",True,BLACK).convert_alpha()
-		screen.blit(usmanDescription, (175,661))
-		usmanDescription=pokeGB_Font.render("fying and spoopy with the",True,BLACK).convert_alpha()
-		screen.blit(usmanDescription, (175,679))
-		usmanDescription=pokeGB_Font.render("beast!!",True,BLACK).convert_alpha()
-		screen.blit(usmanDescription, (175,697))
-	elif usmanRect.collidepoint(mx,my):
-		screen.blit(hover, usmanRect)	
-	else:
-		screen.blit(stationary, usmanRect)
+	## Tool Selection Check Red ##
 
-	screen.blit(paintOption, paintRect)
-	if tool=='paint':
-		screen.blit(selected, paintRect)
-		paintDescription=pokeGB_Font.render("This is the famous brush ",True,BLACK).convert_alpha()
-		screen.blit(paintDescription, (175,625))
+	screen.blit(paintOption, paintRect)# blits the tool option picture to the screen
+	if tool == 'paint': # will perform the tasks if the certain tool is selected
+		screen.blit(selected, paintRect)# will blit the selected picture to the tool rect
+											#1010101010101010101010101	
+		paintDescription=pokeGB_Font.render("This is the famous brush ",True,BLACK).convert_alpha()# this is the description itself
+		screen.blit(paintDescription, (175,625)) # this blits the description to the screen
 		paintDescription=pokeGB_Font.render("tool, you can draw whate-",True,BLACK).convert_alpha()
 		screen.blit(paintDescription, (175,643))
-		paintDescription=pokeGB_Font.render("ver you want!",True,BLACK).convert_alpha()
+		paintDescription=pokeGB_Font.render("ver you want! Press the R",True,BLACK).convert_alpha()
 		screen.blit(paintDescription, (175,661))
+		paintDescription=pokeGB_Font.render("button to toggle random ",True,BLACK).convert_alpha()
+		screen.blit(paintDescription, (175,679))
+		paintDescription=pokeGB_Font.render("colours!!",True,BLACK).convert_alpha()
+		screen.blit(paintDescription, (175,697))
 	elif paintRect.collidepoint(mx,my):
-		screen.blit(hover, paintRect)
-	else:
+		screen.blit(hover, paintRect) # if the mouse is just hovering over the tool then it will blit this image to the tool rect
+	else: # if the tool is not hovering or clicking on the tool then it will blit this image to the tool rect
 		screen.blit(stationary, paintRect)
 
 	screen.blit(eraserOption, eraserRect)
@@ -518,72 +494,165 @@ while running:
 		screen.blit(hover, filledRectDrawRect)	
 	else:
 		screen.blit(stationary, filledRectDrawRect)
-	if tool=="saveTool":
-		draw.rect(screen,RED,saveRect)  
-	else:
-		draw.rect(screen,WHITE,saveRect)
 
-	if tool=="loadTool":
-		draw.rect(screen,RED,loadRect)  
+	screen.blit(saveOption, saveRect)
+	if tool=="saveTool":
+		screen.blit(selected, saveRect)
+	elif saveRect.collidepoint(mx,my):
+		screen.blit(hover, saveRect)	
 	else:
-		draw.rect(screen,WHITE,loadRect)
-		
-	if textBoxRect.collidepoint(mx,my):
+		screen.blit(stationary, saveRect)
+
+	screen.blit(loadOption, loadRect)
+	if tool=="loadTool":
+		screen.blit(selected, loadRect)
+	elif loadRect.collidepoint(mx,my):
+		screen.blit(hover, loadRect)	
+	else:
+		screen.blit(stationary, loadRect)
+	screen.blit(textOption, textBoxRect)
+	if tool == "textTool":
+		screen.blit(selected, textBoxRect) #1010101010101010101010101
+		textDescription=pokeGB_Font.render("This is the text tool, it",True,BLACK).convert_alpha()
+		screen.blit(textDescription, (175,625))
+		textDescription=pokeGB_Font.render("is used so that you can ",True,BLACK).convert_alpha()
+		screen.blit(textDescription, (175,643))
+		textDescription=pokeGB_Font.render("place pieces of text onto",True,BLACK).convert_alpha()
+		screen.blit(textDescription, (175,661))
+		textDescription=pokeGB_Font.render("the canvas. To start cli-",True,BLACK).convert_alpha()
+		screen.blit(textDescription, (175,679))
+		textDescription=pokeGB_Font.render("ck on the canvas. TYPE!!",True,BLACK).convert_alpha()
+		screen.blit(textDescription, (175,697))
+	elif textBoxRect.collidepoint(mx,my):
 		screen.blit(hover, textBoxRect)	
 	else:		           
 		screen.blit(stationary, textBoxRect)
+
+	screen.blit(colOption, colourPickerRect) #UNDONE FIX THIS
+	if tool == 'colourPicker':
+		screen.blit(selected, colourPickerRect)	   #1010101010101010101010101		
+		colourPickerDescription=pokeGB_Font.render("This tool allows you to ",True,BLACK).convert_alpha()
+		screen.blit(colourPickerDescription, (175,625))
+		colourPickerDescription=pokeGB_Font.render("choose any colour you can",True,BLACK).convert_alpha()
+		screen.blit(colourPickerDescription, (175,643))
+		colourPickerDescription=pokeGB_Font.render("think of and use them to ",True,BLACK).convert_alpha()
+		screen.blit(colourPickerDescription, (175,661))
+		colourPickerDescription=pokeGB_Font.render("draw beautiful paintings!",True,BLACK).convert_alpha()
+		screen.blit(colourPickerDescription, (175,679))
+	elif colourPickerRect.collidepoint(mx,my):
+		screen.blit(hover, colourPickerRect)	
+	else:	
+		screen.blit(stationary, colourPickerRect)	
+
+	screen.blit(pencilOption, pencilRect)
+	if tool == "pencil":
+		screen.blit(selected, pencilRect)
+	elif pencilRect.collidepoint(mx,my):
+		screen.blit(hover, pencilRect)
+	else:
+		screen.blit(stationary, pencilRect)		
+
+	if tool == "radiusChange":
+		radiusInfo=hollowPokeFont.render("Click on the radius information",True,BLACK).convert_alpha()
+		screen.blit(radiusInfo, (950,680))
+		radiusInfo=hollowPokeFont.render("to type in a radius !",True,BLACK).convert_alpha()
+		screen.blit(radiusInfo, (950,710))
+	else:	
+		radiusInfo=hollowPokeFont.render("Click on the radius information",True,BLACK).convert_alpha()
+		screen.blit(radiusInfo, (950,680))
+		radiusInfo=hollowPokeFont.render("to type in a radius !",True,BLACK).convert_alpha()
+		screen.blit(radiusInfo, (950,710))
+
+	screen.blit(colourPickerOption, colourRect)
+	if tool == "colour":
+		screen.blit(selected, colourRect)
+											 #1010101010101010101010101
+		colourDescription=pokeGB_Font.render("See a colour you like on ",True,BLACK).convert_alpha()
+		screen.blit(colourDescription, (175,625))
+		colourDescription=pokeGB_Font.render("the canvas? Well you're ",True,BLACK).convert_alpha()
+		screen.blit(colourDescription, (175,643))
+		colourDescription=pokeGB_Font.render("in luck! Capture those ",True,BLACK).convert_alpha()
+		screen.blit(colourDescription, (175,661))
+		colourDescription=pokeGB_Font.render("eye catching colours and ",True,BLACK).convert_alpha()
+		screen.blit(colourDescription, (175,679))
+		colourDescription=pokeGB_Font.render("use them everywhere!!",True,BLACK).convert_alpha()
+		screen.blit(colourDescription, (175,697))
+	elif colourRect.collidepoint(mx,my):
+		screen.blit(hover, colourRect)
+	else:
+		screen.blit(stationary, colourRect)			
+
+	screen.blit(clearOption, clearRect)
+	if tool == "clear":
+		screen.blit(selected, clearRect)
+											#1010101010101010101010101
+		clearDescription=pokeGB_Font.render("Did you make another bad",True,BLACK).convert_alpha()# this is the description itself
+		screen.blit(clearDescription, (175,625)) # this blits the description to the screen
+		clearDescription=pokeGB_Font.render("painting and want to scr-",True,BLACK).convert_alpha()
+		screen.blit(clearDescription, (175,643))
+		clearDescription=pokeGB_Font.render("ap the painting? Just pr- ",True,BLACK).convert_alpha()
+		screen.blit(clearDescription, (175,661))
+		clearDescription=pokeGB_Font.render("ess this button and your",True,BLACK).convert_alpha()
+		screen.blit(clearDescription, (175,679))
+		clearDescription=pokeGB_Font.render("painting will disappear!",True,BLACK).convert_alpha()
+		screen.blit(clearDescription, (175,697))
+	elif clearRect.collidepoint(mx,my):
+		screen.blit(hover, clearRect)
+	else:
+		screen.blit(stationary, clearRect)			
 	## Tool Selection Check Red End ##
 	## Tool Sprites Start ##
 	
-	if pokeSelect==1:
+	if pokeSelect == 1:# if pokeSelect equals a certain number the same picture is blitted to the screen
 		screen.blit(pokeMenu1, (1025, 170))
-	if pokeSelect==2:
+	if pokeSelect == 2:
 		screen.blit(pokeMenu2, (1025, 170))
-	if pokeSelect==3:
+	if pokeSelect == 3:
 		screen.blit(pokeMenu3, (1025, 170))
+	if pokeSelect == 4:
+		screen.blit(pokeMenu4, (1025, 170))
 			
 	## Tool Sprites End ##
-	screen.blit(logo, (350,0))
-	screen.blit(wheelPic,wheelRect)
-	# screen.blit()
+	screen.blit(logo, (350,0)) # will blit the logo to the screen
+	screen.blit(wheelPic, wheelRect)# will blit the colour wheel to the screen
 	##          Mouse Position Start       ##
 	mousePos=pokeFont.render("Mouse Position: " + str(mx) + ", " + str(my),True,BLACK).convert_alpha()
-	screen.blit(mousePos, (955,600))
+	screen.blit(mousePos, (955,600))# this will blit the mouse position to the screen
 
-	radius=pokeFont.render("Radius: "+str(thicknessX),True,BLACK).convert_alpha()
-	screen.blit(radius, (955,650))
+	radius=pokeFont.render("Radius: "+str(thickness),True,BLACK).convert_alpha()
+	screen.blit(radius, (955,650))# this will blit the thickness to the screen
 	##          Mouse Position Ended       ##
 
-	screen.blit(selectedPokemon, (1025,50))
-	draw.rect(screen, col, currentColRect)
-	draw.rect(screen,WHITE,randomRect)
-	draw.rect(screen,WHITE,colourPickerRect)
+	screen.blit(selectedPokemon, (1025,50))# the selected Pokemon will be blitted to thw screen
+	draw.rect(screen, col, currentColRect)# This shows the current colour to this box
 
-	screen.blit(colOption, colourPickerRect)
-
-	if pokeSelect==1:
+	if pokeSelect == 1:# will show the pokemon animations corresponding to the pokeSelect number
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter], (115,115)), meganiumRect)
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),MegaBlastoiseRect)
 		screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),infernapeRect)
 		screen.blit(transform.scale(GengarAnimation[gengar_counter], (115,115)), gengarRect)
 		screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter], (115,115)),MegaGengarRect)
 		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),BlastoiseRect)
-	if pokeSelect==2:
+	if pokeSelect == 2:
 		screen.blit(transform.scale(HaunterAnimation[haunter_counter], (115,115)),haunterRect)
 		screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(115,115)),monfernoRect)
 		screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(115,115)),WartortleRect)
 		screen.blit(transform.scale(BayleefAnimation[bayleef_counter], (115,115)), bayleefRect)
 		screen.blit(transform.scale(GastlyAnimation[gastly_counter],(115,115)),gastlyRect)
 		screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(115,115)),chimcharRect)
-	if pokeSelect==3:
+	if pokeSelect == 3:
 		screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (115,115)), chikoritaRect)
 		screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(115,115)),SquirtleRect)
 		screen.blit(transform.scale(DarkraiAnimation[Darkrai_counter],(115,115)),DarkraiRect)
 		screen.blit(transform.scale(GiratinaAnimation[Giratina_counter],(115,115)),GiratinaRect)
 		screen.blit(transform.scale(PalkiaAnimation[Palkia_counter],(115,115)),PalkiaRect)
 		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(115,115)),MewtwoRect)
+	if pokeSelect == 4:
+		screen.blit(transform.scale(syed, (115,115)), syedRect)
+		screen.blit(transform.scale(shahoon, (115,115)), shahoonRect)
+		screen.blit(transform.scale(usman, (115,115)), usmanRect)
 
-	if tool=="MegaBlastoiseStamp":
+	if tool == "MegaBlastoiseStamp":
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
 		MegaBlastoiseDescription=pokeGB_Font.render("The jets of water it spo-",True,BLACK).convert_alpha()
 		screen.blit(MegaBlastoiseDescription, (175,625))
@@ -594,7 +663,7 @@ while running:
 		MegaBlastoiseDescription=pokeGB_Font.render("nch through thick steel.",True,BLACK).convert_alpha()
 		screen.blit(MegaBlastoiseDescription, (175,679))
 
-	elif tool=="MegaGengarStamp":
+	elif tool == "MegaGengarStamp":
 		screen.blit(transform.scale(MegaGengarAnimation[MegaGengar_counter],(115,115)),(1035,55))
 		MegaGengarDescription=pokeGB_Font.render("The leer that floats in ",True,BLACK).convert_alpha()
 		screen.blit(MegaGengarDescription, (175,625))
@@ -605,7 +674,7 @@ while running:
 		MegaGengarDescription=pokeGB_Font.render("ting curses on people.",True,BLACK).convert_alpha()
 		screen.blit(MegaGengarDescription, (175,679))
 
-	elif tool=="gengarStamp":
+	elif tool == "gengarStamp":
 		screen.blit(transform.scale(GengarAnimation[gengar_counter],(115,115)),(1035,55))   
 		GengarDescription=pokeGB_Font.render("The leer that floats in ",True,BLACK).convert_alpha()
 		screen.blit(GengarDescription, (175,625))
@@ -615,11 +684,11 @@ while running:
 		screen.blit(GengarDescription, (175,661))
 		GengarDescription=pokeGB_Font.render("ting curses on people.",True,BLACK).convert_alpha()
 		screen.blit(GengarDescription, (175,679))
-	elif tool=="infernapeStamp":
+	elif tool == "infernapeStamp":
 		screen.blit(transform.scale(InfernapeAnimation[infernape_counter],(115,115)),(1035,55))
-	elif tool=="meganiumStamp":
+	elif tool == "meganiumStamp":
 		screen.blit(transform.scale(MeganiumAnimation[meganium_counter],(115,115)),(1035,55))
-	elif tool=="BlastoiseStamp":
+	elif tool == "BlastoiseStamp":
 		screen.blit(transform.scale(BlastoiseAnimation[Blastoise_counter],(115,115)),(1035,55))
 		BlastoiseDescription=pokeGB_Font.render("The jets of water it spo-",True,BLACK).convert_alpha()
 		screen.blit(BlastoiseDescription, (175,625))
@@ -629,193 +698,294 @@ while running:
 		screen.blit(BlastoiseDescription, (175,661))
 		BlastoiseDescription=pokeGB_Font.render("nch through thick steel.",True,BLACK).convert_alpha()
 		screen.blit(BlastoiseDescription, (175,679))
-	elif tool=="haunterStamp":
+	elif tool == "haunterStamp":
 		screen.blit(transform.scale(HaunterAnimation[haunter_counter],(115,115)),(1035,60))
-	elif tool=="monfernoStamp":
+	elif tool == "monfernoStamp":
 		screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(115,115)),(1035,55))
-	elif tool=="gastlyStamp":
+	elif tool == "gastlyStamp":
 		screen.blit(transform.scale(GastlyAnimation[gastly_counter],(115,115)),(1035,55))
-	elif tool=="bayleefStamp":
+	elif tool == "bayleefStamp":
 		screen.blit(transform.scale(BayleefAnimation[bayleef_counter],(110,110)),(1035,60))
-	elif tool=="chimcharStamp":
+	elif tool == "chimcharStamp":
 		screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(115,115)),(1035,55))
-	elif tool=="WartortleStamp":
+	elif tool == "WartortleStamp":
 		screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(110,110)),(1035,60))
-	elif tool=="SquirtleStamp":
+	elif tool == "SquirtleStamp":
 		screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(110,110)),(1035,60))
-	elif tool=="chikoritaStamp":
+	elif tool == "chikoritaStamp":
 		screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter],(110,110)),(1035,60))
-	elif tool=="DarkraiStamp":
+	elif tool == "DarkraiStamp":
 		screen.blit(transform.scale(DarkraiAnimation[Darkrai_counter],(115,115)),(1035,50))
-	elif tool=="GiratinaStamp":
+	elif tool == "GiratinaStamp":
 		screen.blit(transform.scale(GiratinaAnimation[Giratina_counter],(110,110)),(1035,60))
-	elif tool=="PalkiaStamp":
+	elif tool == "PalkiaStamp":
 		screen.blit(transform.scale(PalkiaAnimation[Palkia_counter],(110,110)),(1035,60))
-	elif tool=="MewtwoStamp":
+	elif tool == "MewtwoStamp":
 		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(110,110)),(1035,60))           
+
+	elif tool=="SyedStamp":
+		screen.blit(transform.scale(syed ,(115,115)), (1035,55))
+		syedDescription=pokeGB_Font.render("This is the master of all.",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,625))
+		syedDescription=pokeGB_Font.render("The legend is that he can",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,643))
+		syedDescription=pokeGB_Font.render("make your program 90 per-",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,661))
+		syedDescription=pokeGB_Font.render("cent better!",True,BLACK).convert_alpha()
+		screen.blit(syedDescription, (175,679))
+	elif tool=='shahoonStamp':
+		screen.blit(transform.scale(shahoon ,(115,115)), (1035,55))
+		shahoonDescription=pokeGB_Font.render("This is the most powerful",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,625))
+		shahoonDescription=pokeGB_Font.render("alchemist in all the land.",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,643))
+		shahoonDescription=pokeGB_Font.render("He can make your crap pa-",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,661))
+		shahoonDescription=pokeGB_Font.render("intings into gold!!!",True,BLACK).convert_alpha()
+		screen.blit(shahoonDescription, (175,679))
+	elif tool=="usmanStamp":
+		screen.blit(transform.scale(usman ,(115,115)), (1035,55))
+		usmanDescription=pokeGB_Font.render("This is the ancient beast",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,625))
+		usmanDescription=pokeGB_Font.render("only known as the Usman!!",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,643))
+		usmanDescription=pokeGB_Font.render("Make your painting terri-",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,661))
+		usmanDescription=pokeGB_Font.render("fying and spoopy with the",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,679))
+		usmanDescription=pokeGB_Font.render("beast!!",True,BLACK).convert_alpha()
+		screen.blit(usmanDescription, (175,697))	
+
+	elif tool == "textBlit":
+											   #1010101010101010101010101
+		textBlitDescription=pokeGB_Font.render("Now that you have typed a",True,BLACK).convert_alpha()
+		screen.blit(textBlitDescription, (175,625))
+		textBlitDescription=pokeGB_Font.render("word in, use the mouse ",True,BLACK).convert_alpha()
+		screen.blit(textBlitDescription, (175,643))
+		textBlitDescription=pokeGB_Font.render("and click anywhere on the",True,BLACK).convert_alpha()
+		screen.blit(textBlitDescription, (175,661))
+		textBlitDescription=pokeGB_Font.render("screen to place what you ",True,BLACK).convert_alpha()
+		screen.blit(textBlitDescription, (175,679))
+		textBlitDescription=pokeGB_Font.render("typed in! Happy Typing!!!",True,BLACK).convert_alpha()
+		screen.blit(textBlitDescription, (175,697))
+		
+	elif tool == '':
+		Description=pokeGB_Font.render("There is no tool selected.",True,BLACK).convert_alpha()
+		screen.blit(Description, (175,625))
+		Description=pokeGB_Font.render("Please select a tool to ",True,BLACK).convert_alpha()
+		screen.blit(Description, (175,643))
+		Description=pokeGB_Font.render("start creating art!!",True,BLACK).convert_alpha()
+		screen.blit(Description, (175,661))
+		
 	draw.rect(screen, BLACK, canvasRect)
 
 	screen.blit(canvas, (150,100))
 	screen.set_clip(canvasRect)
 	
-	if tool != "saveTool":
-		draw.circle(screen, (100,100,100), (mx, my), thicknessX, 2)
+	if tool != "saveTool" and tool != 'pencil' and tool != "filledRectTool" and tool != "filledEllipseTool":
+		draw.circle(screen, (100,100,100), (mx, my), thickness, 2)
 	draw.circle(screen, (100,100,100), (mx, my), 3)
 	
 	screen.set_clip(None)
-
-	if fill==True:
-		canvas.fill(WHITE)
-		canvas_copy = canvas.copy()
-		control_Z.append(canvas_copy)
-		fill = False
 
 ##                   Surface / Canvas Blit End               ##
 
 ##                   Draw Options Start               ##
 	cmx, cmy = mx-150, my-100
 	if mb[0] and tool=='eraser' and canvasRect.collidepoint((mx, my)):
-		eraser(canvas, cmx, cmy, ocmx, ocmy,thicknessX)
+		eraser(canvas, cmx, cmy, ocmx, ocmy,thickness)
 
 	elif mb[0] and tool=='paint' and canvasRect.collidepoint((mx, my)):
-		painter(canvas, cmx, cmy, ocmx, ocmy, thicknessX, col, randomCol)
+		painter(canvas, cmx, cmy, ocmx, ocmy, thickness, col, randomCol)
 
-	elif mb[0] and tool=="saveTool":#left mouse click (button down)
+	elif mb[0] and tool == "pencil" and canvasRect.collidepoint(mx,my):
+ 		pencil(canvas, col , ocmx, ocmy, cmx, cmy)		
+
+	elif mb[0] and tool=="saveTool" and canvasRect.collidepoint(mx,my):#left mouse click (button down)
 		try:
-			fname=filedialog.asksaveasfilename(defaultextension=".png")
-			image.save(screen.subsurface(canvasRect), fname)#canvas.subsurface(canvasRect)
+			types = [('Portable Network Graphics', 'png')]
+			fname = filedialog.asksaveasfilename(defaultextension='png', filetypes=types)
+			if fname != '':
+				image.save(canvas, fname)
 			tool="paint"
 		except:
 			print("saving error")
 			tool="paint"
 			
-	elif mb[0] and tool=="loadTool":
+	elif mb[0] and tool=="loadTool" and canvasRect.collidepoint(mx,my):
 		try:
-			fname = filedialog.askopenfilename(defaultextension=".png")
-			fname = image.load(fname)
-			canvas.blit(fname, (0,0))	
-			tool="paint"
+			types = [('Portable Network Graphics', 'png'), ("JPEG", "jpg")]
+			fname = filedialog.askopenfilename(defaultextension='png',filetypes=types)
+			if fname != "":
+				img = image.load(fname)
+				canvas = transform.scale(img, (canvasRect.width, canvasRect.height))
+				canvas = canvas.copy()
+				control_Z.append(canvas.copy())
+				tool = 'paint'
 		except:
 			print("Error")
-			tool="paint"		
+			tool = 'paint'
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
-		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thicknessX)
- 		# draw.line(canvas,col,(ocmx,ocmy),(cmx,cmy),3)
+		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thickness)# it calls a function from another file to perform a certain task
 	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
-		ellipseDrawTool(canvas, cmx, cmy, mx, my, ocmx, ocmy, canvas_copy, sx, sy, col, thicknessX)
+		ellipseDrawTool(canvas, cmx, cmy, mx, my, ocmx, ocmy, canvas_copy, sx, sy, col, thickness)
 
 	elif mb[0] and tool=="filledEllipseTool" and canvasRect.collidepoint((mx, my)):
 		filledEllipseDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
 
 	elif mb[0] and tool=="rectTool" and canvasRect.collidepoint((mx, my)):
-		rectDrawTool(canvas, cmx, cmy, ocmx, ocmy, canvas_copy, sx, sy, col, thicknessX)	
+		rectDrawTool(canvas, cmx, cmy, ocmx, ocmy, canvas_copy, sx, sy, col, thickness)	
 
 	elif mb[0] and tool=="filledRectTool" and canvasRect.collidepoint((mx, my)):
 		filledRectDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col)
 
-		
 	elif mb[0] and tool=='chikoritaStamp' and canvasRect.collidepoint((mx, my)):
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
 		canvas.blit(canvas_copy, (0,0))#makes it so that chikorita can be dragged and can't draw it on screen before mouse button press was let go
-		canvas.blit(transform.scale(chikorita, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))#This will spawn Chikorita from the centre of that stamp
+		canvas.blit(transform.scale(chikorita, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))#This will spawn Chikorita from the centre of that stamp
 	
 	elif mb[0] and tool=='bayleefStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		bayleef=BayleefAnimation[0]
-		canvas.blit(transform.scale(bayleef, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(bayleef, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='meganiumStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		meganium=MeganiumAnimation[0]
-		canvas.blit(transform.scale(meganium, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))       
+		canvas.blit(transform.scale(meganium, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))       
 
 	elif mb[0] and tool=='MegaGengarStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		MegaGengar=MegaGengarAnimation[0]
-		canvas.blit(transform.scale(MegaGengar, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(MegaGengar, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 	
 	elif mb[0] and tool=='gengarStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		gengar=GengarAnimation[0]
-		canvas.blit(transform.scale(gengar, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(gengar, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='haunterStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		haunter=HaunterAnimation[0]
-		canvas.blit(transform.scale(haunter, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))    
+		canvas.blit(transform.scale(haunter, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))    
 	
 	elif mb[0] and tool=='gastlyStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		gastly=GastlyAnimation[0]
-		canvas.blit(transform.scale(gastly, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2)) 
+		canvas.blit(transform.scale(gastly, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2)) 
 
 	elif mb[0] and tool=='infernapeStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		infernape=InfernapeAnimation[0]
-		canvas.blit(transform.scale(infernape, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(infernape, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='monfernoStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		monferno=MonfernoAnimation[0]
-		canvas.blit(transform.scale(monferno, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))   
+		canvas.blit(transform.scale(monferno, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))   
 	
 	elif mb[0] and tool=='chimcharStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Chimchar=ChimcharAnimation[0]
-		canvas.blit(transform.scale(Chimchar, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(Chimchar, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='MegaBlastoiseStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		MegaBlastoise=MegaBlastoiseAnimation[0]
-		canvas.blit(transform.scale(MegaBlastoise, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(MegaBlastoise, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='BlastoiseStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Blastoise=BlastoiseAnimation[0]
-		canvas.blit(transform.scale(Blastoise, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(Blastoise, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=="WartortleStamp" and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Wartortle=WartortleAnimation[0]
-		canvas.blit(transform.scale(Wartortle, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(Wartortle, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='SquirtleStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Squirtle=SquirtleAnimation[0]
-		canvas.blit(transform.scale(Squirtle ,(thicknessX, thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(Squirtle ,(thickness, thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='DarkraiStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Darkrai=DarkraiAnimation[0]
-		canvas.blit(transform.scale(Darkrai,(thicknessX, thicknessY)), (cmx-thicknessX/2.5, cmy-thicknessY/2))
+		canvas.blit(transform.scale(Darkrai,(thickness, thickness)), (cmx-thickness/2.5, cmy-thickness/2))
 	elif mb[0] and tool=='GiratinaStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Giratina=GiratinaAnimation[0]
-		canvas.blit(transform.scale(Giratina ,(thicknessX, thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(Giratina ,(thickness, thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='PalkiaStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Palkia=PalkiaAnimation[0]
-		canvas.blit(transform.scale(Palkia ,(thicknessX, thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(Palkia ,(thickness, thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='MewtwoStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy,(0,0))
 		Mewtwo=MewtwoAnimation[0]
-		canvas.blit(transform.scale(Mewtwo ,(thicknessX, thicknessY)), (cmx-thicknessX/3, cmy-thicknessY/3))    
+		canvas.blit(transform.scale(Mewtwo ,(thickness, thickness)), (cmx-thickness/3, cmy-thickness/3))    
 
 	elif mb[0] and tool=='SyedStamp':
 		canvas.blit(canvas_copy, (0,0))
-		canvas.blit(transform.scale(idiot, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(syed, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 
 	elif mb[0] and tool=='shahoonStamp':
 		canvas.blit(canvas_copy, (0,0))
-		canvas.blit(transform.scale(shahoon, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))
+		canvas.blit(transform.scale(shahoon, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
 	
 	elif mb[0] and tool=='usmanStamp':
 		canvas.blit(canvas_copy, (0,0))
-		canvas.blit(transform.scale(usman, (thicknessX,thicknessY)), (cmx-thicknessX/2, cmy-thicknessY/2))			
+		canvas.blit(transform.scale(usman, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))			
 
-	elif mb[0] and tool == "textTool":
+	elif mb[0] and tool == 'textBlit':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(myText, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
+
+	elif mb[0] and tool == 'clear' and canvasRect.collidepoint(mx,my):
+		canvas.fill(WHITE)
+		canvas_copy = canvas.copy()
+		control_Z.append(canvas_copy)
+
+	elif mb[0] and tool == "colour":
+		try:
+			col = canvas.get_at((cmx,cmy))
+		except:
+			pass	
+
+	elif mb[0] and tool == "radiusChange":
+		try:
+			def ok(e, root):
+				global radius
+				global thickness
+				user = e.get()
+				root.withdraw()
+				root.destroy()
+				root.quit()
+				try:
+					radius = user
+					if int(radius) > 4000:
+						radius = int(thickness)
+					elif int(radius) < 3:
+						radius = int(thickness)	
+					thickness = int(radius)
+					tool = ''
+				except:
+					pass	
+			if OK ==False:
+				root = Tk()
+				e = Entry(root)
+				e.pack()
+				b=Button(root, text='OK', command=lambda:ok(e,root))
+				b.pack()
+				root.mainloop()
+			tool = ''
+		except:
+			print("error")
+
+	elif mb[0] and tool == "textTool" and canvasRect.collidepoint(mx,my):	
 		try:
 			def ok(e, root):
 				global text
@@ -825,6 +995,7 @@ while running:
 				root.quit()
 				text = user
 				OK = True
+				tool="textBlit"
 			if OK ==False:
 				root = Tk()
 				e = Entry(root)
@@ -832,11 +1003,10 @@ while running:
 				b=Button(root, text='OK', command=lambda:ok(e,root))
 				b.pack()
 				root.mainloop()
-			timesNewRomanFont=font.SysFont("Times New Roman", thicknessX)
-			myText=timesNewRomanFont.render(text,True,col)
-			canvas.blit(myText, (0,0))
-			control_Z.append(canvas.copy())	
-			tool="paint"
+			timesNewRomanFont=font.SysFont("Times New Roman", 4000)
+			pcol = col
+			myText=timesNewRomanFont.render(text,True,col).convert_alpha()
+			tool="textBlit"
 		except:
 			print("error")	
 	myClock.tick(60)

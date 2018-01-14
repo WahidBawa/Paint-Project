@@ -27,6 +27,7 @@ myText = ""
 OK = False
 pokeFont=font.Font("Fonts/Pokemon Solid.ttf", 25)
 pokeGB_Font=font.Font("Fonts/Pokemon GB.ttf", 18)
+hollowPokeFont=font.Font("Fonts/Pokemon Hollow.ttf", 25)
 
 canvas = Surface((800,500))
 canvas.fill(WHITE)
@@ -36,12 +37,12 @@ myClock = time.Clock()
 mixer.pre_init(44100, -16, 1, 512)
 mixer.init()
 
-thicknessX = 10
-thicknessY = 10
+thickness = 10
 pokeSelect = 1
 tool = 'paint'
 subtool = 'randomCol'
 
+textCheck = False
 
 control_Z=[canvas.copy()]
 control_Y=[]
