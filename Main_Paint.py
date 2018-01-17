@@ -651,6 +651,13 @@ while running:
 
 	radius=pokeFont.render("Radius: "+str(thickness),True,BLACK).convert_alpha()
 	screen.blit(radius, (955,650))# this will blit the thickness to the screen
+
+	O=pokeFont.render("O - Stop Music",True,BLACK).convert_alpha()
+	screen.blit(O, (150,30))# this will blit the instruction to the screen to the screen
+
+	P=pokeFont.render("P - Play Music",True,BLACK).convert_alpha()
+	screen.blit(P, (770,30))# this will blit the instruction to the screen to the screen
+
 	##          Mouse Position Ended       ##
 
 	screen.blit(selectedPokemon, (1025,50))# the selected Pokemon will be blitted to thw screen
@@ -958,7 +965,6 @@ while running:
 			if fname != "":# if the user picks something to load:
 				img = image.load(fname)# the image will load
 				canvas = transform.scale(img, (canvasRect.width, canvasRect.height))# the picture will be loaded to the size of the canvas
-				# canvas = canvas.copy() # UNDONE, INSERT
 				control_Z.append(canvas.copy())# picture of canvas will be added to the control_Z list
 				tool = 'paint'# tool set to paint
 		except:
