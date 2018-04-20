@@ -41,6 +41,7 @@ thickness = 10# the thickness/radius that is changeable
 pokeSelect = 1 # Pokemon stamp selection page counter
 tool = 'paint' # stores which tool is selected
 subtool = 'randomCol' # this is the only thing that subTool will be
+breakP = False
 
 control_Z=[canvas.copy()]# for the undo array
 control_Y=[] #for the redo array

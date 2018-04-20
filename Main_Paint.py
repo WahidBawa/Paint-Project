@@ -6,7 +6,7 @@ from Variables import *#imports some variables to make code cleaner
 
 root = Tk() # sets up Tkinter
 root.withdraw() # sets up Tkinter
-os.environ['SDL_VIDEO_WINDOW_POS'] = '10,10' # Will open the screen at the specified coordinate
+os.environ['SDL_VIDEO_WINDOW_POS'] = 'FULLSCREEN' # Will open the screen at the specified coordinate
 screen = display.set_mode(size) # will create a screen at a certain size
 display.set_caption("PokePaint") # Sets the title of the screen
 ##                      Variable Naming Ends                           ##
