@@ -6,7 +6,7 @@ from Variables import *#imports some variables to make code cleaner
 
 root = Tk() # sets up Tkinter
 root.withdraw() # sets up Tkinter
-os.environ['SDL_VIDEO_WINDOW_POS'] = 'FULLSCREEN' # Will open the screen at the specified coordinate
+os.environ['SDL_VIDEO_WINDOW_POS'] = '10,10' # Will open the screen at the specified coordinate
 screen = display.set_mode(size) # will create a screen at a certain size
 display.set_caption("PokePaint") # Sets the title of the screen
 ##                      Variable Naming Ends                           ##
@@ -192,20 +192,15 @@ while running:
 				mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg')
 				mixer.music.play(-1)# if P is pressed the music will play again from the start and loop
 			if evt.key == K_RIGHT:# this will change the pokemon selection screen
-				if pokeSelect == 3 and secret == True:
+				pokeSelect += 1
+				if not secret and pokeSelect == 4:
+					pokeSelect = 3
+				if secret and pokeSelect == 5:
 					pokeSelect = 4	
-				if pokeSelect == 2:
-					pokeSelect = 3    
-				if pokeSelect == 1:
-					pokeSelect = 2
 			if evt.key == K_LEFT:# this will change the pokemon selection screen
-				if pokeSelect==2:
-					pokeSelect=1
-				if pokeSelect==3:
-					pokeSelect=2    
-				if pokeSelect == 4 and secret == True:
-					pokeSelect = 3	
-
+				pokeSelect -= 1
+				if pokeSelect <= 0:
+					pokeSelect = 1
 		if evt.type == MOUSEBUTTONUP:
 			if evt.button == 1:
 				if canvasRect.collidepoint((mx, my)):
@@ -933,6 +928,7 @@ while running:
 	draw.circle(screen, (100,100,100), (mx, my), 3)# this is the point of clicking
 	
 	screen.set_clip(None)
+	animation_group.update()
 
 ##                   Surface / Canvas Blit End               ##
 
@@ -959,17 +955,18 @@ while running:
 			tool="paint"
 			
 	elif mb[0] and tool=="loadTool" and canvasRect.collidepoint(mx,my):
-		try:
-			types = [('Portable Network Graphics', 'png'), ("JPEG", "jpg")]# defines file types in a list
-			fname = filedialog.askopenfilename(defaultextension='png',filetypes=types)# sets default extension and the different file types 
-			if fname != "":# if the user picks something to load:
-				img = image.load(fname)# the image will load
-				canvas = transform.scale(img, (canvasRect.width, canvasRect.height))# the picture will be loaded to the size of the canvas
-				control_Z.append(canvas.copy())# picture of canvas will be added to the control_Z list
-				tool = 'paint'# tool set to paint
-		except:
-			print("Error")
-			tool = 'paint'
+		# try:
+		fname = load()
+		if fname != "":# if the user picks something to load:
+			img = image.load(fname)# the image will load
+			canvas = transform.scale(img, (canvasRect.width, canvasRect.height))# the picture will be loaded to the size of the canvas
+			control_Z.append(canvas.copy())# picture of canvas will be added to the control_Z list
+			tool = 'paint'# tool set to paint
+		else:
+			tool = 'paint'	
+		# except:
+		# 	print("Error")
+		# 	tool = 'paint'
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thickness)# it calls a function from another file to perform a certain task
 	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
@@ -988,7 +985,8 @@ while running:
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
 		canvas.blit(canvas_copy, (0,0))#makes it so that chikorita can be dragged and can't draw it on screen before mouse button press was let go
 		canvas.blit(transform.scale(chikorita, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))#This will spawn Chikorita from the centre of that stamp
-	
+		anim = Pokemon_Animation(cmx-thickness/2, cmy-thickness/2,thickness,thickness, ChikoritaAnimation[chikorita_counter])
+		animation_group.add(anim)
 	elif mb[0] and tool=='bayleefStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		bayleef=BayleefAnimation[0]

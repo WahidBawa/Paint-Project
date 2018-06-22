@@ -126,3 +126,7 @@ def filledRectDrawTool(surf, cmx, cmy, canvas_copy, sx, sy, col):
 
 def pencil(surf, col , ocmx, ocmy, cmx, cmy):
 	draw.line(surf,col,(ocmx,ocmy),(cmx,cmy),3)	# draws a line from where the started clicking and draw a line wherever the mouse is
+def load():
+	types = [('Portable Network Graphics', 'png'), ("JPEG", "jpg")]# defines file types in a list
+	fname = filedialog.askopenfilename(defaultextension='png',filetypes=types)# sets default extension and the different file types 	
+	return fname
