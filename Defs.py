@@ -131,9 +131,9 @@ def load():
 	fname = filedialog.askopenfilename(defaultextension='png',filetypes=types)# sets default extension and the different file types 	
 	return fname
 def cropper(img):
-	size=(img.get_width(),img.get_height())
-	screen = display.set_mode(size) 
-	new_img_rect = Rect(0,0,0,0)
+	size=(img.get_width(),img.get_height()) # this will resize the screen to be the size of the image
+	screen = display.set_mode(size)
+	new_img_rect = Rect(0,0,0,0) # creates the template for the new rect
 	def rectDrawTool(surf, sx, sy, mx, my, copy):
 		screen.blit(copy, (0,0))
 		draw.rect(surf, (150,150,150), (sx,sy,mx-sx,my-sy), 1*2)# draws a rectangle using the mouse
@@ -141,9 +141,10 @@ def cropper(img):
 		draw.circle(surf, (150,150,150), (mx,my), 5)# draws a circle at the corners
 		draw.circle(surf, (150,150,150), (mx,sy), 5)# draws a circle at the corners
 		draw.circle(surf, (150,150,150), (sx,my), 5)# draws a circle at the corners
-		return Rect(sx,sy,mx-sx,my-sy)
-	screen.blit(img, (0,0))
-	cropped = False
+		return Rect(sx,sy,mx-sx,my-sy) # this will return the rect object of the cropping square
+	screen.blit(img, (0,0)) # this blits the image on the screen
+	cropped = False # this will check if the image is cropped or not
+	hollowPokeFont=font.Font("Fonts/Pokemon Hollow.ttf", 25) # this creates the font
 	running = True
 	while running:
 		for evt in event.get():  
@@ -151,41 +152,54 @@ def cropper(img):
 				running = False
 			if evt.type == KEYDOWN:
 				if evt.key == K_c:
+					# thi will allow the user to recrop the image if they want
+					size=(img.get_width(),img.get_height())
+					screen = display.set_mode(size)
+					screen.fill(0)
 					screen.blit(img, (0,0))
 					cropped = False
 				if evt.key == K_ESCAPE:
 					running = False
 			if evt.type == MOUSEBUTTONUP:
 				if evt.button == 1:
+					# this line stores the width height x y so that it can be edited
 					width, height, x, y = new_img_rect.width, new_img_rect.height, new_img_rect.x, new_img_rect.y
-					if width < 0:
+					if width < 0: # if the width is less than 0 then it will make it positive and will reposition the x
 						width *= -1
 						x -= width
-					if height < 0:
+					if height < 0: # if the height is less than 0 then it will make it positive and will reposition the y 
 						height *= -1
 						y -= height
-					screen.blit(img, (0,0))	
-					rect = Rect(x,y,width,height)	
-					sub = screen.subsurface(rect)
-					new = Surface((rect.width, rect.height))
-					new.blit(sub, (0,0))
+					screen.blit(img, (0,0)) # blits the image	
 					display.flip()
-					new_img = new.copy()
-					cropped = True
+					rect = Rect(x,y,width,height) # creates rect object	
+					sub = screen.subsurface(rect) # this will create a subsurface from the screen according to the size of the cropped image
+					new = Surface((rect.width, rect.height)) # this will create a new surface  the size of the cropped image
+					new.blit(sub, (0,0)) # this will blit the subsurface portion on to the new surface
+					display.flip()
+					new_img = new.copy() # this will copy an image of the cropped image
+					cropped = True # this will set cropped to true
 			if evt.type == MOUSEBUTTONDOWN:
 				if evt.button == 1:
 					sx, sy = mx, my
 					copy  = screen.copy()
 		mx,my = mouse.get_pos()
 		mb = mouse.get_pressed()
-		if mb[0]:
-			new_img_rect = rectDrawTool(screen, sx, sy, mx, my, copy)
-		if cropped:
+		if mb[0] and not cropped:
+			new_img_rect = rectDrawTool(screen, sx, sy, mx, my, copy) # this calls the function that draws the rect object
+		if cropped: # if the image is cropped
+			size = (1366,768) # it will resize the screen
+			screen = display.set_mode(size) # will create a screen at a certain size
 			screen.fill(0)
-			screen.blit(new_img, (img.get_width() / 2 - new_img.get_width() / 2,img.get_height() / 2 - new_img.get_height() / 2))	
+			line1 = pokeGB_Font.render("Press ESCAPE to use the cropped image!", True, (255,255,255))
+			line2 = pokeGB_Font.render("Or press ESCAPE after pressing c for the full image!", True, (255,255,255))
+			line3 = pokeGB_Font.render("Press c to redo the cropped image!", True, (255,255,255))
+			screen.blit(line1, (0,0))
+			screen.blit(line2, (0,50))
+			screen.blit(line3, (0,100))
+			screen.blit(new_img, (1366 / 2 - new_img.get_width() / 2, 768 / 2 - new_img.get_height() / 2)) # this will blit cropped image on the screen centered on the screen	
 		display.flip()
-	size = (1366,768)	
-	screen = display.set_mode(size) # will create a screen at a certain size	
+	# if the image was cropped it will return the cropped image an if it isn't then the image loaded will be returned	
 	if cropped:
 		return new_img
 	else:
