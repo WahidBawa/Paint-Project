@@ -16,10 +16,7 @@ mixer.music.play(-1)# will load and play initial music forever
 ##                    Ending Loading Initial Startup Music                 ##
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
-pokeMenu1=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
-pokeMenu2=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
-pokeMenu3=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
-pokeMenu4=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png")
+pokeMenu1=image.load("PICS/IMAGES/Templates/pokemon_selection_menu_cropped.png").convert_alpha()
 
 bc1=image.load("PICS/IMAGES/pikachu_background.jpg").convert_alpha() # convert_alpha converts the pixel format of the screen
 bc1=transform.scale(bc1, size)# loads initial background and scales it to size
@@ -145,6 +142,19 @@ syedRect=Rect(1035,175,115,115)
 shahoonRect=Rect(1165,175,115,115)
 usmanRect=Rect(1035,296,115,115)
 
+tmp1 = Rect(1165,300,115,115)
+tmp1_pic = image.load("PICS/00.png").convert_alpha()
+tmp2 = Rect(1035,425,115,115)
+tmp2_pic = image.load("PICS/00.png").convert_alpha()
+tmp3 = Rect(1165,425,115,115)
+tmp3_pic = image.load("PICS/00.png").convert_alpha()
+tmp4 = Rect(1035,175,115,115)
+tmp4_pic = image.load("PICS/00.png").convert_alpha()
+tmp5 = Rect(1165,175,115,115)
+tmp5_pic = image.load("PICS/00.png").convert_alpha()
+tmp6 = Rect(1035,296,115,115)
+tmp6_pic = image.load("PICS/00.png").convert_alpha()
+
 canvasRect=Rect(150,100,800,500)#setting rect objects for tool selection
 saveRect=Rect(20,30,40,40)
 loadRect=Rect(70,30,40,40)
@@ -193,10 +203,10 @@ while running:
 				mixer.music.play(-1)# if P is pressed the music will play again from the start and loop
 			if evt.key == K_RIGHT:# this will change the pokemon selection screen
 				pokeSelect += 1
-				if not secret and pokeSelect == 4:
-					pokeSelect = 3
-				if secret and pokeSelect == 5:
-					pokeSelect = 4	
+				if not secret and pokeSelect == 5:
+					pokeSelect = 4
+				if secret and pokeSelect == 6:
+					pokeSelect = 5
 			if evt.key == K_LEFT:# this will change the pokemon selection screen
 				pokeSelect -= 1
 				if pokeSelect <= 0:
@@ -288,6 +298,55 @@ while running:
 ## Selection Animation Counter End ##   
 
 ##                      CollidePoint Start                        ##
+	if mb[2] and pokeSelect == 4:
+		if tmp1.collidepoint((mx,my)):
+			fname = load()
+			if fname != "":# if the user picks something to load:
+				img = image.load(fname)# the image will load
+				tmp1_pic = img# the picture will be loaded to the size of the canvas
+				tool = 'paint'# tool set to paint
+			else:
+				tool = 'paint'
+		if tmp2.collidepoint((mx,my)):
+			fname = load()
+			if fname != "":# if the user picks something to load:
+				img = image.load(fname)# the image will load
+				tmp2_pic = img# the picture will be loaded to the size of the canvas
+				tool = 'paint'# tool set to paint
+			else:
+				tool = 'paint'
+		if tmp3.collidepoint((mx,my)):
+			fname = load()
+			if fname != "":# if the user picks something to load:
+				img = image.load(fname)# the image will load
+				tmp3_pic = img# the picture will be loaded to the size of the canvas
+				tool = 'paint'# tool set to paint
+			else:
+				tool = 'paint'
+		if tmp4.collidepoint((mx,my)):
+			fname = load()
+			if fname != "":# if the user picks something to load:
+				img = image.load(fname)# the image will load
+				tmp4_pic = img# the picture will be loaded to the size of the canvas
+				tool = 'paint'# tool set to paint
+			else:
+				tool = 'paint'
+		if tmp5.collidepoint((mx,my)):
+			fname = load()
+			if fname != "":# if the user picks something to load:
+				img = image.load(fname)# the image will load
+				tmp5_pic = img# the picture will be loaded to the size of the canvas
+				tool = 'paint'# tool set to paint
+			else:
+				tool = 'paint'
+		if tmp6.collidepoint((mx,my)):
+			fname = load()
+			if fname != "":# if the user picks something to load:
+				img = image.load(fname)# the image will load
+				tmp6_pic = img# the picture will be loaded to the size of the canvas
+				tool = 'paint'# tool set to paint
+			else:
+				tool = 'paint'										
 	if mb[0]: # will check if the button has been pressed
 		if wheelRect.collidepoint(mx,my): # if you click on the colour wheel it will get the colour on that pixel
 			col=screen.get_at((mx,my))
@@ -366,6 +425,19 @@ while running:
 			elif MewtwoRect.collidepoint(mx,my):
 				tool="MewtwoStamp"          
 		if pokeSelect == 4:
+			if tmp1.collidepoint(mx,my):    
+				tool = 'tmp1'
+			elif tmp2.collidepoint(mx,my):
+				tool = 'tmp2'
+			elif tmp3.collidepoint(mx,my):
+				tool = "tmp3"
+			elif tmp4.collidepoint(mx,my):
+				tool = "tmp4"
+			elif tmp5.collidepoint(mx,my):
+				tool = "tmp5"
+			elif tmp6.collidepoint(mx,my):
+				tool = "tmp6"
+		if pokeSelect == 5:
 			if syedRect.collidepoint(mx,my):
 				tool='SyedStamp'
 			elif shahoonRect.collidepoint(mx,my):
@@ -628,14 +700,7 @@ while running:
 	## Tool Selection Check Red End ##
 	## Tool Sprites Start ##
 	
-	if pokeSelect == 1:# if pokeSelect equals a certain number the same picture is blitted to the screen
-		screen.blit(pokeMenu1, (1025, 170))
-	if pokeSelect == 2:
-		screen.blit(pokeMenu2, (1025, 170))
-	if pokeSelect == 3:
-		screen.blit(pokeMenu3, (1025, 170))
-	if pokeSelect == 4:
-		screen.blit(pokeMenu4, (1025, 170))
+	screen.blit(pokeMenu1, (1025, 170)) # if pokeSelect equals a certain number the same picture is blitted to the screen
 			
 	## Tool Sprites End ##
 	screen.blit(logo, (350,0)) # will blit the logo to the screen
@@ -670,8 +735,8 @@ while running:
 		screen.blit(transform.scale(MonfernoAnimation[monferno_counter],(115,115)),monfernoRect)
 		screen.blit(transform.scale(WartortleAnimation[Wartortle_counter],(115,115)),WartortleRect)
 		screen.blit(transform.scale(BayleefAnimation[bayleef_counter], (115,115)), bayleefRect)
-		screen.blit(transform.scale(GastlyAnimation[gastly_counter],(115,115)),gastlyRect)
 		screen.blit(transform.scale(ChimcharAnimation[chimchar_counter],(115,115)),chimcharRect)
+		screen.blit(transform.scale(GastlyAnimation[gastly_counter],(115,115)),gastlyRect)
 	if pokeSelect == 3:
 		screen.blit(transform.scale(ChikoritaAnimation[chikorita_counter], (115,115)), chikoritaRect)
 		screen.blit(transform.scale(SquirtleAnimation[Squirtle_counter],(115,115)),SquirtleRect)
@@ -680,10 +745,17 @@ while running:
 		screen.blit(transform.scale(PalkiaAnimation[Palkia_counter],(115,115)),PalkiaRect)
 		screen.blit(transform.scale(MewtwoAnimation[Mewtwo_counter],(115,115)),MewtwoRect)
 	if pokeSelect == 4:
+		screen.blit(transform.scale(tmp1_pic, (115,115)), tmp1)
+		screen.blit(transform.scale(tmp2_pic,(115,115)), tmp2)
+		screen.blit(transform.scale(tmp3_pic,(115,115)), tmp3)
+		screen.blit(transform.scale(tmp4_pic,(115,115)), tmp4)
+		screen.blit(transform.scale(tmp5_pic,(115,115)), tmp5)
+		screen.blit(transform.scale(tmp6_pic,(115,115)), tmp6)
+	if pokeSelect == 5:
 		screen.blit(transform.scale(syed, (115,115)), syedRect)
 		screen.blit(transform.scale(shahoon, (115,115)), shahoonRect)
 		screen.blit(transform.scale(usman, (115,115)), usmanRect)
-
+	print(pokeSelect)	
 	if tool == "MegaBlastoiseStamp":# if the tool is the specified tool, then it will blit the pokemon into the selected box and blit a description
 		screen.blit(transform.scale(MegaBlastoiseAnimation[MegaBlastoise_counter],(115,115)),(1035,55))
 		MegaBlastoiseDescription=pokeGB_Font.render("The jets of water it spo-",True,BLACK).convert_alpha()
@@ -926,12 +998,8 @@ while running:
 	if tool != "saveTool" and tool != 'pencil' and tool != "filledRectTool" and tool != "filledEllipseTool" and tool != 'colour':
 		draw.circle(screen, (100,100,100), (mx, my), thickness, 2)# the size circle will only show when the tools stated above are not selected
 	draw.circle(screen, (100,100,100), (mx, my), 3)# this is the point of clicking
-	
 	screen.set_clip(None)
-	animation_group.update()
-
 ##                   Surface / Canvas Blit End               ##
-
 ##                   Draw Options Start               ##
 	cmx, cmy = mx-150, my-100# this sets the canvas mouse position in accordance to where the canvas was drawn
 	if mb[0] and tool=='eraser' and canvasRect.collidepoint((mx, my)): #Will only do the function in the if statement if the mouse is clicking on the canvas
@@ -955,7 +1023,6 @@ while running:
 			tool="paint"
 			
 	elif mb[0] and tool=="loadTool" and canvasRect.collidepoint(mx,my):
-		# try:
 		fname = load()
 		if fname != "":# if the user picks something to load:
 			img = image.load(fname)# the image will load
@@ -964,9 +1031,6 @@ while running:
 			tool = 'paint'# tool set to paint
 		else:
 			tool = 'paint'	
-		# except:
-		# 	print("Error")
-		# 	tool = 'paint'
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thickness)# it calls a function from another file to perform a certain task
 	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
@@ -985,8 +1049,7 @@ while running:
 		chikorita = ChikoritaAnimation[0]#when the chikorita is put on the canvas it will print the stationary version of the animated version
 		canvas.blit(canvas_copy, (0,0))#makes it so that chikorita can be dragged and can't draw it on screen before mouse button press was let go
 		canvas.blit(transform.scale(chikorita, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))#This will spawn Chikorita from the centre of that stamp
-		anim = Pokemon_Animation(cmx-thickness/2, cmy-thickness/2,thickness,thickness, ChikoritaAnimation[chikorita_counter])
-		animation_group.add(anim)
+
 	elif mb[0] and tool=='bayleefStamp' and canvasRect.collidepoint((mx, my)):
 		canvas.blit(canvas_copy, (0,0))
 		bayleef=BayleefAnimation[0]
