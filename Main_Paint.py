@@ -983,7 +983,20 @@ while running:
 		screen.blit(textBlitDescription, (175,679))
 		textBlitDescription=pokeGB_Font.render("typed in! Happy Typing!!!",True,BLACK).convert_alpha()
 		screen.blit(textBlitDescription, (175,697))
-		
+	
+	elif tool == 'tmp1':
+		screen.blit(transform.scale(tmp1_pic,(115,115)),(1035,55))	
+	elif tool == 'tmp2':
+		screen.blit(transform.scale(tmp2_pic,(115,115)),(1035,55))	
+	elif tool == 'tmp3':
+		screen.blit(transform.scale(tmp3_pic,(115,115)),(1035,55))	
+	elif tool == 'tmp4':
+		screen.blit(transform.scale(tmp4_pic,(115,115)),(1035,55))	
+	elif tool == 'tmp5':
+		screen.blit(transform.scale(tmp5_pic,(115,115)),(1035,55))	
+	elif tool == 'tmp6':
+		screen.blit(transform.scale(tmp6_pic,(115,115)),(1035,55))	
+
 	elif tool == '':
 		Description=pokeGB_Font.render("There is no tool selected.",True,BLACK).convert_alpha()
 		screen.blit(Description, (175,625))

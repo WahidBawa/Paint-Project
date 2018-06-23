@@ -143,6 +143,7 @@ def cropper(img):
 		draw.circle(surf, (150,150,150), (sx,my), 5)# draws a circle at the corners
 		return Rect(sx,sy,mx-sx,my-sy)
 	screen.blit(img, (0,0))
+	cropped = False
 	running = True
 	while running:
 		for evt in event.get():  
@@ -150,26 +151,27 @@ def cropper(img):
 				running = False
 			if evt.type == KEYDOWN:
 				if evt.key == K_c:
-					screen.fill(0)
-					screen.blit(new_img, (0,0))
-					display.flip()
+					screen.blit(img, (0,0))
+					cropped = False
 				if evt.key == K_ESCAPE:
-					running = False    
+					running = False
 			if evt.type == MOUSEBUTTONUP:
-				width, height, x, y = new_img_rect.width, new_img_rect.height, new_img_rect.x, new_img_rect.y
-				if width < 0:
-					width *= -1
-					x -= width
-				if height < 0:
-					height *= -1
-					y -= height
-				screen.blit(img, (0,0))	
-				rect = Rect(x,y,width,height)	
-				sub = screen.subsurface(rect)
-				new = Surface((rect.width, rect.height))
-				new.blit(sub, (0,0))
-				display.flip()
-				new_img = new.copy()
+				if evt.button == 1:
+					width, height, x, y = new_img_rect.width, new_img_rect.height, new_img_rect.x, new_img_rect.y
+					if width < 0:
+						width *= -1
+						x -= width
+					if height < 0:
+						height *= -1
+						y -= height
+					screen.blit(img, (0,0))	
+					rect = Rect(x,y,width,height)	
+					sub = screen.subsurface(rect)
+					new = Surface((rect.width, rect.height))
+					new.blit(sub, (0,0))
+					display.flip()
+					new_img = new.copy()
+					cropped = True
 			if evt.type == MOUSEBUTTONDOWN:
 				if evt.button == 1:
 					sx, sy = mx, my
@@ -178,7 +180,13 @@ def cropper(img):
 		mb = mouse.get_pressed()
 		if mb[0]:
 			new_img_rect = rectDrawTool(screen, sx, sy, mx, my, copy)
+		if cropped:
+			screen.fill(0)
+			screen.blit(new_img, (img.get_width() / 2 - new_img.get_width() / 2,img.get_height() / 2 - new_img.get_height() / 2))	
 		display.flip()
 	size = (1366,768)	
 	screen = display.set_mode(size) # will create a screen at a certain size	
-	return new_img
+	if cropped:
+		return new_img
+	else:
+		return img
