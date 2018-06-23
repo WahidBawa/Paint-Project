@@ -130,3 +130,55 @@ def load():
 	types = [('Portable Network Graphics', 'png'), ("JPEG", "jpg")]# defines file types in a list
 	fname = filedialog.askopenfilename(defaultextension='png',filetypes=types)# sets default extension and the different file types 	
 	return fname
+def cropper(img):
+	size=(img.get_width(),img.get_height())
+	screen = display.set_mode(size) 
+	new_img_rect = Rect(0,0,0,0)
+	def rectDrawTool(surf, sx, sy, mx, my, copy):
+		screen.blit(copy, (0,0))
+		draw.rect(surf, (150,150,150), (sx,sy,mx-sx,my-sy), 1*2)# draws a rectangle using the mouse
+		draw.circle(surf, (150,150,150), (sx,sy), 5)# draws a circle at the corners
+		draw.circle(surf, (150,150,150), (mx,my), 5)# draws a circle at the corners
+		draw.circle(surf, (150,150,150), (mx,sy), 5)# draws a circle at the corners
+		draw.circle(surf, (150,150,150), (sx,my), 5)# draws a circle at the corners
+		return Rect(sx,sy,mx-sx,my-sy)
+	screen.blit(img, (0,0))
+	running = True
+	while running:
+		for evt in event.get():  
+			if evt.type == QUIT: 
+				running = False
+			if evt.type == KEYDOWN:
+				if evt.key == K_c:
+					screen.fill(0)
+					screen.blit(new_img, (0,0))
+					display.flip()
+				if evt.key == K_ESCAPE:
+					running = False    
+			if evt.type == MOUSEBUTTONUP:
+				width, height, x, y = new_img_rect.width, new_img_rect.height, new_img_rect.x, new_img_rect.y
+				if width < 0:
+					width *= -1
+					x -= width
+				if height < 0:
+					height *= -1
+					y -= height
+				screen.blit(img, (0,0))	
+				rect = Rect(x,y,width,height)	
+				sub = screen.subsurface(rect)
+				new = Surface((rect.width, rect.height))
+				new.blit(sub, (0,0))
+				display.flip()
+				new_img = new.copy()
+			if evt.type == MOUSEBUTTONDOWN:
+				if evt.button == 1:
+					sx, sy = mx, my
+					copy  = screen.copy()
+		mx,my = mouse.get_pos()
+		mb = mouse.get_pressed()
+		if mb[0]:
+			new_img_rect = rectDrawTool(screen, sx, sy, mx, my, copy)
+		display.flip()
+	size = (1366,768)	
+	screen = display.set_mode(size) # will create a screen at a certain size	
+	return new_img

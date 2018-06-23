@@ -12,7 +12,7 @@ display.set_caption("PokePaint") # Sets the title of the screen
 ##                      Variable Naming Ends                           ##
 ##                    Loading Initial Startup Music                 ##
 mixer.music.load('MUSIC/SOUND TRACK/Pokemon_-_Gotta_Catch_Em_All_Lyrics.ogg') #loads music
-mixer.music.play(-1)# will load and play initial music forever 
+# mixer.music.play(-1)# will load and play initial music forever 
 ##                    Ending Loading Initial Startup Music                 ##
 ##                      Importing Pictures / Animations / Editing Pictures                        ##
 selectedPokemon=image.load("PICS/IMAGES/Templates/pokemon_selected.png")
@@ -303,7 +303,7 @@ while running:
 			fname = load()
 			if fname != "":# if the user picks something to load:
 				img = image.load(fname)# the image will load
-				tmp1_pic = img# the picture will be loaded to the size of the canvas
+				tmp1_pic = cropper(img)# the picture will be loaded to the size of the canvas
 				tool = 'paint'# tool set to paint
 			else:
 				tool = 'paint'
@@ -311,7 +311,7 @@ while running:
 			fname = load()
 			if fname != "":# if the user picks something to load:
 				img = image.load(fname)# the image will load
-				tmp2_pic = img# the picture will be loaded to the size of the canvas
+				tmp2_pic = cropper(img)# the picture will be loaded to the size of the canvas
 				tool = 'paint'# tool set to paint
 			else:
 				tool = 'paint'
@@ -319,7 +319,7 @@ while running:
 			fname = load()
 			if fname != "":# if the user picks something to load:
 				img = image.load(fname)# the image will load
-				tmp3_pic = img# the picture will be loaded to the size of the canvas
+				tmp3_pic = cropper(img)# the picture will be loaded to the size of the canvas
 				tool = 'paint'# tool set to paint
 			else:
 				tool = 'paint'
@@ -327,7 +327,7 @@ while running:
 			fname = load()
 			if fname != "":# if the user picks something to load:
 				img = image.load(fname)# the image will load
-				tmp4_pic = img# the picture will be loaded to the size of the canvas
+				tmp4_pic = cropper(img)# the picture will be loaded to the size of the canvas
 				tool = 'paint'# tool set to paint
 			else:
 				tool = 'paint'
@@ -335,7 +335,7 @@ while running:
 			fname = load()
 			if fname != "":# if the user picks something to load:
 				img = image.load(fname)# the image will load
-				tmp5_pic = img# the picture will be loaded to the size of the canvas
+				tmp5_pic = cropper(img)# the picture will be loaded to the size of the canvas
 				tool = 'paint'# tool set to paint
 			else:
 				tool = 'paint'
@@ -343,7 +343,7 @@ while running:
 			fname = load()
 			if fname != "":# if the user picks something to load:
 				img = image.load(fname)# the image will load
-				tmp6_pic = img# the picture will be loaded to the size of the canvas
+				tmp6_pic = cropper(img)# the picture will be loaded to the size of the canvas
 				tool = 'paint'# tool set to paint
 			else:
 				tool = 'paint'										
@@ -1145,6 +1145,25 @@ while running:
 	elif mb[0] and tool=='usmanStamp':
 		canvas.blit(canvas_copy, (0,0))
 		canvas.blit(transform.scale(usman, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))			
+
+	elif mb[0] and tool=='tmp1':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(tmp1_pic, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))			
+	elif mb[0] and tool=='tmp2':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(tmp2_pic, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
+	elif mb[0] and tool=='tmp3':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(tmp3_pic, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
+	elif mb[0] and tool=='tmp4':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(tmp4_pic, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
+	elif mb[0] and tool=='tmp5':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(tmp5_pic, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))
+	elif mb[0] and tool=='tmp6':
+		canvas.blit(canvas_copy, (0,0))
+		canvas.blit(transform.scale(tmp6_pic, (thickness,thickness)), (cmx-thickness/2, cmy-thickness/2))				
 
 	elif mb[0] and tool == 'textBlit':
 		canvas.blit(canvas_copy, (0,0))# will make it so the user can drag the text around without blitting it multiple times
