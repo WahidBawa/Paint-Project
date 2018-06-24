@@ -200,6 +200,8 @@ def cropper(img):
 			screen.blit(new_img, (1366 / 2 - new_img.get_width() / 2, 768 / 2 - new_img.get_height() / 2)) # this will blit cropped image on the screen centered on the screen	
 		display.flip()
 	# if the image was cropped it will return the cropped image an if it isn't then the image loaded will be returned	
+	size = (1366,768) # it will resize the screen
+	screen = display.set_mode(size) # will create a screen at a certain size
 	if cropped:
 		return new_img
 	else:

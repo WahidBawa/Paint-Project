@@ -187,7 +187,7 @@ while running:
 			running = False 
 		if evt.type == KEYDOWN:
 			if evt.key == K_ESCAPE:#if ESC pressed the program will end
-					running = False
+				running = False
 			if kp[K_LCTRL] and evt.key == K_y:
 				if len(control_Y) > 0:
 					control_Z.append(control_Y.pop())# if CTRL Y is pressed then it will add the last thing in the control_Y list to the control_Z list 
@@ -1029,7 +1029,7 @@ while running:
 			fname = filedialog.asksaveasfilename(defaultextension='png', filetypes=types)# sets default extension and the different file types
 			if fname != '':# this will save the canvas
 				image.save(canvas, fname)
-			tool="paint"# tool will be set to the paint tool
+			tool=""# tool will be set to the paint tool
 		except:
 			print("saving error")# if there is an error ot will print this line and the tool will be set to the paint tool
 			tool="paint"
@@ -1040,9 +1040,9 @@ while running:
 			img = image.load(fname)# the image will load
 			canvas = transform.scale(img, (canvasRect.width, canvasRect.height))# the picture will be loaded to the size of the canvas
 			control_Z.append(canvas.copy())# picture of canvas will be added to the control_Z list
-			tool = 'paint'# tool set to paint
+			tool = ''# tool set to nothing
 		else:
-			tool = 'paint'	
+			tool = ''	
 	elif mb[0] and tool=='lineTool' and canvasRect.collidepoint((mx, my)):
 		lineDrawTool(canvas, cmx, cmy, canvas_copy, sx, sy, col, thickness)# it calls a function from another file to perform a certain task
 	elif mb[0] and tool=="ellipseTool" and canvasRect.collidepoint((mx, my)):
